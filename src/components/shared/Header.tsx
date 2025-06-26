@@ -1,6 +1,8 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { ExpandableTabs } from "@/components/ui/expandable-tabs";
+import { Home, User, FileText, Mail, HelpCircle, Lock } from "lucide-react";
 
 interface HeaderProps {
   theme?: "light" | "dark";
@@ -8,6 +10,16 @@ interface HeaderProps {
 
 const Header = ({ theme = "light" }: HeaderProps) => {
   const isDark = theme === "dark";
+  
+  const tabs = [
+    { title: "Home", icon: Home },
+    { title: "About", icon: User },
+    { title: "Pricing", icon: FileText },
+    { title: "Contact", icon: Mail },
+    { type: "separator" as const },
+    { title: "Support", icon: HelpCircle },
+    { title: "Privacy", icon: Lock },
+  ];
   
   return (
     <motion.div 
@@ -29,8 +41,21 @@ const Header = ({ theme = "light" }: HeaderProps) => {
           </div>
         </motion.div>
 
-        {/* Right side with Login Button */}
-        <div className="flex items-center gap-4">
+        {/* Right side with Navigation Menu and Login Button */}
+        <div className="flex items-center gap-6">
+          {/* Navigation Menu */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
+          >
+            <ExpandableTabs 
+              tabs={tabs} 
+              theme={theme}
+              className="hidden md:flex"
+            />
+          </motion.div>
+
           {/* Login Button */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
