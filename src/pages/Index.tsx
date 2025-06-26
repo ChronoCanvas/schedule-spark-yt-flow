@@ -29,7 +29,7 @@ const Index = () => {
             </div>
             
             {/* Center Navigation and Right Sign In */}
-            <div className="flex items-center gap-8">
+            <div className="flex items-center gap-4">
               {/* Navigation Menu */}
               <div className="hidden md:block">
                 <NavigationTabs />
@@ -37,7 +37,7 @@ const Index = () => {
               
               {/* Sign In Button */}
               <Button 
-                className="bg-red-500 text-white hover:bg-transparent hover:border-red-500 hover:text-red-500 border-2 border-red-500 transition-all duration-300 h-12 px-4 py-2 rounded-2xl relative overflow-hidden group"
+                className="bg-red-500 text-white hover:bg-transparent hover:border-red-500 hover:text-red-500 border-2 border-red-500 transition-all duration-300 h-10 px-4 py-2 rounded-2xl relative overflow-hidden group"
               >
                 <LogIn className="w-4 h-4 mr-2" />
                 Sign In
