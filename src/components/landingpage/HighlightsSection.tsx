@@ -3,24 +3,26 @@ import { AnimatedMixedText } from "@/components/ui/animated-mixed-text";
 
 const HighlightsSection = () => {
   const textSegments = [
-    { text: "With SpotPlan, you can" },
-    { text: "Plan with Friends", className: "text-blue-600" },
-    { text: "in real-time, effortlessly coordinating every detail of your trip. Enjoy a" },
-    { text: "Smart Expense Estimator", className: "text-blue-600" },
-    { text: "that handles budgeting and cost-splitting with precision. Plus, discover activities and dining options with our" },
-    { text: "AI-Powered Suggestions", className: "text-blue-600" },
-    { text: "designed to personalize your travel experience." },
+    { text: "With YouManage, you can" },
+    { text: "Control Your Channel", className: "text-red-500" },
+    { text: "like a pro—upload, analyze, and grow your audience from one intelligent dashboard. Effortlessly handle" },
+    { text: "Uploads & Scheduling", className: "text-red-500" },
+    { text: "with AI-generated titles, tags, thumbnails, and a powerful calendar. Unlock deep insights with our" },
+    { text: "AI Analytics Engine", className: "text-red-500" },
+    { text: "that predicts publish times, tracks engagement, and spots trends before they happen. Manage livestreams, automate comments, and track revenue using" },
+    { text: "Smart Monetization Tools", className: "text-red-500" },
+    { text: "built to scale with your channel." },
   ];
 
   return (
-    <section id="features-section" className="py-20 bg-gray-50">
+    <section id="features-section" className="py-20 bg-black">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <AnimatedMixedText
             segments={textSegments}
             delay={100}
             direction="top"
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-800 mb-6 leading-tight sm:leading-snug max-w-6xl mx-auto"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-6 leading-tight sm:leading-snug max-w-6xl mx-auto"
           />
         </div>
       </div>
