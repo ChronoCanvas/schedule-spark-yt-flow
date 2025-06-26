@@ -3,7 +3,6 @@ import { MapPin, Calendar, DollarSign, Share2 } from "lucide-react";
 import { Timeline } from "@/components/ui/timeline";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
-import LocationCard from "@/components/LocationCard";
 import landingData from "@/data/landing-page.json";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -42,7 +41,7 @@ const HowItWorksSection = () => {
     let stepContent;
     
     if (index === 0) {
-      // Step 1: Destination selection with new location cards
+      // Step 1: Destination selection with simple text content
       stepContent = (
         <div className="space-y-6">
           <motion.div 
@@ -102,32 +101,33 @@ const HowItWorksSection = () => {
                   title: "Tropical Islands",
                   subtitle: "Maldives, Bali, Hawaii",
                   description: "Experience pristine beaches, crystal-clear waters, and luxury resorts in paradise destinations.",
-                  imageSrc: "/images/landingpage/bali.jpg",
                   emoji: "🏝️"
                 },
                 {
                   title: "Mountain Adventures",
-                  subtitle: "Alps, Himalayas, Rockies",
+                  subtitle: "Alps, Himalayas, Rockies", 
                   description: "Discover breathtaking peaks, alpine villages, and world-class skiing and hiking trails.",
-                  imageSrc: "/images/landingpage/alps.jpg",
                   emoji: "🏔️"
                 },
                 {
                   title: "Historic Cities",
                   subtitle: "Rome, Paris, Tokyo",
                   description: "Immerse yourself in rich culture, ancient architecture, and vibrant city life.",
-                  imageSrc: "/images/landingpage/rome.jpg",
                   emoji: "🏛️"
                 }
               ].map((location, idx) => (
                 <motion.div
                   key={idx}
+                  className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow border border-gray-100"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.8 + (idx * 0.1) }}
                   viewport={{ once: true }}
                 >
-                  <LocationCard {...location} />
+                  <div className="text-2xl mb-2">{location.emoji}</div>
+                  <h4 className="font-bold text-gray-800 mb-1">{location.title}</h4>
+                  <p className="text-sm text-gray-600 mb-2">{location.subtitle}</p>
+                  <p className="text-xs text-gray-500">{location.description}</p>
                 </motion.div>
               ))}
             </motion.div>
