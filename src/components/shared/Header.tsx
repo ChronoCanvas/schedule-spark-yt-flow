@@ -12,13 +12,13 @@ const Header = ({ theme = "light" }: HeaderProps) => {
   const isDark = theme === "dark";
   
   const tabs = [
-    { title: "Home", icon: Home },
-    { title: "About", icon: User },
-    { title: "Pricing", icon: FileText },
-    { title: "Contact", icon: Mail },
+    { title: "Home", icon: Home, type: "tab" as const },
+    { title: "About", icon: User, type: "tab" as const },
+    { title: "Pricing", icon: FileText, type: "tab" as const },
+    { title: "Contact", icon: Mail, type: "tab" as const },
     { type: "separator" as const },
-    { title: "Support", icon: HelpCircle },
-    { title: "Privacy", icon: Lock },
+    { title: "Support", icon: HelpCircle, type: "tab" as const },
+    { title: "Privacy", icon: Lock, type: "tab" as const },
   ];
   
   return (
