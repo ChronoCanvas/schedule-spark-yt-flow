@@ -63,7 +63,7 @@ const Header = ({ theme = "dark" }: HeaderProps) => {
             transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
           >
             <Button 
-              className="font-medium text-white hover:opacity-90 transition-opacity"
+              className="h-[42px] px-6 font-medium text-white hover:opacity-90 transition-opacity rounded-2xl border border-gray-600 bg-black/80 backdrop-blur-sm"
               style={{ backgroundColor: '#ff0003' }}
             >
               Log in

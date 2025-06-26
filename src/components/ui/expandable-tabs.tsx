@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -15,8 +14,6 @@ interface Tab {
 
 interface Separator {
   type: "separator";
-  title?: never;
-  icon?: never;
 }
 
 type TabItem = Tab | Separator;
