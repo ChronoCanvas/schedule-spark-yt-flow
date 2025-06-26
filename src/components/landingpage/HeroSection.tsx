@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { MacbookPro } from "@/components/ui/macbook-pro";
 import Header from "@/components/shared/Header";
-import { Button } from "@/components/ui/button";
+import PlanTripButton from "@/components/ui/plan-trip-button";
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -77,13 +77,9 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
             className="mb-16"
           >
-            <Button 
-              size="lg" 
-              className="text-white px-8 py-4 text-lg font-semibold rounded-full hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: '#ff0003' }}
-            >
+            <PlanTripButton>
               Get Started
-            </Button>
+            </PlanTripButton>
           </motion.div>
         </div>
 
