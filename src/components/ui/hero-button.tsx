@@ -2,7 +2,7 @@
 "use client"
 
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
-import { Eye, TriangleUp } from 'lucide-react'
+import { Eye, Triangle } from 'lucide-react'
 
 interface HeroButtonProps {
   onGetStarted?: () => Promise<void> | void
@@ -237,7 +237,7 @@ const HeroButton: React.FC<HeroButtonProps> = ({
               transition-all duration-500 ease-out delay-300
               ${isAnimatingYT ? 'translate-x-0 opacity-100' : 'translate-x-[100%] opacity-0'}
             `}>
-              <TriangleUp className="w-4 h-4 md:w-5 md:h-5 text-green-500 fill-current" />
+              <Triangle className="w-4 h-4 md:w-5 md:h-5 text-green-500 fill-current rotate-0" />
               <span className="text-green-500 font-bold text-sm md:text-base ml-1">
                 {displayCount.toLocaleString()}
               </span>
