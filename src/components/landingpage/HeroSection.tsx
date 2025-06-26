@@ -1,4 +1,3 @@
-
 import { WorldMap } from "@/components/ui/world-map";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
@@ -77,9 +76,7 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
             className="mb-16"
           >
-            <PlanTripButton>
-              Get Started
-            </PlanTripButton>
+            <PlanTripButton />
           </motion.div>
         </div>
 
