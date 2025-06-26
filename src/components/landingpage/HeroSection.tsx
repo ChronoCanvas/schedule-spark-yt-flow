@@ -2,9 +2,9 @@
 import { WorldMap } from "@/components/ui/world-map";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import TripSearchForm from "../TripSearchForm";
 import { MacbookPro } from "@/components/ui/macbook-pro";
 import Header from "@/components/shared/Header";
+import { Button } from "@/components/ui/button";
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -71,15 +71,18 @@ const HeroSection = () => {
             Navigate like a local, eat like a foodie, and explore like a pro
             with an intelligent itinerary for you and your group.
           </motion.p>
-        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-        >
-          <TripSearchForm />
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+            className="mb-16"
+          >
+            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-full">
+              Plan Your Trip
+            </Button>
+          </motion.div>
+        </div>
 
         {/* Hero MacBook with Video */}
         <motion.div 
