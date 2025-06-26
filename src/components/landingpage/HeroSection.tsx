@@ -4,16 +4,16 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { MacbookPro } from "@/components/ui/macbook-pro";
 import Header from "@/components/shared/Header";
-import PlanTripButton from "@/components/ui/plan-trip-button";
+import { Button } from "@/components/ui/button";
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"],
+    offset: ["start start", "end start"],
   });
 
-  const laptopScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const laptopScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
 
   return (
     <section
@@ -77,9 +77,13 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
             className="mb-16"
           >
-            <PlanTripButton>
+            <Button 
+              size="lg" 
+              className="text-white px-8 py-4 text-lg font-semibold rounded-full hover:opacity-90 transition-opacity"
+              style={{ backgroundColor: '#ff0003' }}
+            >
               Get Started
-            </PlanTripButton>
+            </Button>
           </motion.div>
         </div>
 
@@ -91,10 +95,7 @@ const HeroSection = () => {
           className="relative z-10 max-w-6xl mx-auto mt-20 mb-16"
         >
           <motion.div 
-            style={{ 
-              scale: laptopScale,
-              willChange: 'transform'
-            }}
+            style={{ scale: laptopScale }}
             className="drop-shadow-[0_35px_70px_rgba(255,0,3,0.3)] shadow-[#ff0003]/40"
           >
             <MacbookPro className="w-full h-auto mx-auto">
