@@ -10,7 +10,7 @@ import { LucideIcon } from "lucide-react";
 interface Tab {
   title: string;
   icon: LucideIcon;
-  type?: never;
+  type: "tab";
 }
 
 interface Separator {
@@ -57,12 +57,11 @@ export function ExpandableTabs({
   activeColor,
   onChange,
   defaultSelected = null,
-  theme = "light",
+  theme = "dark",
 }: ExpandableTabsProps) {
   const [selected, setSelected] = React.useState<number | null>(defaultSelected);
   const outsideClickRef = React.useRef(null);
 
-  // Update selected state when defaultSelected changes
   React.useEffect(() => {
     setSelected(defaultSelected);
   }, [defaultSelected]);
@@ -79,15 +78,14 @@ export function ExpandableTabs({
 
   const isDark = theme === "dark";
   
-  // Set default active color based on theme if not provided
-  const defaultActiveColor = isDark ? "text-white" : "text-blue-600";
+  const defaultActiveColor = isDark ? "text-white" : "#ff0003";
   const finalActiveColor = activeColor || defaultActiveColor;
 
   const Separator = () => (
     <div 
       className={cn(
         "mx-1 h-[24px] w-[1.2px]",
-        isDark ? "bg-white/30" : "bg-gray-300"
+        isDark ? "bg-gray-600" : "bg-gray-300"
       )} 
       aria-hidden="true" 
     />
@@ -99,7 +97,7 @@ export function ExpandableTabs({
       className={cn(
         "flex flex-wrap items-center gap-2 rounded-2xl border p-1 shadow-sm",
         isDark 
-          ? "border-white/20 bg-black/30 backdrop-blur-sm" 
+          ? "border-gray-600 bg-black/80 backdrop-blur-sm" 
           : "border-gray-200 bg-white/80 backdrop-blur-sm",
         className
       )}
@@ -109,7 +107,6 @@ export function ExpandableTabs({
           return <Separator key={`separator-${index}`} />;
         }
 
-        // Type assertion to ensure TypeScript knows this is a Tab, not a Separator
         const tabItem = tab as Tab;
         const Icon = tabItem.icon;
         
@@ -126,12 +123,11 @@ export function ExpandableTabs({
               "relative flex items-center rounded-xl px-4 py-2 text-sm font-medium transition-colors duration-300",
               selected === index
                 ? cn(
-                    isDark ? "bg-white/20 backdrop-blur-sm" : "bg-blue-100/80",
-                    finalActiveColor
+                    isDark ? "bg-[#ff0003]/20 backdrop-blur-sm text-[#ff0003]" : "bg-[#ff0003]/10 text-[#ff0003]"
                   )
                 : isDark 
-                  ? "text-white/70 hover:bg-white/10 hover:text-white"
-                  : "text-gray-600 hover:bg-gray-100/80 hover:text-gray-900"
+                  ? "text-gray-300 hover:bg-gray-700 hover:text-white"
+                  : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
             )}
           >
             <Icon size={20} />

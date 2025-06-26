@@ -14,7 +14,7 @@ interface MapProps {
 
 export function WorldMap({
   dots = [],
-  lineColor = "#0ea5e9",
+  lineColor = "#ff0003",
 }: MapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -33,19 +33,16 @@ export function WorldMap({
     return `M ${start.x} ${start.y} Q ${midX} ${midY} ${end.x} ${end.y}`;
   };
 
-  // Simple world map outline SVG path
-  const worldMapPath = "M158.5,251.5c-2.5-1.5-5-3-7.5-4.5c-2.5-1.5-5-3-7.5-4.5c-2.5-1.5-5-3-7.5-4.5c-2.5-1.5-5-3-7.5-4.5c-2.5-1.5-5-3-7.5-4.5c-2.5-1.5-5-3-7.5-4.5c-2.5-1.5-5-3-7.5-4.5c-2.5-1.5-5-3-7.5-4.5c-2.5-1.5-5-3-7.5-4.5c-2.5-1.5-5-3-7.5-4.5";
-
   return (
-    <div className="w-full aspect-[2/1] bg-[#f5f3ef] rounded-lg relative font-sans">
+    <div className="w-full aspect-[2/1] bg-black/50 rounded-lg relative font-sans">
       {/* Simple dotted background pattern */}
       <svg
-        className="absolute inset-0 w-full h-full opacity-20"
+        className="absolute inset-0 w-full h-full opacity-10"
         viewBox="0 0 800 400"
       >
         <defs>
           <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-            <circle cx="10" cy="10" r="1" fill="#00000030" />
+            <circle cx="10" cy="10" r="1" fill="#ffffff30" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#dots)" />
@@ -85,10 +82,10 @@ export function WorldMap({
 
         <defs>
           <linearGradient id="path-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="white" stopOpacity="0" />
+            <stop offset="0%" stopColor="transparent" stopOpacity="0" />
             <stop offset="5%" stopColor={lineColor} stopOpacity="1" />
             <stop offset="95%" stopColor={lineColor} stopOpacity="1" />
-            <stop offset="100%" stopColor="white" stopOpacity="0" />
+            <stop offset="100%" stopColor="transparent" stopOpacity="0" />
           </linearGradient>
         </defs>
 

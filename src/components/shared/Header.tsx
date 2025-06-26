@@ -8,7 +8,7 @@ interface HeaderProps {
   theme?: "light" | "dark";
 }
 
-const Header = ({ theme = "light" }: HeaderProps) => {
+const Header = ({ theme = "dark" }: HeaderProps) => {
   const isDark = theme === "dark";
   
   const tabs = [
@@ -37,7 +37,7 @@ const Header = ({ theme = "light" }: HeaderProps) => {
           className="flex items-center"
         >
           <div className={`text-2xl font-bold hover:opacity-80 transition-opacity ${isDark ? 'text-white' : 'text-blue-900'}`}>
-            SPOTPLAN
+            YOUTUBE PRO
           </div>
         </motion.div>
 
@@ -64,7 +64,7 @@ const Header = ({ theme = "light" }: HeaderProps) => {
           >
             <Button 
               className="font-medium text-white hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: '#2563eb' }}
+              style={{ backgroundColor: '#ff0003' }}
             >
               Log in
             </Button>

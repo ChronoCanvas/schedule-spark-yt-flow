@@ -18,14 +18,14 @@ const HeroSection = () => {
   return (
     <section
       ref={containerRef}
-      className="relative bg-gray-50 pt-0 pb-20"
+      className="relative bg-black pt-0 pb-20"
     >
-      <Header theme="light" />
+      <Header theme="dark" />
 
       {/* Background World Map */}
       <motion.div 
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.4 }}
+        animate={{ opacity: 0.2 }}
         transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
         className="absolute inset-0"
       >
@@ -44,7 +44,7 @@ const HeroSection = () => {
               end: { lat: 55.7558, lng: 37.6176 },
             },
           ]}
-          lineColor="#3B82F6"
+          lineColor="#ff0003"
         />
       </motion.div>
 
@@ -55,21 +55,20 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            className="text-5xl md:text-7xl font-bold text-blue-900 mb-4"
+            className="text-5xl md:text-7xl font-bold text-white mb-4"
           >
-            YOUR PERFECT TRIP,
+            YOUR YOUTUBE CHANNEL,
             <br />
-            PLANNED IN <span className="text-blue-600">MINUTES.</span>
+            <span style={{ color: '#ff4d4f' }}>SUPERCHARGED.</span>
           </motion.h1>
 
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-            className="text-xl md:text-2xl text-blue-800 mb-10 max-w-2xl mx-auto"
+            className="text-xl md:text-2xl text-gray-300 mb-10 max-w-2xl mx-auto"
           >
-            Navigate like a local, eat like a foodie, and explore like a pro
-            with an intelligent itinerary for you and your group.
+            Analytics, scheduling, live streaming, monetization & more—powered by AI and YouTube's official APIs.
           </motion.p>
 
           <motion.div
@@ -78,8 +77,12 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
             className="mb-16"
           >
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-full">
-              Plan Your Trip
+            <Button 
+              size="lg" 
+              className="text-white px-8 py-4 text-lg font-semibold rounded-full hover:opacity-90 transition-opacity"
+              style={{ backgroundColor: '#ff0003' }}
+            >
+              Get Started
             </Button>
           </motion.div>
         </div>
@@ -93,7 +96,7 @@ const HeroSection = () => {
         >
           <motion.div 
             style={{ scale: laptopScale }}
-            className="drop-shadow-[0_35px_70px_rgba(0,0,0,0.45)] shadow-black/40"
+            className="drop-shadow-[0_35px_70px_rgba(255,0,3,0.3)] shadow-[#ff0003]/40"
           >
             <MacbookPro className="w-full h-auto mx-auto">
               <video
