@@ -10,7 +10,6 @@ import { MacbookPro } from "@/components/ui/macbook-pro"
 import { Button } from "@/components/ui/button"
 
 const Index = () => {
-  const [isSignInHovered, setIsSignInHovered] = useState(false)
   const { scrollY } = useScroll()
   
   // Transform the laptop scale based on scroll
@@ -37,26 +36,15 @@ const Index = () => {
               </div>
               
               {/* Sign In Button */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setIsSignInHovered(true)}
-                onMouseLeave={() => setIsSignInHovered(false)}
+              <Button 
+                className="bg-red-500 text-white hover:bg-transparent hover:border-red-500 hover:text-red-500 border-2 border-red-500 transition-all duration-300 h-12 px-4 py-2 rounded-2xl relative overflow-hidden group"
               >
-                <Button 
-                  variant="outline" 
-                  className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 overflow-hidden relative"
-                >
-                  <LogIn className="w-4 h-4 mr-2" />
-                  <div className="relative flex items-center">
-                    <span className={`transition-all duration-300 ${isSignInHovered ? 'opacity-0 w-0' : 'opacity-100 w-auto'}`}>
-                      Sign In
-                    </span>
-                    <span className={`absolute left-0 transition-all duration-300 ${isSignInHovered ? 'opacity-100 w-auto' : 'opacity-0 w-0'} whitespace-nowrap`}>
-                      Sign In / Sign Up
-                    </span>
-                  </div>
-                </Button>
-              </div>
+                <LogIn className="w-4 h-4 mr-2" />
+                Sign In
+                
+                {/* Shine effect on hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 transition-transform duration-700 group-hover:translate-x-full -translate-x-full" />
+              </Button>
             </div>
           </div>
 
