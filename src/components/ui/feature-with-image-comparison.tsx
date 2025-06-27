@@ -42,7 +42,7 @@ function Feature() {
           <div className="pt-12 w-full flex justify-center">
             <div
               className="relative overflow-hidden rounded-2xl select-none"
-              style={{ width: "1434px", height: "1024px", maxWidth: "100%" }}
+              style={{ width: "1200px", height: "600px", maxWidth: "100%" }}
               onMouseMove={onMouseMove}
               onMouseUp={() => setOnMouseDown(false)}
               onTouchMove={onMouseMove}
@@ -72,7 +72,7 @@ function Feature() {
               </div>
               {/* AFTER image (right side - background) */}
               <img
-                src="/landing-page_images/comparsisonafter.png"
+                src="/landing-page_images/comparisonafter.png"
                 alt="YouTube channel AFTER - 100K subscribers"
                 className="absolute left-0 top-0 w-full h-full rounded-2xl select-none border border-gray-700"
               />
