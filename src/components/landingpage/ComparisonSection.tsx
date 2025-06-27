@@ -1,8 +1,8 @@
 
-import { FeatureDemo } from "@/components/ui/demo";
+import Demo from "@/components/ui/demo";
 
 const ComparisonSection = () => {
-  return <FeatureDemo />;
+  return <Demo />;
 };
 
 export default ComparisonSection;
