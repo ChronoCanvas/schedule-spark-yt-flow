@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -37,6 +36,7 @@ const ScrollExpandMedia = ({
   const [mediaFullyExpanded, setMediaFullyExpanded] = useState<boolean>(false);
   const [touchStartY, setTouchStartY] = useState<number>(0);
   const [isMobileState, setIsMobileState] = useState<boolean>(false);
+  const [isInView, setIsInView] = useState<boolean>(false);
 
   const sectionRef = useRef<HTMLDivElement | null>(null);
 
@@ -46,7 +46,38 @@ const ScrollExpandMedia = ({
     setMediaFullyExpanded(false);
   }, [mediaType]);
 
+  // Intersection Observer to detect when section is in view
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting && entry.intersectionRatio > 0.5);
+        if (!entry.isIntersecting) {
+          // Reset when out of view
+          setScrollProgress(0);
+          setShowContent(false);
+          setMediaFullyExpanded(false);
+        }
+      },
+      {
+        threshold: 0.5,
+        rootMargin: '-10% 0px -10% 0px'
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isInView) return;
+
     const handleWheel = (e: Event) => {
       const wheelEvent = e as unknown as WheelEvent;
       if (mediaFullyExpanded && wheelEvent.deltaY < 0 && window.scrollY <= 5) {
@@ -111,8 +142,9 @@ const ScrollExpandMedia = ({
     };
 
     const handleScroll = (): void => {
-      if (!mediaFullyExpanded) {
-        window.scrollTo(0, 0);
+      if (!mediaFullyExpanded && isInView) {
+        // Only prevent scroll when in view and not fully expanded
+        window.scrollTo(0, sectionRef.current?.offsetTop || 0);
       }
     };
 
@@ -131,7 +163,7 @@ const ScrollExpandMedia = ({
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [scrollProgress, mediaFullyExpanded, touchStartY]);
+  }, [scrollProgress, mediaFullyExpanded, touchStartY, isInView]);
 
   useEffect(() => {
     const checkIfMobile = (): void => {
