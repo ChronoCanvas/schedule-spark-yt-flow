@@ -22,7 +22,7 @@ const AnalyticsSection = () => {
                 and maximize your channel's potential.
             </>
         ),
-        primaryImageSrc: '/lovable-uploads/155cf726-18a1-46fe-90fe-595c1a994710.png',
+        primaryImageSrc: '/lovable-uploads/56ef3039-a703-4d90-b756-f02f59419522.png',
         secondaryImageSrc: '/lovable-uploads/56ef3039-a703-4d90-b756-f02f59419522.png',
     };
 

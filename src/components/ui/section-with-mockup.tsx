@@ -41,11 +41,12 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
     const textOrderClass = reverseLayout ? "md:col-start-2" : "";
     const imageOrderClass = reverseLayout ? "md:col-start-1" : "";
 
+
     return (
         <section className="relative py-24 md:py-48 bg-black overflow-hidden">
             <div className="container max-w-[1220px] w-full px-6 md:px-10 relative z-10 mx-auto">
                 <motion.div
-                     className={`grid grid-cols-1 gap-16 md:gap-12 w-full items-center ${layoutClasses}`}
+                     className={`grid grid-cols-1 gap-16 md:gap-8 w-full items-center ${layoutClasses}`}
                      variants={containerVariants}
                      initial="hidden"
                      whileInView="visible"
@@ -69,26 +70,27 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
 
                     {/* App mockup/Image Content */}
                     <motion.div
-                        className={`relative mt-10 md:mt-0 ${imageOrderClass} w-full max-w-[320px] md:max-w-[450px] mx-auto md:mx-0`}
+                        className={`relative mt-10 md:mt-0 mx-auto ${imageOrderClass} w-full max-w-[300px] md:max-w-[471px]`}
                         variants={itemVariants}
                     >
                         {/* Decorative Background Element */}
                         <motion.div
-                             className={`absolute w-[280px] h-[300px] md:w-[420px] md:h-[450px] bg-[#090909] rounded-[32px] z-0`}
+                             className={`absolute w-[300px] h-[317px] md:w-[472px] md:h-[500px] bg-[#090909] rounded-[32px] z-0`}
                              style={{
-                                top: reverseLayout ? 'auto' : '8%',
-                                bottom: reverseLayout ? '8%' : 'auto',
-                                left: reverseLayout ? 'auto' : '-10%',
-                                right: reverseLayout ? '-10%' : 'auto',
+                                top: reverseLayout ? 'auto' : '10%',
+                                bottom: reverseLayout ? '10%' : 'auto',
+                                left: reverseLayout ? 'auto' : '-20%',
+                                right: reverseLayout ? '-20%' : 'auto',
+                                transform: reverseLayout ? 'translate(0, 0)' : 'translateY(10%)',
                                 filter: 'blur(2px)'
                             }}
-                            initial={{ y: 0 }}
-                            whileInView={{ y: reverseLayout ? -15 : -20 }}
+                            initial={{ y: reverseLayout ? 0 : 0 }}
+                            whileInView={{ y: reverseLayout ? -20 : -30 }}
                             transition={{ duration: 1.2, ease: "easeOut" }}
                             viewport={{ once: true, amount: 0.5 }}
                         >
                             <div
-                                className="relative w-full h-full bg-contain bg-center bg-no-repeat rounded-[32px]"
+                                className="relative w-full h-full bg-cover bg-center rounded-[32px]"
                                 style={{
                                     backgroundImage: `url(${secondaryImageSrc})`,
                                 }}
@@ -97,19 +99,25 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
 
                         {/* Main Mockup Card */}
                         <motion.div
-                            className="relative w-full aspect-[4/5] md:aspect-[3/4] bg-[#ffffff0a] rounded-[32px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
-                            initial={{ y: 0 }}
-                            whileInView={{ y: reverseLayout ? 15 : 20 }}
+                            className="relative w-full h-[405px] md:h-[637px] bg-[#ffffff0a] rounded-[32px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
+                            initial={{ y: reverseLayout ? 0 : 0 }}
+                            whileInView={{ y: reverseLayout ? 20 : 30 }}
                              transition={{ duration: 1.2, ease: "easeOut", delay: 0.1 }}
                              viewport={{ once: true, amount: 0.5 }}
                         >
-                            <div className="p-4 h-full">
-                                <div className="h-full relative rounded-[24px] overflow-hidden">
+                            <div className="p-0 h-full">
+                                <div
+                                    className="h-full relative"
+                                    style={{
+                                        backgroundSize: "100% 100%",
+                                    }}
+                                >
                                     {/* Primary Image */}
-                                    <img
-                                        src={primaryImageSrc}
-                                        alt="Analytics Dashboard"
-                                        className="w-full h-full object-contain object-center"
+                                    <div
+                                        className="w-full h-full bg-cover bg-center"
+                                        style={{
+                                            backgroundImage: `url(${primaryImageSrc})`,
+                                        }}
                                     />
                                 </div>
                             </div>
