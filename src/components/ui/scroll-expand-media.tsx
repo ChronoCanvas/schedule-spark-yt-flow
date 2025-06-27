@@ -37,30 +37,73 @@ const ScrollExpandMedia = ({
   const [touchStartY, setTouchStartY] = useState<number>(0);
   const [isMobileState, setIsMobileState] = useState<boolean>(false);
   const [isInView, setIsInView] = useState<boolean>(false);
+  const [scrollVelocity, setScrollVelocity] = useState<number>(0);
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const animationFrameRef = useRef<number>();
+  const lastScrollTimeRef = useRef<number>(0);
+  const velocityDecayRef = useRef<number>();
+
+  // Smooth easing function
+  const easeInOutCubic = (t: number): number => {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  };
+
+  // Smooth progress update with easing
+  const updateProgressSmooth = (targetProgress: number, duration: number = 300) => {
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+
+    const startProgress = scrollProgress;
+    const startTime = Date.now();
+    setIsTransitioning(true);
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easedProgress = easeInOutCubic(progress);
+      
+      const currentProgress = startProgress + (targetProgress - startProgress) * easedProgress;
+      setScrollProgress(currentProgress);
+
+      if (progress < 1) {
+        animationFrameRef.current = requestAnimationFrame(animate);
+      } else {
+        setIsTransitioning(false);
+      }
+    };
+
+    animationFrameRef.current = requestAnimationFrame(animate);
+  };
 
   useEffect(() => {
     setScrollProgress(0);
     setShowContent(false);
     setMediaFullyExpanded(false);
+    setIsTransitioning(false);
   }, [mediaType]);
 
-  // Intersection Observer to detect when section is in view
+  // Intersection Observer with smoother detection
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsInView(entry.isIntersecting && entry.intersectionRatio > 0.3);
+        const newIsInView = entry.isIntersecting && entry.intersectionRatio > 0.2;
+        setIsInView(newIsInView);
+        
         if (!entry.isIntersecting) {
-          // Reset when out of view
-          setScrollProgress(0);
+          // Smooth reset when out of view
+          if (scrollProgress > 0) {
+            updateProgressSmooth(0, 200);
+          }
           setShowContent(false);
           setMediaFullyExpanded(false);
         }
       },
       {
-        threshold: 0.3,
-        rootMargin: '-20% 0px -20% 0px'
+        threshold: [0, 0.2, 0.5, 0.8, 1],
+        rootMargin: '-10% 0px -10% 0px'
       }
     );
 
@@ -73,43 +116,68 @@ const ScrollExpandMedia = ({
         observer.unobserve(sectionRef.current);
       }
     };
-  }, []);
+  }, [scrollProgress]);
+
+  // Velocity decay effect
+  useEffect(() => {
+    if (Math.abs(scrollVelocity) > 0.001 && !isTransitioning) {
+      velocityDecayRef.current = setTimeout(() => {
+        setScrollVelocity(prev => prev * 0.95);
+      }, 16);
+    }
+
+    return () => {
+      if (velocityDecayRef.current) {
+        clearTimeout(velocityDecayRef.current);
+      }
+    };
+  }, [scrollVelocity, isTransitioning]);
 
   useEffect(() => {
     if (!isInView) return;
 
     const handleWheel = (e: Event) => {
       const wheelEvent = e as unknown as WheelEvent;
-      
-      // Allow scrolling up when fully expanded
+      const currentTime = Date.now();
+      const deltaTime = currentTime - lastScrollTimeRef.current;
+      lastScrollTimeRef.current = currentTime;
+
+      // Calculate velocity for momentum
+      const velocity = wheelEvent.deltaY / Math.max(deltaTime, 16);
+      setScrollVelocity(velocity);
+
       if (mediaFullyExpanded) {
-        if (wheelEvent.deltaY < 0) {
-          // Scrolling up - allow normal scroll or reset if at top
-          if (window.scrollY <= 100) {
-            setMediaFullyExpanded(false);
-            setScrollProgress(0.8); // Set to high value to prevent jumping
-            e.preventDefault();
-          }
-          // Otherwise allow normal scroll
+        // Smooth transition back when scrolling up at the top
+        if (wheelEvent.deltaY < 0 && window.scrollY <= 50) {
+          e.preventDefault();
+          setMediaFullyExpanded(false);
+          updateProgressSmooth(0.7, 400);
+          setTimeout(() => setShowContent(false), 200);
         }
         return;
       }
-      
-      // Only prevent default when not fully expanded and in view
-      if (!mediaFullyExpanded && isInView) {
+
+      if (isInView && !isTransitioning) {
         e.preventDefault();
-        const scrollDelta = wheelEvent.deltaY * 0.0015;
-        const newProgress = Math.min(
-          Math.max(scrollProgress + scrollDelta, 0),
-          1
-        );
+        
+        // Unified sensitivity with momentum
+        const baseSensitivity = 0.0012;
+        const momentumFactor = Math.min(Math.abs(velocity) * 0.1, 0.5);
+        const sensitivity = baseSensitivity * (1 + momentumFactor);
+        
+        const scrollDelta = wheelEvent.deltaY * sensitivity;
+        const newProgress = Math.min(Math.max(scrollProgress + scrollDelta, 0), 1);
+        
         setScrollProgress(newProgress);
 
-        if (newProgress >= 1) {
+        // Smooth state transitions
+        if (newProgress >= 0.98 && !mediaFullyExpanded) {
           setMediaFullyExpanded(true);
           setShowContent(true);
-        } else if (newProgress < 0.75) {
+        } else if (newProgress <= 0.6 && showContent) {
           setShowContent(false);
+        } else if (newProgress >= 0.7 && !showContent && !mediaFullyExpanded) {
+          setShowContent(true);
         }
       }
     };
@@ -117,6 +185,7 @@ const ScrollExpandMedia = ({
     const handleTouchStart = (e: Event) => {
       const touchEvent = e as unknown as TouchEvent;
       setTouchStartY(touchEvent.touches[0].clientY);
+      lastScrollTimeRef.current = Date.now();
     };
 
     const handleTouchMove = (e: Event) => {
@@ -125,31 +194,45 @@ const ScrollExpandMedia = ({
 
       const touchY = touchEvent.touches[0].clientY;
       const deltaY = touchStartY - touchY;
+      const currentTime = Date.now();
+      const deltaTime = currentTime - lastScrollTimeRef.current;
+      lastScrollTimeRef.current = currentTime;
+
+      // Calculate touch velocity
+      const velocity = deltaY / Math.max(deltaTime, 16);
+      setScrollVelocity(velocity);
 
       if (mediaFullyExpanded) {
-        if (deltaY < -30 && window.scrollY <= 100) {
-          setMediaFullyExpanded(false);
-          setScrollProgress(0.8);
+        if (deltaY < -40 && window.scrollY <= 50) {
           e.preventDefault();
+          setMediaFullyExpanded(false);
+          updateProgressSmooth(0.7, 400);
+          setTimeout(() => setShowContent(false), 200);
         }
         return;
       }
 
-      if (!mediaFullyExpanded && isInView) {
+      if (isInView && !isTransitioning) {
         e.preventDefault();
-        const scrollFactor = deltaY < 0 ? 0.008 : 0.005;
-        const scrollDelta = deltaY * scrollFactor;
-        const newProgress = Math.min(
-          Math.max(scrollProgress + scrollDelta, 0),
-          1
-        );
+        
+        // Unified touch sensitivity with momentum
+        const baseSensitivity = deltaY < 0 ? 0.004 : 0.003;
+        const momentumFactor = Math.min(Math.abs(velocity) * 0.05, 0.3);
+        const sensitivity = baseSensitivity * (1 + momentumFactor);
+        
+        const scrollDelta = deltaY * sensitivity;
+        const newProgress = Math.min(Math.max(scrollProgress + scrollDelta, 0), 1);
+        
         setScrollProgress(newProgress);
 
-        if (newProgress >= 1) {
+        // Smooth state transitions (same as wheel)
+        if (newProgress >= 0.98 && !mediaFullyExpanded) {
           setMediaFullyExpanded(true);
           setShowContent(true);
-        } else if (newProgress < 0.75) {
+        } else if (newProgress <= 0.6 && showContent) {
           setShowContent(false);
+        } else if (newProgress >= 0.7 && !showContent && !mediaFullyExpanded) {
+          setShowContent(true);
         }
 
         setTouchStartY(touchY);
@@ -158,22 +241,30 @@ const ScrollExpandMedia = ({
 
     const handleTouchEnd = (): void => {
       setTouchStartY(0);
+      // Apply momentum decay
+      setTimeout(() => setScrollVelocity(0), 100);
     };
 
-    window.addEventListener('wheel', handleWheel, {
-      passive: false,
-    });
+    // Use passive: false only when needed
+    window.addEventListener('wheel', handleWheel, { passive: false });
     window.addEventListener('touchstart', handleTouchStart, { passive: false });
     window.addEventListener('touchmove', handleTouchMove, { passive: false });
-    window.addEventListener('touchend', handleTouchEnd);
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
+      
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      if (velocityDecayRef.current) {
+        clearTimeout(velocityDecayRef.current);
+      }
     };
-  }, [scrollProgress, mediaFullyExpanded, touchStartY, isInView]);
+  }, [scrollProgress, mediaFullyExpanded, touchStartY, isInView, isTransitioning, scrollVelocity, showContent]);
 
   useEffect(() => {
     const checkIfMobile = (): void => {
@@ -186,6 +277,7 @@ const ScrollExpandMedia = ({
     return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
 
+  // Smoother size calculations
   const mediaWidth = 300 + scrollProgress * (isMobileState ? 650 : 1250);
   const mediaHeight = 400 + scrollProgress * (isMobileState ? 200 : 400);
   const textTranslateX = scrollProgress * (isMobileState ? 180 : 150);
@@ -204,8 +296,8 @@ const ScrollExpandMedia = ({
 
           <div className='container mx-auto flex flex-col items-center justify-start relative z-10'>
             <div className='flex flex-col items-center justify-center w-full h-[100dvh] relative'>
-              <div
-                className='absolute z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 transition-none rounded-2xl'
+              <motion.div
+                className='absolute z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-2xl'
                 style={{
                   width: `${mediaWidth}px`,
                   height: `${mediaHeight}px`,
@@ -213,6 +305,10 @@ const ScrollExpandMedia = ({
                   maxHeight: '85vh',
                   boxShadow: '0px 0px 50px rgba(0, 0, 0, 0.3)',
                 }}
+                animate={{
+                  scale: isTransitioning ? [1, 1.01, 1] : 1,
+                }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
               >
                 {mediaType === 'video' ? (
                   mediaSrc.includes('youtube.com') ? (
@@ -243,7 +339,7 @@ const ScrollExpandMedia = ({
                         className='absolute inset-0 bg-black/30 rounded-xl'
                         initial={{ opacity: 0.7 }}
                         animate={{ opacity: 0.5 - scrollProgress * 0.3 }}
-                        transition={{ duration: 0.2 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
                       />
                     </div>
                   ) : (
@@ -270,7 +366,7 @@ const ScrollExpandMedia = ({
                         className='absolute inset-0 bg-black/30 rounded-xl'
                         initial={{ opacity: 0.7 }}
                         animate={{ opacity: 0.5 - scrollProgress * 0.3 }}
-                        transition={{ duration: 0.2 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
                       />
                     </div>
                   )
@@ -286,12 +382,19 @@ const ScrollExpandMedia = ({
                       className='absolute inset-0 bg-black/50 rounded-xl'
                       initial={{ opacity: 0.7 }}
                       animate={{ opacity: 0.7 - scrollProgress * 0.3 }}
-                      transition={{ duration: 0.2 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
                     />
                   </div>
                 )}
 
-                <div className='flex flex-col items-center text-center relative z-10 mt-4 transition-none'>
+                <motion.div 
+                  className='flex flex-col items-center text-center relative z-10 mt-4'
+                  animate={{ 
+                    opacity: 1 - scrollProgress * 0.8,
+                    y: scrollProgress * -20 
+                  }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                >
                   {date && (
                     <p
                       className='text-xs text-blue-200'
@@ -308,34 +411,39 @@ const ScrollExpandMedia = ({
                       {scrollToExpand}
                     </p>
                   )}
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
-              <div
-                className={`flex flex-col items-center justify-center text-center w-full relative z-10 transition-none ${
+              <motion.div
+                className={`flex flex-col items-center justify-center text-center w-full relative z-10 ${
                   textBlend ? 'mix-blend-difference' : 'mix-blend-normal'
                 }`}
+                animate={{ 
+                  opacity: 1 - scrollProgress * 0.6,
+                  scale: 1 - scrollProgress * 0.1 
+                }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
               >
                 <motion.h2
-                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-blue-200 transition-none'
+                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-blue-200'
                   style={{ transform: `translateX(-${textTranslateX}vw)` }}
                 >
                   {firstWord}
                 </motion.h2>
                 <motion.h2
-                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-center text-blue-200 transition-none -mt-2 md:-mt-4'
+                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-center text-blue-200 -mt-2 md:-mt-4'
                   style={{ transform: `translateX(${textTranslateX}vw)` }}
                 >
                   {restOfTitle}
                 </motion.h2>
-              </div>
+              </motion.div>
             </div>
 
             <motion.section
               className='flex flex-col w-full px-8 py-10 md:px-16 lg:py-20'
               initial={{ opacity: 0 }}
               animate={{ opacity: showContent ? 1 : 0 }}
-              transition={{ duration: 0.7 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
             >
               {children}
             </motion.section>
