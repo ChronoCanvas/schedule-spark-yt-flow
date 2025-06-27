@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -47,7 +46,7 @@ const spanVariants = {
   exit: { width: 0, opacity: 0 },
 };
 
-const transition = { delay: 0.1, type: "spring" as any, bounce: 0, duration: 0.6 };
+const transition = { delay: 0.1, type: "spring", bounce: 0, duration: 0.6 };
 
 export function ExpandableTabs({
   tabs,

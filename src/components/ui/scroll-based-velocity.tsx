@@ -32,26 +32,19 @@ export const wrap = (min: number, max: number, v: number) => {
 };
 
 const highlightText = (text: string) => {
-  const words = text.split(' ');
-  const elements: React.ReactElement[] = [];
-  
-  words.forEach((word, index) => {
+  return text.split(' ').map((word, index) => {
     if (word === 'Plan' || word === 'Monetize') {
-      elements.push(
+      return (
         <span key={index} className="text-red-400">
           {word}
         </span>
       );
-    } else {
-      elements.push(<span key={index}>{word}</span>);
     }
-    
-    if (index < words.length - 1) {
-      elements.push(<span key={`space-${index}`}> </span>);
-    }
+    return <span key={index}>{word}</span>;
+  }).reduce((prev: React.ReactNode, curr: React.ReactNode, index: number) => {
+    if (index === 0) return curr;
+    return [prev, ' ', curr];
   });
-  
-  return elements;
 };
 
 export function VelocityScroll({
