@@ -1,4 +1,5 @@
 
+
 const AnalyticsSection = () => {
   return (
     <section className="py-20 bg-black">
@@ -34,7 +35,7 @@ const AnalyticsSection = () => {
           {/* Right Column - Mockup Image */}
           <div className="flex justify-center lg:justify-end">
             <img
-              src="/lovable-uploads/350c5369-04c9-40a2-b458-3adaaffbbeaf.png"
+              src="/lovable-uploads/ee2bae50-4975-476a-897a-a1b77f17f9d6.png"
               alt="Mobile Analytics Dashboard"
               className="max-w-full h-auto"
             />
@@ -46,3 +47,4 @@ const AnalyticsSection = () => {
 };
 
 export default AnalyticsSection;
+
