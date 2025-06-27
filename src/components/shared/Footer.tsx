@@ -64,8 +64,6 @@ function FloatingPaths({ position }: { position: number }) {
 }
 
 const Footer = ({ theme = "light" }: FooterProps) => {
-  const isDark = theme === "dark";
-
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -74,24 +72,15 @@ const Footer = ({ theme = "light" }: FooterProps) => {
   };
   
   return (
-    <section className={`py-20 ${isDark ? 'bg-black' : 'bg-gray-50'}`}>
+    <section className="py-20 bg-black">
       <div className="container mx-auto px-4">
-        {/* Rectangle container matching How It Works section */}
-        <div className="relative text-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden" style={{ background: isDark ? 'linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 50%, #000000 100%)' : 'linear-gradient(180deg, #22afed 0%, #2563eb 50%, #1e3a8a 100%)' }}>
+        {/* Dark footer container */}
+        <div className="relative text-white rounded-2xl border border-gray-800 shadow-lg overflow-hidden bg-black">
           {/* Background Paths */}
           <div className="absolute inset-0">
             <FloatingPaths position={1} />
             <FloatingPaths position={-1} />
           </div>
-
-          {/* Background Dotted World Map */}
-          <div 
-            className="absolute inset-0 opacity-20 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: "url('/images/landingpage/dottedworldmap.png')",
-              filter: "invert(1)"
-            }}
-          />
 
           {/* Content */}
           <div className="relative z-10 px-8 py-16">
@@ -107,9 +96,9 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                 <h2 className="text-4xl md:text-6xl font-bold mb-6">
                   YOUR DREAM TRIP,
                   <br />
-                  <span style={{ color: '#84cc16' }}>YOUR WAY</span>
+                  <span className="text-red-500">YOUR WAY</span>
                 </h2>
-                <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto">
+                <p className="text-xl md:text-2xl text-white/80 mb-8 max-w-2xl mx-auto">
                   Everyone's perfect journey looks different. Share your vision, and we'll
                   bring it to life with personalized recommendations that match your
                   unique travel style.
@@ -118,8 +107,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-lg transition-all duration-300"
-                  style={{ backgroundColor: '#84cc16' }}
+                  className="bg-red-500 hover:bg-red-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-lg transition-all duration-300"
                 >
                    Discover Now
                 </motion.button>
@@ -140,16 +128,16 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
-                    className="text-3xl font-bold mb-4 text-spot-beige"
+                    className="text-3xl font-bold mb-4 text-white"
                   >
-                    SpotPlan
+                    Youtilify
                   </motion.h3>
                   <motion.p 
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                     viewport={{ once: true }}
-                    className="text-white/80 mb-6 max-w-md"
+                    className="text-white/60 mb-6 max-w-md"
                   >
                     The smartest way to plan your travels. AI-powered itineraries, 
                     collaborative planning, and intelligent expense tracking.
@@ -169,7 +157,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                           transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
                           viewport={{ once: true }}
                           whileHover={{ scale: 1.2, rotate: 360 }}
-                          className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-spot-beige hover:text-spot-primary transition-all duration-300"
+                          className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white transition-all duration-300"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -187,7 +175,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                   transition={{ duration: 0.6, delay: 0.5 }}
                   viewport={{ once: true }}
                 >
-                  <h4 className="text-lg font-semibold mb-4 text-spot-beige">Product</h4>
+                  <h4 className="text-lg font-semibold mb-4 text-white">Product</h4>
                   <ul className="space-y-2">
                     <motion.li 
                       initial={{ opacity: 0, x: -10 }}
@@ -198,7 +186,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                       <Link 
                         to="/" 
                         onClick={() => setTimeout(() => scrollToSection('features-section'), 100)}
-                        className="text-white/80 hover:text-spot-beige transition-colors hover:underline"
+                        className="text-white/60 hover:text-white transition-colors hover:underline"
                       >
                         Features
                       </Link>
@@ -212,7 +200,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                       <Link 
                         to="/" 
                         onClick={() => setTimeout(() => scrollToSection('how-it-works'), 100)}
-                        className="text-white/80 hover:text-spot-beige transition-colors hover:underline"
+                        className="text-white/60 hover:text-white transition-colors hover:underline"
                       >
                         How it Works
                       </Link>
@@ -227,7 +215,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                   transition={{ duration: 0.6, delay: 0.6 }}
                   viewport={{ once: true }}
                 >
-                  <h4 className="text-lg font-semibold mb-4 text-spot-beige">Company</h4>
+                  <h4 className="text-lg font-semibold mb-4 text-white">Company</h4>
                   <ul className="space-y-2">
                     <motion.li 
                       initial={{ opacity: 0, x: -10 }}
@@ -235,7 +223,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                       transition={{ duration: 0.4, delay: 0.8 }}
                       viewport={{ once: true }}
                     >
-                      <Link to="/" className="text-white/80 hover:text-spot-beige transition-colors hover:underline">
+                      <Link to="/" className="text-white/60 hover:text-white transition-colors hover:underline">
                         Home
                       </Link>
                     </motion.li>
@@ -245,7 +233,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                       transition={{ duration: 0.4, delay: 0.8 }}
                       viewport={{ once: true }}
                     >
-                      <Link to="/about" className="text-white/80 hover:text-spot-beige transition-colors hover:underline">
+                      <Link to="/about" className="text-white/60 hover:text-white transition-colors hover:underline">
                         About
                       </Link>
                     </motion.li>
@@ -255,7 +243,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                       transition={{ duration: 0.4, delay: 0.9 }}
                       viewport={{ once: true }}
                     >
-                      <Link to="/privacy-policy" className="text-white/80 hover:text-spot-beige transition-colors hover:underline">
+                      <Link to="/privacy-policy" className="text-white/60 hover:text-white transition-colors hover:underline">
                         Privacy
                       </Link>
                     </motion.li>
@@ -269,10 +257,10 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
                 viewport={{ once: true }}
-                className="border-t border-white/20 pt-8 text-center"
+                className="border-t border-gray-800 pt-8 text-center"
               >
-                <p className="text-white/60">
-                  © 2025 SpotPlan. All rights reserved.
+                <p className="text-white/40">
+                  © 2025 Youtilify. All rights reserved.
                 </p>
               </motion.div>
             </div>
