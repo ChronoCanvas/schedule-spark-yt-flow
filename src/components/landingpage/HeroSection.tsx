@@ -272,9 +272,9 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             className="text-5xl md:text-7xl font-bold text-white mb-4"
           >
-            YOUR YOUTUBE CHANNEL,
+            TAKE CONTROL OF YOUR CHANNEL.
             <br />
-            <span style={{ color: '#ff4d4f' }}>SUPERCHARGED.</span>
+            <span style={{ color: '#ff4d4f' }}>SUPERCHARGE YOUR WORKFLOW.</span>
           </motion.h1>
 
           <motion.p 
@@ -283,7 +283,7 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
             className="text-xl md:text-2xl text-gray-300 mb-10 max-w-2xl mx-auto"
           >
-            Analytics, scheduling, live streaming, monetization & more—powered by AI and YouTube's official APIs.
+            Analytics, scheduling, live streaming, monetization & more - powered by AI and YouTube's official APIs.
           </motion.p>
 
           <motion.div
