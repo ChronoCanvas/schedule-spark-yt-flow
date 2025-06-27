@@ -31,20 +31,13 @@ const AnalyticsSection = () => {
             </div>
           </div>
 
-          {/* Right Column - Mobile Mockup */}
-          <div className="relative flex justify-center lg:justify-end">
-            <div className="relative transform rotate-3 hover:rotate-0 transition-transform duration-500">
-              <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-4 rounded-3xl shadow-2xl">
-                <img
-                  src="/public/lovable-uploads/78296343-29d6-4141-a8ff-28b5730a0c66.png"
-                  alt="Mobile Analytics Dashboard"
-                  className="w-64 h-auto rounded-2xl"
-                />
-              </div>
-              {/* Floating elements for visual interest */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-red-500 rounded-full animate-pulse"></div>
-              <div className="absolute -bottom-6 -left-6 w-6 h-6 bg-blue-500 rounded-full animate-pulse delay-1000"></div>
-            </div>
+          {/* Right Column - Mockup Image */}
+          <div className="flex justify-center lg:justify-end">
+            <img
+              src="/lovable-uploads/350c5369-04c9-40a2-b458-3adaaffbbeaf.png"
+              alt="Mobile Analytics Dashboard"
+              className="max-w-full h-auto"
+            />
           </div>
         </div>
       </div>
