@@ -41,11 +41,12 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
     const textOrderClass = reverseLayout ? "md:col-start-2" : "";
     const imageOrderClass = reverseLayout ? "md:col-start-1" : "";
 
+
     return (
-        <section className="relative py-12 md:py-24 bg-black overflow-hidden">
-            <div className="container max-w-7xl w-full px-4 md:px-6 relative z-10 mx-auto">
+        <section className="relative py-24 md:py-48 bg-black overflow-hidden">
+            <div className="container max-w-[1220px] w-full px-6 md:px-10 relative z-10 mx-auto">
                 <motion.div
-                     className={`grid grid-cols-1 gap-8 md:gap-12 w-full items-center ${layoutClasses}`}
+                     className={`grid grid-cols-1 gap-16 md:gap-8 w-full items-center ${layoutClasses}`}
                      variants={containerVariants}
                      initial="hidden"
                      whileInView="visible"
@@ -53,49 +54,70 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
                 >
                     {/* Text Content */}
                     <motion.div
-                        className={`flex flex-col items-start gap-4 max-w-lg mx-auto md:mx-0 ${textOrderClass}`}
+                        className={`flex flex-col items-start gap-4 mt-10 md:mt-0 max-w-[546px] mx-auto md:mx-0 ${textOrderClass}`}
                         variants={itemVariants}
                     >
-                         <div className="space-y-2">
-                            <h2 className="text-white text-2xl md:text-4xl lg:text-5xl font-semibold leading-tight">
+                         <div className="space-y-2 md:space-y-1">
+                            <h2 className="text-white text-3xl md:text-[40px] font-semibold leading-tight md:leading-[53px]">
                                 {title}
                             </h2>
                         </div>
 
-                        <p className="text-gray-400 text-sm md:text-base leading-relaxed">
+                        <p className="text-[#868f97] text-sm md:text-[15px] leading-6">
                             {description}
                         </p>
                     </motion.div>
 
                     {/* App mockup/Image Content */}
                     <motion.div
-                        className={`relative mx-auto ${imageOrderClass} w-full max-w-md md:max-w-lg lg:max-w-xl`}
+                        className={`relative mt-10 md:mt-0 mx-auto ${imageOrderClass} w-full max-w-[300px] md:max-w-[471px]`}
                         variants={itemVariants}
                     >
                         {/* Decorative Background Element */}
                         <motion.div
-                             className="absolute inset-0 w-full h-full bg-gray-900 rounded-2xl md:rounded-3xl transform rotate-2 scale-95 opacity-50 blur-sm"
-                             initial={{ rotate: 2, scale: 0.95 }}
-                             whileInView={{ rotate: reverseLayout ? -2 : 2, scale: 0.98 }}
-                             transition={{ duration: 1.2, ease: "easeOut" }}
-                             viewport={{ once: true, amount: 0.5 }}
-                        />
+                             className={`absolute w-[300px] h-[317px] md:w-[472px] md:h-[500px] bg-[#090909] rounded-[32px] z-0`}
+                             style={{
+                                top: reverseLayout ? 'auto' : '10%',
+                                bottom: reverseLayout ? '10%' : 'auto',
+                                left: reverseLayout ? 'auto' : '-20%',
+                                right: reverseLayout ? '-20%' : 'auto',
+                                transform: reverseLayout ? 'translate(0, 0)' : 'translateY(10%)',
+                                filter: 'blur(2px)'
+                            }}
+                            initial={{ y: reverseLayout ? 0 : 0 }}
+                            whileInView={{ y: reverseLayout ? -20 : -30 }}
+                            transition={{ duration: 1.2, ease: "easeOut" }}
+                            viewport={{ once: true, amount: 0.5 }}
+                        >
+                            <div
+                                className="relative w-full h-full bg-cover bg-center rounded-[32px]"
+                                style={{
+                                    backgroundImage: `url(${secondaryImageSrc})`,
+                                }}
+                            />
+                        </motion.div>
 
                         {/* Main Mockup Card */}
                         <motion.div
-                            className="relative w-full aspect-[4/3] bg-white/5 rounded-2xl md:rounded-3xl backdrop-blur-sm border border-white/10 overflow-hidden"
-                            initial={{ y: 0 }}
-                            whileInView={{ y: reverseLayout ? -8 : -12 }}
+                            className="relative w-full h-[405px] md:h-[637px] bg-[#ffffff0a] rounded-[32px] backdrop-blur-[15px] backdrop-brightness-[100%] border-0 z-10 overflow-hidden"
+                            initial={{ y: reverseLayout ? 0 : 0 }}
+                            whileInView={{ y: reverseLayout ? 20 : 30 }}
                              transition={{ duration: 1.2, ease: "easeOut", delay: 0.1 }}
                              viewport={{ once: true, amount: 0.5 }}
                         >
-                            <div className="w-full h-full p-2 md:p-4">
-                                <div className="w-full h-full rounded-xl md:rounded-2xl overflow-hidden bg-gray-100">
+                            <div className="p-0 h-full">
+                                <div
+                                    className="h-full relative"
+                                    style={{
+                                        backgroundSize: "100% 100%",
+                                    }}
+                                >
                                     {/* Primary Image */}
-                                    <img
-                                        src={primaryImageSrc}
-                                        alt="Analytics Dashboard"
-                                        className="w-full h-full object-contain"
+                                    <div
+                                        className="w-full h-full bg-cover bg-center"
+                                        style={{
+                                            backgroundImage: `url(${primaryImageSrc})`,
+                                        }}
                                     />
                                 </div>
                             </div>
@@ -105,7 +127,13 @@ const SectionWithMockup: React.FC<SectionWithMockupProps> = ({
             </div>
 
             {/* Decorative bottom gradient */}
-            <div className="absolute w-full h-px bottom-0 left-0 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+            <div
+                className="absolute w-full h-px bottom-0 left-0 z-0"
+                style={{
+                    background:
+                        "radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0) 100%)",
+                }}
+            />
         </section>
     );
 };
