@@ -1,4 +1,3 @@
-
 import { Card } from "@/components/ui/card";
 import { Play } from "lucide-react";
 import { useState } from "react";
@@ -49,20 +48,8 @@ const DemoPreviewSection = () => {
       viewport={{ once: true, margin: "-100px" }}
     >
       <div className="container mx-auto px-4">
-        <motion.div className="text-center mb-8" variants={itemVariants}>
-          <motion.h2 
-            className="text-4xl md:text-5xl font-bold text-white mb-3"
-            variants={itemVariants}
-          >
-            See SpotPlan in Action
-          </motion.h2>
-          <motion.p 
-            className="text-xl text-gray-300 max-w-2xl mx-auto"
-            variants={itemVariants}
-          >
-            Watch how easy it is to plan your perfect trip with our intelligent platform
-          </motion.p>
-        </motion.div>
+        {/* Keep the space with padding instead of text */}
+        <div className="text-center mb-8 py-16"></div>
 
         <motion.div variants={itemVariants}>
           <Card className="relative overflow-hidden shadow-2xl border-0 group">
