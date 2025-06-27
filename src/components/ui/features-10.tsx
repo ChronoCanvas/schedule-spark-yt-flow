@@ -1,8 +1,41 @@
-
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { Calendar, LucideIcon, MapPin } from 'lucide-react'
 import { ReactNode } from 'react'
+import { AnimatedTooltip } from './animated-tooltip'
+
+const people = [
+  {
+    id: 1,
+    name: "Sarah Chen",
+    designation: "Editor",
+    image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+  },
+  {
+    id: 2,
+    name: "Marcus Johnson",
+    designation: "Writer",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+  },
+  {
+    id: 3,
+    name: "Emma Rodriguez",
+    designation: "Producer",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
+  },
+  {
+    id: 4,
+    name: "Alex Kim",
+    designation: "Designer",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80",
+  },
+  {
+    id: 5,
+    name: "Maya Patel",
+    designation: "Manager",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
+  },
+];
 
 export function Features() {
     return (
@@ -58,29 +91,17 @@ export function Features() {
                     </FeatureCard>
 
                     <FeatureCard className="p-6 lg:col-span-2">
-                        <p className="mx-auto my-6 max-w-md text-balance text-center text-2xl font-semibold text-white">Smart scheduling with automated reminders for maintenance.</p>
+                        <div className="text-center mb-8">
+                            <h3 className="text-2xl font-semibold text-white mb-4">
+                                Collaborative Workspace for Teams
+                            </h3>
+                            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                                Bring your team together—editors, writers, producers, and more—in one unified hub.
+                            </p>
+                        </div>
 
-                        <div className="flex justify-center gap-6 overflow-hidden">
-                            <CircularUI
-                                label="Inclusion"
-                                circles={[{ pattern: 'border' }, { pattern: 'border' }]}
-                            />
-
-                            <CircularUI
-                                label="Inclusion"
-                                circles={[{ pattern: 'none' }, { pattern: 'primary' }]}
-                            />
-
-                            <CircularUI
-                                label="Join"
-                                circles={[{ pattern: 'red' }, { pattern: 'none' }]}
-                            />
-
-                            <CircularUI
-                                label="Exclusion"
-                                circles={[{ pattern: 'primary' }, { pattern: 'none' }]}
-                                className="hidden sm:block"
-                            />
+                        <div className="flex justify-center">
+                            <AnimatedTooltip items={people} />
                         </div>
                     </FeatureCard>
                 </div>
