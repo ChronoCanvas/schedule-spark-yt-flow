@@ -31,6 +31,19 @@ export const wrap = (min: number, max: number, v: number) => {
   return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
 };
 
+const highlightText = (text: string) => {
+  return text.split(' ').map((word, index) => {
+    if (word === 'Plan' || word === 'Monetize') {
+      return (
+        <span key={index} className="text-red-400">
+          {word}
+        </span>
+      );
+    }
+    return <span key={index}>{word}</span>;
+  }).reduce((prev, curr, index) => [prev, ' ', curr]);
+};
+
 export function VelocityScroll({
   text,
   default_velocity = 5,
@@ -98,7 +111,7 @@ export function VelocityScroll({
         <motion.div className={cn("inline-block", className)} style={{ x }}>
           {Array.from({ length: repetitions }).map((_, i) => (
             <span key={i} ref={i === 0 ? textRef : null}>
-              {children}{" "}
+              {highlightText(children)}{" "}
             </span>
           ))}
         </motion.div>
