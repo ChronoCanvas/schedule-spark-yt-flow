@@ -1,3 +1,4 @@
+
 import { Card } from "@/components/ui/card";
 import { Play } from "lucide-react";
 import { useState } from "react";
@@ -33,7 +34,7 @@ const DemoPreviewSection = () => {
       filter: "blur(0px)",
       transition: {
         duration: 0.6,
-        ease: "easeOut"
+        ease: [0.4, 0, 0.2, 1] as const,
       }
     },
   };
