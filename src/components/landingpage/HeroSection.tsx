@@ -1,5 +1,3 @@
-
-import { WorldMap } from "@/components/ui/world-map";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { MacbookPro } from "@/components/ui/macbook-pro";
@@ -219,32 +217,6 @@ const HeroSection = () => {
       </div>
 
       <Header theme="dark" />
-
-      {/* Background World Map */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.2 }}
-        transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
-        className="absolute inset-0"
-      >
-        <WorldMap
-          dots={[
-            {
-              start: { lat: 40.7128, lng: -74.006 },
-              end: { lat: 51.5074, lng: -0.1278 },
-            },
-            {
-              start: { lat: 35.6762, lng: 139.6503 },
-              end: { lat: -33.8688, lng: 151.2093 },
-            },
-            {
-              start: { lat: 48.8566, lng: 2.3522 },
-              end: { lat: 55.7558, lng: 37.6176 },
-            },
-          ]}
-          lineColor="#ff0003"
-        />
-      </motion.div>
 
       {/* Hero Content */}
       <div className="relative z-10 container mx-auto px-4">
