@@ -1,113 +1,10 @@
+
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
-import { Calendar, LucideIcon, BarChart3 } from 'lucide-react'
-import { ReactNode, useState, useEffect } from 'react'
-import Lottie from 'lottie-react'
-
-// Animated Calendar Component
-const AnimatedCalendar = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [highlightedDates] = useState<number[]>([8, 15, 22, 29]);
-
-  const getDaysInMonth = () => {
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    const daysInMonth = lastDay.getDate();
-    const startingDay = firstDay.getDay();
-
-    const days = [];
-    
-    // Empty cells for days before the first day of the month
-    for (let i = 0; i < startingDay; i++) {
-      days.push(null);
-    }
-    
-    // Days of the month
-    for (let day = 1; day <= daysInMonth; day++) {
-      days.push(day);
-    }
-    
-    return days;
-  };
-
-  const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-
-  const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-  return (
-    <div className="w-full h-full flex items-center justify-center p-4">
-      <div className="rounded-3xl p-6 shadow-lg" style={{ backgroundColor: '#f8e0e0' }}>
-        {/* Calendar Header */}
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-semibold text-gray-800">
-            {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
-          </h3>
-          <div className="w-2 h-2 bg-rose-400 rounded-full"></div>
-        </div>
-        
-        {/* Week Days */}
-        <div className="grid grid-cols-7 gap-1 mb-2">
-          {weekDays.map((day) => (
-            <div key={day} className="text-center text-xs font-medium text-gray-500 py-1">
-              {day}
-            </div>
-          ))}
-        </div>
-        
-        {/* Calendar Days */}
-        <div className="grid grid-cols-7 gap-1">
-          {getDaysInMonth().map((day, index) => (
-            <div
-              key={index}
-              className={cn(
-                "h-8 w-8 flex items-center justify-center text-sm rounded-lg transition-all duration-300",
-                {
-                  "text-gray-300": day === null,
-                  "text-gray-700 hover:bg-gray-100": day && !highlightedDates.includes(day),
-                  "bg-gradient-to-r from-rose-400 to-pink-500 text-white shadow-md": 
-                    day && highlightedDates.includes(day),
-                  "bg-rose-100 text-rose-700": day === new Date().getDate() && !highlightedDates.includes(day)
-                }
-              )}
-            >
-              {day}
-            </div>
-          ))}
-        </div>
-        
-        {/* Scheduled Items Indicator */}
-        <div className="mt-4 flex justify-center space-x-2">
-          <div className="flex items-center space-x-1">
-            <div className="w-2 h-2 bg-rose-400 rounded-full"></div>
-            <span className="text-xs text-gray-600">Scheduled</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+import { Calendar, LucideIcon, MapPin } from 'lucide-react'
+import { ReactNode } from 'react'
 
 export function Features() {
-    const [analyticsAnimation, setAnalyticsAnimation] = useState(null);
-    const [schedulingAnimation, setSchedulingAnimation] = useState(null);
-
-    useEffect(() => {
-        fetch('/lottiefiles/Analytics-lottie.json')
-            .then(response => response.json())
-            .then(data => setAnalyticsAnimation(data))
-            .catch(error => console.error('Error loading analytics animation:', error));
-
-        fetch('/lottiefiles/Grouped-Table.json')
-            .then(response => response.json())
-            .then(data => setSchedulingAnimation(data))
-            .catch(error => console.error('Error loading scheduling animation:', error));
-    }, []);
-
     return (
         <section className="bg-black py-16 md:py-32">
             <div className="mx-auto max-w-2xl px-6 lg:max-w-5xl">
@@ -115,27 +12,22 @@ export function Features() {
                     <FeatureCard>
                         <CardHeader className="pb-3">
                             <CardHeading
-                                icon={BarChart3}
-                                title="AI-Powered Channel Insights"
-                                description="Real-time performance intelligence, so you never miss what's working—or what isn't."
+                                icon={MapPin}
+                                title="Real time location tracking"
+                                description="Advanced tracking system, Instantly locate all your assets."
                             />
                         </CardHeader>
 
                         <div className="relative mb-6 border-t border-dashed border-gray-600 sm:mb-0">
-                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black"></div>
-                            <div className="aspect-[76/59] p-1 px-6 flex items-center justify-center">
-                                {analyticsAnimation ? (
-                                    <Lottie 
-                                        animationData={analyticsAnimation}
-                                        loop={true}
-                                        autoplay={true}
-                                        style={{ width: '100%', height: '100%' }}
-                                    />
-                                ) : (
-                                    <div className="w-full h-full bg-gray-800 rounded flex items-center justify-center">
-                                        <span className="text-gray-400">Loading animation...</span>
-                                    </div>
-                                )}
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-800/20 to-black"></div>
+                            <div className="aspect-[76/59] p-1 px-6">
+                                <DualModeImage
+                                    darkSrc="https://tailark.com/_next/image?url=%2Fpayments.png&w=3840&q=75"
+                                    lightSrc="https://tailark.com/_next/image?url=%2Fpayments-light.png&w=3840&q=75"
+                                    alt="payments illustration"
+                                    width={1207}
+                                    height={929}
+                                />
                             </div>
                         </div>
                     </FeatureCard>
@@ -144,28 +36,25 @@ export function Features() {
                         <CardHeader className="pb-3">
                             <CardHeading
                                 icon={Calendar}
-                                title="Smart Scheduling System"
-                                description="Plan content like a pro. Easily schedule videos, Shorts, and livestreams with precision."
+                                title="Advanced Scheduling"
+                                description="Scheduling system, Instantly locate all your assets."
                             />
                         </CardHeader>
 
-                        <div className="relative mb-6 border-t border-dashed border-gray-600 sm:mb-0">
-                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black"></div>
-                            <div className="aspect-[76/59] p-1 px-6 flex items-center justify-center">
-                                {schedulingAnimation ? (
-                                    <Lottie 
-                                        animationData={schedulingAnimation}
-                                        loop={true}
-                                        autoplay={true}
-                                        style={{ width: '100%', height: '100%' }}
+                        <CardContent>
+                            <div className="relative mb-6 sm:mb-0">
+                                <div className="absolute -inset-6 bg-gradient-to-r from-transparent via-gray-800/10 to-black"></div>
+                                <div className="aspect-[76/59] border border-gray-600">
+                                    <DualModeImage
+                                        darkSrc="https://tailark.com/_next/image?url=%2Forigin-cal-dark.png&w=3840&q=75"
+                                        lightSrc="https://tailark.com/_next/image?url=%2Forigin-cal.png&w=3840&q=75"
+                                        alt="calendar illustration"
+                                        width={1207}
+                                        height={929}
                                     />
-                                ) : (
-                                    <div className="w-full h-full bg-gray-800 rounded flex items-center justify-center">
-                                        <span className="text-gray-400">Loading animation...</span>
-                                    </div>
-                                )}
+                                </div>
                             </div>
-                        </div>
+                        </CardContent>
                     </FeatureCard>
 
                     <FeatureCard className="p-6 lg:col-span-2">
@@ -235,6 +124,27 @@ const CardHeading = ({ icon: Icon, title, description }: CardHeadingProps) => (
         </span>
         <p className="mt-8 text-2xl font-semibold text-white">{description}</p>
     </div>
+)
+
+interface DualModeImageProps {
+    darkSrc: string
+    lightSrc: string
+    alt: string
+    width: number
+    height: number
+    className?: string
+}
+
+const DualModeImage = ({ darkSrc, lightSrc, alt, width, height, className }: DualModeImageProps) => (
+    <>
+        <img
+            src={darkSrc}
+            className={cn('block', className)}
+            alt={`${alt} dark`}
+            width={width}
+            height={height}
+        />
+    </>
 )
 
 interface CircleConfig {
