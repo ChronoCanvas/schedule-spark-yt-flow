@@ -7,23 +7,7 @@ import Lottie from 'lottie-react'
 // Animated Calendar Component
 const AnimatedCalendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [highlightedDates, setHighlightedDates] = useState<number[]>([]);
-
-  useEffect(() => {
-    // Animate highlighted dates on load
-    const dates = [8, 15, 22, 29];
-    let index = 0;
-    const interval = setInterval(() => {
-      if (index < dates.length) {
-        setHighlightedDates(prev => [...prev, dates[index]]);
-        index++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 500);
-
-    return () => clearInterval(interval);
-  }, []);
+  const [highlightedDates] = useState<number[]>([8, 15, 22, 29]);
 
   const getDaysInMonth = () => {
     const year = currentDate.getFullYear();
@@ -57,52 +41,50 @@ const AnimatedCalendar = () => {
 
   return (
     <div className="w-full h-full flex items-center justify-center p-4">
-      <div className="bg-gradient-to-br from-rose-50 to-pink-100 rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 animate-float">
-        <div className="bg-white rounded-2xl p-4 shadow-sm">
-          {/* Calendar Header */}
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold text-gray-800">
-              {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
-            </h3>
-            <div className="w-2 h-2 bg-rose-400 rounded-full animate-pulse"></div>
-          </div>
-          
-          {/* Week Days */}
-          <div className="grid grid-cols-7 gap-1 mb-2">
-            {weekDays.map((day) => (
-              <div key={day} className="text-center text-xs font-medium text-gray-500 py-1">
-                {day}
-              </div>
-            ))}
-          </div>
-          
-          {/* Calendar Days */}
-          <div className="grid grid-cols-7 gap-1">
-            {getDaysInMonth().map((day, index) => (
-              <div
-                key={index}
-                className={cn(
-                  "h-8 w-8 flex items-center justify-center text-sm rounded-lg transition-all duration-300",
-                  {
-                    "text-gray-300": day === null,
-                    "text-gray-700 hover:bg-gray-100": day && !highlightedDates.includes(day),
-                    "bg-gradient-to-r from-rose-400 to-pink-500 text-white shadow-md transform scale-110 animate-pulse": 
-                      day && highlightedDates.includes(day),
-                    "bg-rose-100 text-rose-700": day === new Date().getDate() && !highlightedDates.includes(day)
-                  }
-                )}
-              >
-                {day}
-              </div>
-            ))}
-          </div>
-          
-          {/* Scheduled Items Indicator */}
-          <div className="mt-4 flex justify-center space-x-2">
-            <div className="flex items-center space-x-1">
-              <div className="w-2 h-2 bg-rose-400 rounded-full animate-pulse"></div>
-              <span className="text-xs text-gray-600">Scheduled</span>
+      <div className="rounded-3xl p-6 shadow-lg" style={{ backgroundColor: '#f8e0e0' }}>
+        {/* Calendar Header */}
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-lg font-semibold text-gray-800">
+            {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+          </h3>
+          <div className="w-2 h-2 bg-rose-400 rounded-full"></div>
+        </div>
+        
+        {/* Week Days */}
+        <div className="grid grid-cols-7 gap-1 mb-2">
+          {weekDays.map((day) => (
+            <div key={day} className="text-center text-xs font-medium text-gray-500 py-1">
+              {day}
             </div>
+          ))}
+        </div>
+        
+        {/* Calendar Days */}
+        <div className="grid grid-cols-7 gap-1">
+          {getDaysInMonth().map((day, index) => (
+            <div
+              key={index}
+              className={cn(
+                "h-8 w-8 flex items-center justify-center text-sm rounded-lg transition-all duration-300",
+                {
+                  "text-gray-300": day === null,
+                  "text-gray-700 hover:bg-gray-100": day && !highlightedDates.includes(day),
+                  "bg-gradient-to-r from-rose-400 to-pink-500 text-white shadow-md": 
+                    day && highlightedDates.includes(day),
+                  "bg-rose-100 text-rose-700": day === new Date().getDate() && !highlightedDates.includes(day)
+                }
+              )}
+            >
+              {day}
+            </div>
+          ))}
+        </div>
+        
+        {/* Scheduled Items Indicator */}
+        <div className="mt-4 flex justify-center space-x-2">
+          <div className="flex items-center space-x-1">
+            <div className="w-2 h-2 bg-rose-400 rounded-full"></div>
+            <span className="text-xs text-gray-600">Scheduled</span>
           </div>
         </div>
       </div>
