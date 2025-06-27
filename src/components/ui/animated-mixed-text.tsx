@@ -18,7 +18,7 @@ type AnimatedMixedTextProps = {
 
 const AnimatedMixedText: React.FC<AnimatedMixedTextProps> = ({
   segments,
-  delay = 80,
+  delay = 80, // Reduced from 100 for faster animation
   className = "",
   direction = "top",
   threshold = 0.1,
@@ -62,8 +62,8 @@ const AnimatedMixedText: React.FC<AnimatedMixedTextProps> = ({
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.3,
-        ease: "easeOut" as const,
+        duration: 0.3, // Reduced from 0.5 for faster animation
+        ease: "easeOut",
       },
     },
   };
