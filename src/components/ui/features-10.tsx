@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { Calendar, LucideIcon, MapPin } from 'lucide-react'
@@ -61,6 +60,7 @@ export function Features() {
                                     alt="payments dashboard illustration"
                                     width={1207}
                                     height={929}
+                                    className="hover:scale-105 transition-transform duration-300 ease-in-out"
                                 />
                             </div>
                         </div>
@@ -78,13 +78,14 @@ export function Features() {
                         <CardContent>
                             <div className="relative mb-6 sm:mb-0">
                                 <div className="absolute -inset-6 bg-gradient-to-r from-transparent via-gray-800/10 to-black"></div>
-                                <div className="aspect-[76/59] border border-gray-600">
+                                <div className="aspect-[76/59] border border-gray-600 overflow-hidden">
                                     <DualModeImage
                                         darkSrc="/landing-page_images/June 2025.png"
                                         lightSrc="/landing-page_images/June 2025.png"
                                         alt="june 2025 calendar illustration"
                                         width={1207}
                                         height={929}
+                                        className="hover:scale-105 transition-transform duration-300 ease-in-out w-full h-full object-cover"
                                     />
                                 </div>
                             </div>
