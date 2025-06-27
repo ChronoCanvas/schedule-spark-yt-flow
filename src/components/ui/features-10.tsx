@@ -23,7 +23,7 @@ export function Features() {
                             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black"></div>
                             <div className="aspect-[76/59] p-1 px-6 flex items-center justify-center">
                                 <Lottie 
-                                    animationData="/lottiefiles/Analytics-lottie.json"
+                                    src="/lottiefiles/Analytics-lottie.json"
                                     loop={true}
                                     autoplay={true}
                                     style={{ width: '100%', height: '100%' }}
