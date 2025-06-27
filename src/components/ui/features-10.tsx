@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { Calendar, LucideIcon, MapPin } from 'lucide-react'
@@ -9,31 +10,31 @@ const people = [
     id: 1,
     name: "Sarah Chen",
     designation: "Editor",
-    image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+    image: "https://www.tapback.co/api/avatar/sarahchen",
   },
   {
     id: 2,
     name: "Marcus Johnson",
     designation: "Writer",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+    image: "https://www.tapback.co/api/avatar/marcusjohnson",
   },
   {
     id: 3,
     name: "Emma Rodriguez",
     designation: "Producer",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
+    image: "https://www.tapback.co/api/avatar/emmarodriguez",
   },
   {
     id: 4,
     name: "Alex Kim",
     designation: "Designer",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80",
+    image: "https://www.tapback.co/api/avatar/alexkim",
   },
   {
     id: 5,
     name: "Maya Patel",
     designation: "Manager",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
+    image: "https://www.tapback.co/api/avatar/mayapatel",
   },
 ];
 
