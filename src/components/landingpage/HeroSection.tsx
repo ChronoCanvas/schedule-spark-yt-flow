@@ -1,3 +1,4 @@
+
 import { WorldMap } from "@/components/ui/world-map";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
@@ -49,7 +50,7 @@ const HeroSection = () => {
 
       {/* Hero Content */}
       <div className="relative z-10 container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center mb-56 pt-8">
+        <div className="max-w-4xl mx-auto text-center mb-32 pt-8">
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -74,7 +75,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-            className="mb-16"
+            className="mb-8"
           >
             <PlanTripButton />
           </motion.div>
@@ -85,7 +86,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 50, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1, delay: 1, ease: "easeOut" }}
-          className="relative z-10 max-w-6xl mx-auto mt-20 mb-16"
+          className="relative z-10 max-w-6xl mx-auto mt-8 mb-16"
         >
           <motion.div 
             style={{ scale: laptopScale }}
