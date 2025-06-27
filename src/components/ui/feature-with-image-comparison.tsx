@@ -70,8 +70,8 @@ function Feature() {
                 </button>
               </div>
               <img
-                src="https://www.twblocks.com/_next/image?url=%2Ffeature8.png&w=3840&q=75"
-                alt="feature8"
+                src="/lovable-uploads/fd807163-2ca3-4624-8479-258c7b1335a7.png"
+                alt="YouTube channel with 100K subscribers"
                 width={1920}
                 height={1080}
                 className="absolute left-0 top-0 z-10 w-full h-full aspect-video rounded-2xl select-none border border-gray-700"
@@ -80,8 +80,8 @@ function Feature() {
                 }}
               />
               <img
-                src="https://www.twblocks.com/_next/image?url=%2Fdarkmode-feature8.png&w=3840&q=75"
-                alt="darkmode-feature8.png"
+                src="/lovable-uploads/c6e0ce28-ed93-4a9c-91db-3c3637461a4b.png"
+                alt="YouTube channel with 1K subscribers"
                 width={1920}
                 height={1080}
                 className="absolute left-0 top-0 w-full h-full aspect-video rounded-2xl select-none border border-gray-700"
