@@ -6,7 +6,7 @@ import { ReactNode } from 'react'
 
 export function Features() {
     return (
-        <section className="bg-gray-900 py-16 md:py-32">
+        <section className="bg-black py-16 md:py-32">
             <div className="mx-auto max-w-2xl px-6 lg:max-w-5xl">
                 <div className="mx-auto grid gap-4 lg:grid-cols-2">
                     <FeatureCard>
@@ -19,7 +19,7 @@ export function Features() {
                         </CardHeader>
 
                         <div className="relative mb-6 border-t border-dashed border-gray-600 sm:mb-0">
-                            <div className="absolute inset-0 [background:radial-gradient(125%_125%_at_50%_0%,transparent_40%,hsl(var(--muted)),hsl(var(--background))_125%)]"></div>
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-800/20 to-black"></div>
                             <div className="aspect-[76/59] p-1 px-6">
                                 <DualModeImage
                                     darkSrc="https://tailark.com/_next/image?url=%2Fpayments.png&w=3840&q=75"
@@ -43,7 +43,7 @@ export function Features() {
 
                         <CardContent>
                             <div className="relative mb-6 sm:mb-0">
-                                <div className="absolute -inset-6 [background:radial-gradient(50%_50%_at_75%_50%,transparent,hsl(var(--background))_100%)]"></div>
+                                <div className="absolute -inset-6 bg-gradient-to-r from-transparent via-gray-800/10 to-black"></div>
                                 <div className="aspect-[76/59] border border-gray-600">
                                     <DualModeImage
                                         darkSrc="https://tailark.com/_next/image?url=%2Forigin-cal-dark.png&w=3840&q=75"
@@ -95,7 +95,7 @@ interface FeatureCardProps {
 }
 
 const FeatureCard = ({ children, className }: FeatureCardProps) => (
-    <Card className={cn('group relative rounded-none shadow-zinc-950/5 bg-gray-800 border-gray-700', className)}>
+    <Card className={cn('group relative rounded-none shadow-zinc-950/5 bg-black border-gray-700', className)}>
         <CardDecorator />
         {children}
     </Card>
@@ -159,15 +159,15 @@ interface CircularUIProps {
 
 const CircularUI = ({ label, circles, className }: CircularUIProps) => (
     <div className={className}>
-        <div className="bg-gradient-to-b from-gray-600 size-fit rounded-2xl to-transparent p-px">
-            <div className="bg-gradient-to-b from-gray-800 to-gray-900/25 relative flex aspect-square w-fit items-center -space-x-4 rounded-[15px] p-4">
+        <div className="bg-gradient-to-b from-gray-600 to-black size-fit rounded-2xl p-px">
+            <div className="bg-gradient-to-b from-gray-800 to-black relative flex aspect-square w-fit items-center -space-x-4 rounded-[15px] p-4">
                 {circles.map((circle, i) => (
                     <div
                         key={i}
                         className={cn('size-7 rounded-full border sm:size-8', {
                             'border-gray-500': circle.pattern === 'none',
-                            'border-gray-500 bg-[repeating-linear-gradient(-45deg,hsl(var(--border)),hsl(var(--border))_1px,transparent_1px,transparent_4px)]': circle.pattern === 'border',
-                            'border-color-1 bg-gray-800 bg-[repeating-linear-gradient(-45deg,hsl(var(--primary)),hsl(var(--primary))_1px,transparent_1px,transparent_4px)]': circle.pattern === 'primary',
+                            'border-gray-500 bg-[repeating-linear-gradient(-45deg,#374151,#374151_1px,transparent_1px,transparent_4px)]': circle.pattern === 'border',
+                            'border-color-1 bg-gray-800 bg-[repeating-linear-gradient(-45deg,hsl(var(--color-1)),hsl(var(--color-1))_1px,transparent_1px,transparent_4px)]': circle.pattern === 'primary',
                             'bg-gray-800 z-1 border-color-1 bg-[repeating-linear-gradient(-45deg,hsl(var(--color-1)),hsl(var(--color-1))_1px,transparent_1px,transparent_4px)]': circle.pattern === 'red',
                         })}></div>
                 ))}
