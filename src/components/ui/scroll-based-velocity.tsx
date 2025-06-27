@@ -41,7 +41,10 @@ const highlightText = (text: string) => {
       );
     }
     return <span key={index}>{word}</span>;
-  }).reduce((prev, curr, index) => [prev, ' ', curr]);
+  }).reduce((prev: React.ReactNode, curr: React.ReactNode, index: number) => {
+    if (index === 0) return curr;
+    return [prev, ' ', curr];
+  });
 };
 
 export function VelocityScroll({

@@ -3,7 +3,7 @@ import { VelocityScroll } from "@/components/ui/scroll-based-velocity";
 
 const MarqueeSection = () => {
   return (
-    <div className="w-full py-12 bg-gray-900">
+    <div className="w-full py-6 bg-black">
       <VelocityScroll
         text="Plan → Publish → Analyze → Monetize → Repeat 💰"
         default_velocity={3}
