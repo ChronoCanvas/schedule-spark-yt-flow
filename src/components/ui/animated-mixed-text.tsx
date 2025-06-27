@@ -63,7 +63,7 @@ const AnimatedMixedText: React.FC<AnimatedMixedTextProps> = ({
       y: 0,
       transition: {
         duration: 0.3, // Reduced from 0.5 for faster animation
-        ease: "easeOut",
+        ease: [0.4, 0, 0.2, 1],
       },
     },
   };
