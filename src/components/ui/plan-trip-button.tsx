@@ -233,7 +233,7 @@ const PlanTripButton: React.FC<PlanTripButtonProps> = ({
               transition-all duration-500 ease-out delay-300
               ${isAnimatingYT ? 'translate-x-0 opacity-100' : 'translate-x-[100%] opacity-0'}
             `}>
-              <Triangle className="w-4 h-4 md:w-5 md:h-5 text-green-500 fill-current rotate-90" />
+              <Triangle className="w-4 h-4 md:w-5 md:h-5 text-green-500 fill-current rotate-0" />
               <span className="text-green-500 font-bold text-sm md:text-base ml-1">
                 {displayCount.toLocaleString()}
               </span>
