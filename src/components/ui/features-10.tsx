@@ -22,9 +22,9 @@ export function Features() {
                             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-800/20 to-black"></div>
                             <div className="aspect-[76/59] p-1 px-6">
                                 <DualModeImage
-                                    darkSrc="https://tailark.com/_next/image?url=%2Fpayments.png&w=3840&q=75"
-                                    lightSrc="https://tailark.com/_next/image?url=%2Fpayments-light.png&w=3840&q=75"
-                                    alt="payments illustration"
+                                    darkSrc="/landing-page_images/Payments.png"
+                                    lightSrc="/landing-page_images/Payments.png"
+                                    alt="payments dashboard illustration"
                                     width={1207}
                                     height={929}
                                 />
@@ -46,9 +46,9 @@ export function Features() {
                                 <div className="absolute -inset-6 bg-gradient-to-r from-transparent via-gray-800/10 to-black"></div>
                                 <div className="aspect-[76/59] border border-gray-600">
                                     <DualModeImage
-                                        darkSrc="https://tailark.com/_next/image?url=%2Forigin-cal-dark.png&w=3840&q=75"
-                                        lightSrc="https://tailark.com/_next/image?url=%2Forigin-cal.png&w=3840&q=75"
-                                        alt="calendar illustration"
+                                        darkSrc="/landing-page_images/June 2025.png"
+                                        lightSrc="/landing-page_images/June 2025.png"
+                                        alt="june 2025 calendar illustration"
                                         width={1207}
                                         height={929}
                                     />
