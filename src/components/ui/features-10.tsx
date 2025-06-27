@@ -94,12 +94,18 @@ const AnimatedCalendar = () => {
 
 export function Features() {
     const [analyticsAnimation, setAnalyticsAnimation] = useState(null);
+    const [schedulingAnimation, setSchedulingAnimation] = useState(null);
 
     useEffect(() => {
         fetch('/lottiefiles/Analytics-lottie.json')
             .then(response => response.json())
             .then(data => setAnalyticsAnimation(data))
-            .catch(error => console.error('Error loading animation:', error));
+            .catch(error => console.error('Error loading analytics animation:', error));
+
+        fetch('/lottiefiles/Grouped-Table.json')
+            .then(response => response.json())
+            .then(data => setSchedulingAnimation(data))
+            .catch(error => console.error('Error loading scheduling animation:', error));
     }, []);
 
     return (
@@ -143,14 +149,23 @@ export function Features() {
                             />
                         </CardHeader>
 
-                        <CardContent>
-                            <div className="relative mb-6 sm:mb-0">
-                                <div className="absolute -inset-6 bg-gradient-to-r from-transparent via-black/10 to-black"></div>
-                                <div className="aspect-[76/59] border border-gray-600 rounded-lg overflow-hidden">
-                                    <AnimatedCalendar />
-                                </div>
+                        <div className="relative mb-6 border-t border-dashed border-gray-600 sm:mb-0">
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black"></div>
+                            <div className="aspect-[76/59] p-1 px-6 flex items-center justify-center">
+                                {schedulingAnimation ? (
+                                    <Lottie 
+                                        animationData={schedulingAnimation}
+                                        loop={true}
+                                        autoplay={true}
+                                        style={{ width: '100%', height: '100%' }}
+                                    />
+                                ) : (
+                                    <div className="w-full h-full bg-gray-800 rounded flex items-center justify-center">
+                                        <span className="text-gray-400">Loading animation...</span>
+                                    </div>
+                                )}
                             </div>
-                        </CardContent>
+                        </div>
                     </FeatureCard>
 
                     <FeatureCard className="p-6 lg:col-span-2">
