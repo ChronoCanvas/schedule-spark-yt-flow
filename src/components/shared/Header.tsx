@@ -2,7 +2,8 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ExpandableTabs } from "@/components/ui/expandable-tabs";
-import { Home, User, FileText, Mail, HelpCircle, Lock } from "lucide-react";
+import { Home, HelpCircle, Lock } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 interface HeaderProps {
   theme?: "light" | "dark";
@@ -10,15 +11,13 @@ interface HeaderProps {
 
 const Header = ({ theme = "dark" }: HeaderProps) => {
   const isDark = theme === "dark";
+  const location = useLocation();
   
   const tabs = [
-    { title: "Home", icon: Home, type: "tab" as const },
-    { title: "About", icon: User, type: "tab" as const },
-    { title: "Pricing", icon: FileText, type: "tab" as const },
-    { title: "Contact", icon: Mail, type: "tab" as const },
+    { title: "Home", icon: Home, type: "tab" as const, href: "/" },
     { type: "separator" as const },
-    { title: "Support", icon: HelpCircle, type: "tab" as const },
-    { title: "Privacy", icon: Lock, type: "tab" as const },
+    { title: "Support", icon: HelpCircle, type: "tab" as const, href: "/support" },
+    { title: "Privacy", icon: Lock, type: "tab" as const, href: "/privacy-policy" },
   ];
   
   return (
@@ -37,7 +36,7 @@ const Header = ({ theme = "dark" }: HeaderProps) => {
           className="flex items-center"
         >
           <div className={`text-2xl font-bold hover:opacity-80 transition-opacity ${isDark ? 'text-white' : 'text-blue-900'}`}>
-            YOUTUBE PRO
+            YOUTILIFY
           </div>
         </motion.div>
 
@@ -53,6 +52,7 @@ const Header = ({ theme = "dark" }: HeaderProps) => {
               tabs={tabs} 
               theme={theme}
               className="hidden md:flex"
+              currentPath={location.pathname}
             />
           </motion.div>
 

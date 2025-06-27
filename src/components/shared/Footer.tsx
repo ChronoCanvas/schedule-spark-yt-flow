@@ -1,4 +1,3 @@
-
 import { Card } from "@/components/ui/card";
 import { Twitter, Instagram, Facebook, Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
@@ -228,16 +227,6 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                     >
                       <Link to="/" className="text-white/60 hover:text-white transition-colors hover:underline text-sm sm:text-base">
                         Home
-                      </Link>
-                    </motion.li>
-                    <motion.li 
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: 0.8 }}
-                      viewport={{ once: true }}
-                    >
-                      <Link to="/about" className="text-white/60 hover:text-white transition-colors hover:underline text-sm sm:text-base">
-                        About
                       </Link>
                     </motion.li>
                     <motion.li 
