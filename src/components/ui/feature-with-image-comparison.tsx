@@ -71,7 +71,7 @@ function Feature() {
                 </button>
               </div>
               <img
-                src="/lovable-uploads/b77cff97-965e-43ae-85ce-37a942d87dac.png"
+                src="/landing-page_images/comparsisonbefore.png"
                 alt="YouTube channel BEFORE - 1K subscribers"
                 className="absolute left-0 top-0 z-10 w-full h-full object-cover rounded-2xl select-none border border-gray-700"
                 style={{
@@ -79,7 +79,7 @@ function Feature() {
                 }}
               />
               <img
-                src="/lovable-uploads/718b30bb-d6d1-4d69-871d-b0bdb6f6bbc6.png"
+                src="/landing-page_images/comparsisonafter.png"
                 alt="YouTube channel AFTER - 100K subscribers"
                 className="absolute left-0 top-0 w-full h-full object-cover rounded-2xl select-none border border-gray-700"
               />
