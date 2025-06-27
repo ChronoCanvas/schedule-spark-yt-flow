@@ -1,4 +1,3 @@
-
 import { Card } from "@/components/ui/card";
 import { Play } from "lucide-react";
 import { useState } from "react";
@@ -48,11 +47,11 @@ const DemoPreviewSection = () => {
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
     >
-      <div className="container mx-auto px-4">
+      <div className="w-full max-w-none px-4 sm:px-6 lg:px-8">
         {/* Keep the space with padding instead of text */}
         <div className="text-center mb-8 py-16"></div>
 
-        <motion.div variants={itemVariants}>
+        <motion.div variants={itemVariants} className="max-w-7xl mx-auto">
           <Card className="relative overflow-hidden shadow-2xl border-0 group">
             <div className="aspect-video bg-gradient-to-br from-red-900 to-red-700 relative">
               <AnimatePresence mode="wait">
