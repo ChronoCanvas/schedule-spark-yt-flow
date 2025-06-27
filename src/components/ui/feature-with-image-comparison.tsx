@@ -70,18 +70,20 @@ function Feature() {
                   <GripVertical className="h-4 w-4 select-none text-black" />
                 </button>
               </div>
-              <img
-                src="/landing-page_images/comparsisonbefore.png"
-                alt="YouTube channel BEFORE - 1K subscribers"
-                className="absolute left-0 top-0 z-10 w-full h-full object-cover rounded-2xl select-none border border-gray-700"
-                style={{
-                  clipPath: "inset(0 0 0 " + inset + "%)",
-                }}
-              />
+              {/* AFTER image (right side - background) */}
               <img
                 src="/landing-page_images/comparsisonafter.png"
                 alt="YouTube channel AFTER - 100K subscribers"
-                className="absolute left-0 top-0 w-full h-full object-cover rounded-2xl select-none border border-gray-700"
+                className="absolute left-0 top-0 w-full h-full rounded-2xl select-none border border-gray-700"
+              />
+              {/* BEFORE image (left side - clipped) */}
+              <img
+                src="/landing-page_images/comparsisonbefore.png"
+                alt="YouTube channel BEFORE - 1K subscribers"
+                className="absolute left-0 top-0 z-10 w-full h-full rounded-2xl select-none border border-gray-700"
+                style={{
+                  clipPath: "inset(0 " + (100 - inset) + "% 0 0)",
+                }}
               />
             </div>
           </div>
