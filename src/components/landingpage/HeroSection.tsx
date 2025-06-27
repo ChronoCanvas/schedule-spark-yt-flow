@@ -1,3 +1,4 @@
+
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { MacbookPro } from "@/components/ui/macbook-pro";
@@ -22,8 +23,9 @@ const HeroSection = () => {
       {/* Geometric Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] via-transparent to-rose-500/[0.05] blur-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.02] via-transparent to-rose-500/[0.02] blur-3xl" />
           
+          {/* Large shape - top left area */}
           <motion.div
             initial={{
                 opacity: 0,
@@ -33,7 +35,7 @@ const HeroSection = () => {
             animate={{
                 opacity: 1,
                 y: 0,
-                rotate: 12,
+                rotate: 8,
             }}
             transition={{
                 duration: 2.4,
@@ -41,7 +43,46 @@ const HeroSection = () => {
                 ease: [0.23, 0.86, 0.39, 0.96],
                 opacity: { duration: 1.2 },
             }}
-            className="absolute left-[-10%] md:left-[-5%] top-[15%] md:top-[20%]"
+            className="absolute left-[-20%] md:left-[-15%] top-[5%] md:top-[8%]"
+          >
+            <motion.div
+                animate={{
+                    y: [0, 15, 0],
+                }}
+                transition={{
+                    duration: 12,
+                    repeat: Number.POSITIVE_INFINITY,
+                    ease: "easeInOut",
+                }}
+                style={{
+                    width: 800,
+                    height: 180,
+                }}
+                className="relative"
+            >
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-slate-500/[0.06] to-transparent backdrop-blur-[2px] border-2 border-white/[0.08] shadow-[0_8px_32px_0_rgba(255,255,255,0.05)] after:absolute after:inset-0 after:rounded-full after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
+            </motion.div>
+          </motion.div>
+
+          {/* Medium shape - top right */}
+          <motion.div
+            initial={{
+                opacity: 0,
+                y: -150,
+                rotate: -30,
+            }}
+            animate={{
+                opacity: 1,
+                y: 0,
+                rotate: -18,
+            }}
+            transition={{
+                duration: 2.4,
+                delay: 0.5,
+                ease: [0.23, 0.86, 0.39, 0.96],
+                opacity: { duration: 1.2 },
+            }}
+            className="absolute right-[-15%] md:right-[-10%] top-[12%] md:top-[15%]"
           >
             <motion.div
                 animate={{
@@ -58,28 +99,68 @@ const HeroSection = () => {
                 }}
                 className="relative"
             >
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500/[0.15] to-transparent backdrop-blur-[2px] border-2 border-white/[0.15] shadow-[0_8px_32px_0_rgba(255,255,255,0.1)] after:absolute after:inset-0 after:rounded-full after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]" />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500/[0.06] to-transparent backdrop-blur-[2px] border-2 border-white/[0.08] shadow-[0_8px_32px_0_rgba(255,255,255,0.05)] after:absolute after:inset-0 after:rounded-full after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
             </motion.div>
           </motion.div>
 
+          {/* Large shape - bottom right */}
           <motion.div
             initial={{
                 opacity: 0,
                 y: -150,
-                rotate: -30,
+                rotate: -23,
             }}
             animate={{
                 opacity: 1,
                 y: 0,
-                rotate: -15,
+                rotate: -12,
             }}
             transition={{
                 duration: 2.4,
-                delay: 0.5,
+                delay: 0.4,
                 ease: [0.23, 0.86, 0.39, 0.96],
                 opacity: { duration: 1.2 },
             }}
-            className="absolute right-[-5%] md:right-[0%] top-[70%] md:top-[75%]"
+            className="absolute right-[-20%] md:right-[-15%] bottom-[8%] md:bottom-[12%]"
+          >
+            <motion.div
+                animate={{
+                    y: [0, 15, 0],
+                }}
+                transition={{
+                    duration: 12,
+                    repeat: Number.POSITIVE_INFINITY,
+                    ease: "easeInOut",
+                }}
+                style={{
+                    width: 700,
+                    height: 160,
+                }}
+                className="relative"
+            >
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-rose-500/[0.06] to-transparent backdrop-blur-[2px] border-2 border-white/[0.08] shadow-[0_8px_32px_0_rgba(255,255,255,0.05)] after:absolute after:inset-0 after:rounded-full after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
+            </motion.div>
+          </motion.div>
+
+          {/* Medium shape - bottom left */}
+          <motion.div
+            initial={{
+                opacity: 0,
+                y: -150,
+                rotate: 5,
+            }}
+            animate={{
+                opacity: 1,
+                y: 0,
+                rotate: 15,
+            }}
+            transition={{
+                duration: 2.4,
+                delay: 0.6,
+                ease: [0.23, 0.86, 0.39, 0.96],
+                opacity: { duration: 1.2 },
+            }}
+            className="absolute left-[-10%] md:left-[-5%] bottom-[15%] md:bottom-[18%]"
           >
             <motion.div
                 animate={{
@@ -96,28 +177,29 @@ const HeroSection = () => {
                 }}
                 className="relative"
             >
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-rose-500/[0.15] to-transparent backdrop-blur-[2px] border-2 border-white/[0.15] shadow-[0_8px_32px_0_rgba(255,255,255,0.1)] after:absolute after:inset-0 after:rounded-full after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]" />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-violet-500/[0.06] to-transparent backdrop-blur-[2px] border-2 border-white/[0.08] shadow-[0_8px_32px_0_rgba(255,255,255,0.05)] after:absolute after:inset-0 after:rounded-full after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
             </motion.div>
           </motion.div>
 
+          {/* Small shape - center left */}
           <motion.div
             initial={{
                 opacity: 0,
                 y: -150,
-                rotate: -23,
+                rotate: -40,
             }}
             animate={{
                 opacity: 1,
                 y: 0,
-                rotate: -8,
+                rotate: -28,
             }}
             transition={{
                 duration: 2.4,
-                delay: 0.4,
+                delay: 0.7,
                 ease: [0.23, 0.86, 0.39, 0.96],
                 opacity: { duration: 1.2 },
             }}
-            className="absolute left-[5%] md:left-[10%] bottom-[5%] md:bottom-[10%]"
+            className="absolute left-[2%] md:left-[5%] top-[45%] md:top-[50%]"
           >
             <motion.div
                 animate={{
@@ -134,28 +216,29 @@ const HeroSection = () => {
                 }}
                 className="relative"
             >
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-violet-500/[0.15] to-transparent backdrop-blur-[2px] border-2 border-white/[0.15] shadow-[0_8px_32px_0_rgba(255,255,255,0.1)] after:absolute after:inset-0 after:rounded-full after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]" />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500/[0.06] to-transparent backdrop-blur-[2px] border-2 border-white/[0.08] shadow-[0_8px_32px_0_rgba(255,255,255,0.05)] after:absolute after:inset-0 after:rounded-full after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
             </motion.div>
           </motion.div>
 
+          {/* Small shape - center right */}
           <motion.div
             initial={{
                 opacity: 0,
                 y: -150,
-                rotate: 5,
+                rotate: 25,
             }}
             animate={{
                 opacity: 1,
                 y: 0,
-                rotate: 20,
+                rotate: 35,
             }}
             transition={{
                 duration: 2.4,
-                delay: 0.6,
+                delay: 0.8,
                 ease: [0.23, 0.86, 0.39, 0.96],
                 opacity: { duration: 1.2 },
             }}
-            className="absolute right-[15%] md:right-[20%] top-[10%] md:top-[15%]"
+            className="absolute right-[5%] md:right-[8%] top-[55%] md:top-[60%]"
           >
             <motion.div
                 animate={{
@@ -167,50 +250,12 @@ const HeroSection = () => {
                     ease: "easeInOut",
                 }}
                 style={{
-                    width: 200,
-                    height: 60,
+                    width: 250,
+                    height: 70,
                 }}
                 className="relative"
             >
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-500/[0.15] to-transparent backdrop-blur-[2px] border-2 border-white/[0.15] shadow-[0_8px_32px_0_rgba(255,255,255,0.1)] after:absolute after:inset-0 after:rounded-full after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]" />
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial={{
-                opacity: 0,
-                y: -150,
-                rotate: -40,
-            }}
-            animate={{
-                opacity: 1,
-                y: 0,
-                rotate: -25,
-            }}
-            transition={{
-                duration: 2.4,
-                delay: 0.7,
-                ease: [0.23, 0.86, 0.39, 0.96],
-                opacity: { duration: 1.2 },
-            }}
-            className="absolute left-[20%] md:left-[25%] top-[5%] md:top-[10%]"
-          >
-            <motion.div
-                animate={{
-                    y: [0, 15, 0],
-                }}
-                transition={{
-                    duration: 12,
-                    repeat: Number.POSITIVE_INFINITY,
-                    ease: "easeInOut",
-                }}
-                style={{
-                    width: 150,
-                    height: 40,
-                }}
-                className="relative"
-            >
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500/[0.15] to-transparent backdrop-blur-[2px] border-2 border-white/[0.15] shadow-[0_8px_32px_0_rgba(255,255,255,0.1)] after:absolute after:inset-0 after:rounded-full after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]" />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-500/[0.06] to-transparent backdrop-blur-[2px] border-2 border-white/[0.08] shadow-[0_8px_32px_0_rgba(255,255,255,0.05)] after:absolute after:inset-0 after:rounded-full after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
             </motion.div>
           </motion.div>
         </div>
