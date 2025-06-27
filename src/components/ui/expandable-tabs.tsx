@@ -6,11 +6,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useOnClickOutside } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface Tab {
   title: string;
   icon: LucideIcon;
   type: "tab";
+  href: string;
 }
 
 interface Separator {
@@ -26,6 +28,7 @@ interface ExpandableTabsProps {
   onChange?: (index: number | null) => void;
   defaultSelected?: number | null;
   theme?: "light" | "dark";
+  currentPath?: string;
 }
 
 const buttonVariants = {
@@ -61,22 +64,44 @@ export function ExpandableTabs({
   onChange,
   defaultSelected = null,
   theme = "dark",
+  currentPath,
 }: ExpandableTabsProps) {
   const [selected, setSelected] = React.useState<number | null>(defaultSelected);
   const outsideClickRef = React.useRef(null);
+  const navigate = useNavigate();
 
+  // Determine which tab should be selected based on current path
   React.useEffect(() => {
-    setSelected(defaultSelected);
-  }, [defaultSelected]);
+    if (currentPath) {
+      const currentTabIndex = tabs.findIndex((tab) => 
+        tab.type === "tab" && tab.href === currentPath
+      );
+      if (currentTabIndex !== -1) {
+        setSelected(currentTabIndex);
+      } else {
+        setSelected(null);
+      }
+    } else {
+      setSelected(defaultSelected);
+    }
+  }, [currentPath, tabs, defaultSelected]);
 
   useOnClickOutside(outsideClickRef, () => {
-    setSelected(null);
-    onChange?.(null);
+    // Don't deselect if we're highlighting current path
+    if (!currentPath) {
+      setSelected(null);
+      onChange?.(null);
+    }
   });
 
-  const handleSelect = (index: number) => {
+  const handleSelect = (index: number, tab: Tab) => {
     setSelected(index);
     onChange?.(index);
+    
+    // Navigate to the href if provided
+    if (tab.href) {
+      navigate(tab.href);
+    }
   };
 
   const isDark = theme === "dark";
@@ -112,6 +137,8 @@ export function ExpandableTabs({
 
         const tabItem = tab as Tab;
         const Icon = tabItem.icon;
+        const isCurrentPage = currentPath && tabItem.href === currentPath;
+        const isSelected = selected === index || isCurrentPage;
         
         return (
           <motion.button
@@ -119,12 +146,12 @@ export function ExpandableTabs({
             variants={buttonVariants}
             initial={false}
             animate="animate"
-            custom={selected === index}
-            onClick={() => handleSelect(index)}
+            custom={isSelected}
+            onClick={() => handleSelect(index, tabItem)}
             transition={transition}
             className={cn(
               "relative flex items-center rounded-xl px-4 py-2 text-sm font-medium transition-colors duration-300",
-              selected === index
+              isSelected
                 ? cn(
                     isDark ? "bg-[#ff0003]/20 backdrop-blur-sm text-[#ff0003]" : "bg-[#ff0003]/10 text-[#ff0003]"
                   )
@@ -135,7 +162,7 @@ export function ExpandableTabs({
           >
             <Icon size={20} />
             <AnimatePresence initial={false}>
-              {selected === index && (
+              {isSelected && (
                 <motion.span
                   variants={spanVariants}
                   initial="initial"
