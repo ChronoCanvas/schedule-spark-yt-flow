@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 import { Calendar, LucideIcon, BarChart3 } from 'lucide-react'
 import { ReactNode } from 'react'
 import Lottie from 'lottie-react'
-import analyticsAnimation from 'public/lottiefiles/Analytics-lottie.json'
+import analyticsAnimation from '/lottiefiles/Analytics-lottie.json'
 
 export function Features() {
     return (
