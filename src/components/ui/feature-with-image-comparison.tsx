@@ -41,7 +41,8 @@ function Feature() {
           </div>
           <div className="pt-12 w-full">
             <div
-              className="relative aspect-video w-full h-full overflow-hidden rounded-2xl select-none"
+              className="relative w-full overflow-hidden rounded-2xl select-none"
+              style={{ aspectRatio: "16/9" }}
               onMouseMove={onMouseMove}
               onMouseUp={() => setOnMouseDown(false)}
               onTouchMove={onMouseMove}
@@ -70,21 +71,17 @@ function Feature() {
                 </button>
               </div>
               <img
-                src="/lovable-uploads/fd807163-2ca3-4624-8479-258c7b1335a7.png"
+                src="/lovable-uploads/ea02a26b-edbe-400e-b0fe-9f038dd2cff5.png"
                 alt="YouTube channel with 100K subscribers"
-                width={1920}
-                height={1080}
-                className="absolute left-0 top-0 z-10 w-full h-full aspect-video rounded-2xl select-none border border-gray-700"
+                className="absolute left-0 top-0 z-10 w-full h-full object-cover rounded-2xl select-none border border-gray-700"
                 style={{
                   clipPath: "inset(0 0 0 " + inset + "%)",
                 }}
               />
               <img
-                src="/lovable-uploads/c6e0ce28-ed93-4a9c-91db-3c3637461a4b.png"
+                src="/lovable-uploads/e329dff2-6a23-44bb-9e80-a89eed8f4b5b.png"
                 alt="YouTube channel with 1K subscribers"
-                width={1920}
-                height={1080}
-                className="absolute left-0 top-0 w-full h-full aspect-video rounded-2xl select-none border border-gray-700"
+                className="absolute left-0 top-0 w-full h-full object-cover rounded-2xl select-none border border-gray-700"
               />
             </div>
           </div>
