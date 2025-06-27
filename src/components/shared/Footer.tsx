@@ -1,3 +1,4 @@
+
 import { Card } from "@/components/ui/card";
 import { Twitter, Instagram, Facebook, Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
@@ -15,7 +16,7 @@ interface FooterProps {
   theme?: "light" | "dark";
 }
 
-function FloatingPaths({ position }: { position: number }) {
+function FloatingPaths({ position, theme = "dark" }: { position: number; theme?: "light" | "dark" }) {
   const paths = Array.from({ length: 36 }, (_, i) => ({
     id: i,
     d: `M-${380 - i * 5 * position} -${189 + i * 6}C-${
@@ -29,10 +30,12 @@ function FloatingPaths({ position }: { position: number }) {
     width: 0.5 + i * 0.03,
   }));
 
+  const isDark = theme === "dark";
+
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <svg
-        className="w-full h-full text-white opacity-20"
+        className={`w-full h-full ${isDark ? 'text-white opacity-20' : 'text-gray-300 opacity-30'}`}
         viewBox="0 0 696 316"
         fill="none"
         preserveAspectRatio="xMidYMid slice"
@@ -63,23 +66,25 @@ function FloatingPaths({ position }: { position: number }) {
   );
 }
 
-const Footer = ({ theme = "light" }: FooterProps) => {
+const Footer = ({ theme = "dark" }: FooterProps) => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const isDark = theme === "dark";
   
   return (
-    <section className="w-full py-12 sm:py-20 bg-black overflow-hidden">
+    <section className={`w-full py-12 sm:py-20 ${isDark ? 'bg-black' : 'bg-gray-100'} overflow-hidden`}>
       <div className="w-full max-w-none px-4 sm:px-6 lg:px-8">
-        {/* Dark footer container */}
-        <div className="relative text-white rounded-2xl border border-gray-800 shadow-lg overflow-hidden bg-black max-w-7xl mx-auto">
+        {/* Footer container */}
+        <div className={`relative ${isDark ? 'text-white' : 'text-gray-900'} rounded-2xl border ${isDark ? 'border-gray-800 bg-black' : 'border-gray-200 bg-white'} shadow-lg overflow-hidden max-w-7xl mx-auto`}>
           {/* Background Paths */}
           <div className="absolute inset-0 overflow-hidden">
-            <FloatingPaths position={1} />
-            <FloatingPaths position={-1} />
+            <FloatingPaths position={1} theme={theme} />
+            <FloatingPaths position={-1} theme={theme} />
           </div>
 
           {/* Content */}
@@ -93,12 +98,12 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                 viewport={{ once: true }}
                 className="text-center mb-12 sm:mb-16"
               >
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+                <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight ${isDark ? 'text-white' : 'text-gray-900'}`}>
                   YOUR DREAM TRIP,
                   <br />
                   <span className="text-red-500">YOUR WAY</span>
                 </h2>
-                <p className="text-lg sm:text-xl md:text-2xl text-white/80 mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
+                <p className={`text-lg sm:text-xl md:text-2xl ${isDark ? 'text-white/80' : 'text-gray-600'} mb-6 sm:mb-8 max-w-2xl mx-auto px-4`}>
                   Everyone's perfect journey looks different. Share your vision, and we'll
                   bring it to life with personalized recommendations that match your
                   unique travel style.
@@ -128,7 +133,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
-                    className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-white"
+                    className={`text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}
                   >
                     Youtilify
                   </motion.h3>
@@ -137,7 +142,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                     viewport={{ once: true }}
-                    className="text-white/60 mb-4 sm:mb-6 max-w-md mx-auto sm:mx-0"
+                    className={`${isDark ? 'text-white/60' : 'text-gray-600'} mb-4 sm:mb-6 max-w-md mx-auto sm:mx-0`}
                   >
                     The smartest way to plan your travels. AI-powered itineraries, 
                     collaborative planning, and intelligent expense tracking.
@@ -157,7 +162,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                           transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
                           viewport={{ once: true }}
                           whileHover={{ scale: 1.2, rotate: 360 }}
-                          className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-700 rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white transition-all duration-300"
+                          className={`w-10 h-10 sm:w-12 sm:h-12 ${isDark ? 'bg-gray-700' : 'bg-gray-200'} rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white transition-all duration-300`}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -176,7 +181,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                   viewport={{ once: true }}
                   className="text-center sm:text-left"
                 >
-                  <h4 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-white">Product</h4>
+                  <h4 className={`text-base sm:text-lg font-semibold mb-3 sm:mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>Product</h4>
                   <ul className="space-y-2">
                     <motion.li 
                       initial={{ opacity: 0, x: -10 }}
@@ -187,7 +192,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                       <Link 
                         to="/" 
                         onClick={() => setTimeout(() => scrollToSection('features-section'), 100)}
-                        className="text-white/60 hover:text-white transition-colors hover:underline text-sm sm:text-base"
+                        className={`${isDark ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors hover:underline text-sm sm:text-base`}
                       >
                         Features
                       </Link>
@@ -201,7 +206,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                       <Link 
                         to="/" 
                         onClick={() => setTimeout(() => scrollToSection('how-it-works'), 100)}
-                        className="text-white/60 hover:text-white transition-colors hover:underline text-sm sm:text-base"
+                        className={`${isDark ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors hover:underline text-sm sm:text-base`}
                       >
                         How it Works
                       </Link>
@@ -217,7 +222,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                   viewport={{ once: true }}
                   className="text-center sm:text-left"
                 >
-                  <h4 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-white">Company</h4>
+                  <h4 className={`text-base sm:text-lg font-semibold mb-3 sm:mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>Company</h4>
                   <ul className="space-y-2">
                     <motion.li 
                       initial={{ opacity: 0, x: -10 }}
@@ -225,7 +230,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                       transition={{ duration: 0.4, delay: 0.8 }}
                       viewport={{ once: true }}
                     >
-                      <Link to="/" className="text-white/60 hover:text-white transition-colors hover:underline text-sm sm:text-base">
+                      <Link to="/" className={`${isDark ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors hover:underline text-sm sm:text-base`}>
                         Home
                       </Link>
                     </motion.li>
@@ -235,7 +240,7 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                       transition={{ duration: 0.4, delay: 0.9 }}
                       viewport={{ once: true }}
                     >
-                      <Link to="/privacy-policy" className="text-white/60 hover:text-white transition-colors hover:underline text-sm sm:text-base">
+                      <Link to="/privacy-policy" className={`${isDark ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors hover:underline text-sm sm:text-base`}>
                         Privacy
                       </Link>
                     </motion.li>
@@ -249,9 +254,9 @@ const Footer = ({ theme = "light" }: FooterProps) => {
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
                 viewport={{ once: true }}
-                className="border-t border-gray-800 pt-6 sm:pt-8 text-center"
+                className={`border-t ${isDark ? 'border-gray-800' : 'border-gray-200'} pt-6 sm:pt-8 text-center`}
               >
-                <p className="text-white/40 text-sm sm:text-base">
+                <p className={`${isDark ? 'text-white/40' : 'text-gray-500'} text-sm sm:text-base`}>
                   © 2025 Youtilify. All rights reserved.
                 </p>
               </motion.div>
