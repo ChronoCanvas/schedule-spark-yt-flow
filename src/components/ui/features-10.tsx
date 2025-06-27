@@ -1,8 +1,9 @@
-
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
-import { Calendar, LucideIcon, MapPin } from 'lucide-react'
+import { Calendar, LucideIcon, BarChart3 } from 'lucide-react'
 import { ReactNode } from 'react'
+import Lottie from 'lottie-react'
+import analyticsAnimation from '/public/lottiefiles/Analytics-lottie.json'
 
 export function Features() {
     return (
@@ -12,21 +13,20 @@ export function Features() {
                     <FeatureCard>
                         <CardHeader className="pb-3">
                             <CardHeading
-                                icon={MapPin}
-                                title="Real time location tracking"
-                                description="Advanced tracking system, Instantly locate all your assets."
+                                icon={BarChart3}
+                                title="AI-Powered Channel Insights"
+                                description="Real-time performance intelligence, so you never miss what's working—or what isn't."
                             />
                         </CardHeader>
 
                         <div className="relative mb-6 border-t border-dashed border-gray-600 sm:mb-0">
-                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-800/20 to-black"></div>
-                            <div className="aspect-[76/59] p-1 px-6">
-                                <DualModeImage
-                                    darkSrc="https://tailark.com/_next/image?url=%2Fpayments.png&w=3840&q=75"
-                                    lightSrc="https://tailark.com/_next/image?url=%2Fpayments-light.png&w=3840&q=75"
-                                    alt="payments illustration"
-                                    width={1207}
-                                    height={929}
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black"></div>
+                            <div className="aspect-[76/59] p-1 px-6 flex items-center justify-center">
+                                <Lottie 
+                                    animationData={analyticsAnimation}
+                                    loop={true}
+                                    autoplay={true}
+                                    style={{ width: '100%', height: '100%' }}
                                 />
                             </div>
                         </div>
@@ -43,7 +43,7 @@ export function Features() {
 
                         <CardContent>
                             <div className="relative mb-6 sm:mb-0">
-                                <div className="absolute -inset-6 bg-gradient-to-r from-transparent via-gray-800/10 to-black"></div>
+                                <div className="absolute -inset-6 bg-gradient-to-r from-transparent via-black/10 to-black"></div>
                                 <div className="aspect-[76/59] border border-gray-600">
                                     <DualModeImage
                                         darkSrc="https://tailark.com/_next/image?url=%2Forigin-cal-dark.png&w=3840&q=75"
