@@ -50,7 +50,7 @@ const ScrollExpandMedia = ({
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsInView(entry.isIntersecting && entry.intersectionRatio > 0.5);
+        setIsInView(entry.isIntersecting && entry.intersectionRatio > 0.3);
         if (!entry.isIntersecting) {
           // Reset when out of view
           setScrollProgress(0);
@@ -59,8 +59,8 @@ const ScrollExpandMedia = ({
         }
       },
       {
-        threshold: 0.5,
-        rootMargin: '-10% 0px -10% 0px'
+        threshold: 0.3,
+        rootMargin: '-20% 0px -20% 0px'
       }
     );
 
@@ -80,12 +80,25 @@ const ScrollExpandMedia = ({
 
     const handleWheel = (e: Event) => {
       const wheelEvent = e as unknown as WheelEvent;
-      if (mediaFullyExpanded && wheelEvent.deltaY < 0 && window.scrollY <= 5) {
-        setMediaFullyExpanded(false);
+      
+      // Allow scrolling up when fully expanded
+      if (mediaFullyExpanded) {
+        if (wheelEvent.deltaY < 0) {
+          // Scrolling up - allow normal scroll or reset if at top
+          if (window.scrollY <= 100) {
+            setMediaFullyExpanded(false);
+            setScrollProgress(0.8); // Set to high value to prevent jumping
+            e.preventDefault();
+          }
+          // Otherwise allow normal scroll
+        }
+        return;
+      }
+      
+      // Only prevent default when not fully expanded and in view
+      if (!mediaFullyExpanded && isInView) {
         e.preventDefault();
-      } else if (!mediaFullyExpanded) {
-        e.preventDefault();
-        const scrollDelta = wheelEvent.deltaY * 0.0009;
+        const scrollDelta = wheelEvent.deltaY * 0.0015;
         const newProgress = Math.min(
           Math.max(scrollProgress + scrollDelta, 0),
           1
@@ -113,10 +126,16 @@ const ScrollExpandMedia = ({
       const touchY = touchEvent.touches[0].clientY;
       const deltaY = touchStartY - touchY;
 
-      if (mediaFullyExpanded && deltaY < -20 && window.scrollY <= 5) {
-        setMediaFullyExpanded(false);
-        e.preventDefault();
-      } else if (!mediaFullyExpanded) {
+      if (mediaFullyExpanded) {
+        if (deltaY < -30 && window.scrollY <= 100) {
+          setMediaFullyExpanded(false);
+          setScrollProgress(0.8);
+          e.preventDefault();
+        }
+        return;
+      }
+
+      if (!mediaFullyExpanded && isInView) {
         e.preventDefault();
         const scrollFactor = deltaY < 0 ? 0.008 : 0.005;
         const scrollDelta = deltaY * scrollFactor;
@@ -141,24 +160,15 @@ const ScrollExpandMedia = ({
       setTouchStartY(0);
     };
 
-    const handleScroll = (): void => {
-      if (!mediaFullyExpanded && isInView) {
-        // Only prevent scroll when in view and not fully expanded
-        window.scrollTo(0, sectionRef.current?.offsetTop || 0);
-      }
-    };
-
     window.addEventListener('wheel', handleWheel, {
       passive: false,
     });
-    window.addEventListener('scroll', handleScroll);
     window.addEventListener('touchstart', handleTouchStart, { passive: false });
     window.addEventListener('touchmove', handleTouchMove, { passive: false });
     window.addEventListener('touchend', handleTouchEnd);
 
     return () => {
       window.removeEventListener('wheel', handleWheel);
-      window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
