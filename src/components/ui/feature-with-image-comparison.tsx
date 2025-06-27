@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { GripVertical } from "lucide-react";
@@ -42,12 +41,13 @@ function Feature() {
           <div className="pt-12 w-full flex justify-center">
             <div
               className="relative overflow-hidden rounded-2xl select-none"
-              style={{ width: "1200px", height: "600px", maxWidth: "100%" }}
+              style={{ width: "900px", height: "600px", maxWidth: "100%" }}
               onMouseMove={onMouseMove}
               onMouseUp={() => setOnMouseDown(false)}
               onTouchMove={onMouseMove}
               onTouchEnd={() => setOnMouseDown(false)}
             >
+              
               <div
                 className="bg-gray-300 h-full w-1 absolute z-20 top-0 -ml-1 select-none"
                 style={{
