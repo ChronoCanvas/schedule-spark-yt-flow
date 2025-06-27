@@ -2,11 +2,19 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { Calendar, LucideIcon, BarChart3 } from 'lucide-react'
-import { ReactNode } from 'react'
+import { ReactNode, useState, useEffect } from 'react'
 import Lottie from 'lottie-react'
-import analyticsAnimation from '/lottiefiles/Analytics-lottie.json'
 
 export function Features() {
+    const [analyticsAnimation, setAnalyticsAnimation] = useState(null);
+
+    useEffect(() => {
+        fetch('/lottiefiles/Analytics-lottie.json')
+            .then(response => response.json())
+            .then(data => setAnalyticsAnimation(data))
+            .catch(error => console.error('Error loading animation:', error));
+    }, []);
+
     return (
         <section className="bg-black py-16 md:py-32">
             <div className="mx-auto max-w-2xl px-6 lg:max-w-5xl">
@@ -23,12 +31,18 @@ export function Features() {
                         <div className="relative mb-6 border-t border-dashed border-gray-600 sm:mb-0">
                             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black"></div>
                             <div className="aspect-[76/59] p-1 px-6 flex items-center justify-center">
-                                <Lottie 
-                                    animationData={analyticsAnimation}
-                                    loop={true}
-                                    autoplay={true}
-                                    style={{ width: '100%', height: '100%' }}
-                                />
+                                {analyticsAnimation ? (
+                                    <Lottie 
+                                        animationData={analyticsAnimation}
+                                        loop={true}
+                                        autoplay={true}
+                                        style={{ width: '100%', height: '100%' }}
+                                    />
+                                ) : (
+                                    <div className="w-full h-full bg-gray-800 rounded flex items-center justify-center">
+                                        <span className="text-gray-400">Loading animation...</span>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </FeatureCard>
