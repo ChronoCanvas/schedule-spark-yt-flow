@@ -119,12 +119,12 @@ const GlowTextarea = forwardRef<HTMLTextAreaElement, GlowTextareaProps>(({
         ref={containerRef}
         data-glow-textarea
         style={getInlineStyles()}
-        className={`relative w-full ${className}`}
+        className={`relative w-full flex ${className}`}
       >
         <textarea
           ref={ref}
           {...props}
-          className="w-full h-full bg-transparent text-white placeholder-gray-400 focus:outline-none border-none resize-none p-4"
+          className="w-full flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none border-none resize-none p-4"
         />
       </div>
     </>
