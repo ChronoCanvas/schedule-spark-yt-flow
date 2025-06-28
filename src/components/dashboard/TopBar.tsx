@@ -105,10 +105,10 @@ const TopBar: React.FC<TopBarProps> = ({ title, onMenuClick, showMobileMenu = fa
         <div className="relative">
           <GlowButton
             glowColor="red"
-            leftIcon={<Bell className="w-5 h-5" />}
-            className="bg-gray-800 hover:bg-gray-700 rounded-full h-10 w-10 p-0 relative"
+            className="bg-gray-800 hover:bg-gray-700 rounded-full h-10 w-10 p-2 flex items-center justify-center relative"
           >
-            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            <Bell className="w-5 h-5 text-gray-300" />
+            <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
           </GlowButton>
         </div>
       </div>
