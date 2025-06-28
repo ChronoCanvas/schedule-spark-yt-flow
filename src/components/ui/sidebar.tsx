@@ -1,9 +1,8 @@
-
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Link, LinkProps } from "react-router-dom";
-import React, { useState, createContext, useContext } from "react";
+import { Link, LinkProps, useLocation } from "react-router-dom";
+import React, { useState, createContext, useContext, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
@@ -95,13 +94,45 @@ export const DesktopSidebar = ({
   ...props
 }: React.ComponentProps<"div">) => {
   const { open, setOpen, animate } = useSidebar();
+  const location = useLocation();
+  const [canHover, setCanHover] = useState(false);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Reset hover state on route change and add delay
+  useEffect(() => {
+    setCanHover(false);
+    
+    // Clear any existing timeout
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    
+    // Add delay before allowing hover interactions
+    hoverTimeoutRef.current = setTimeout(() => {
+      setCanHover(true);
+    }, 150);
+    
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, [location.pathname]);
   
   const motionProps = {
     animate: {
       width: animate ? (open ? "300px" : "60px") : "300px",
     },
-    onMouseEnter: () => setOpen(true),
-    onMouseLeave: () => setOpen(false),
+    onMouseEnter: () => {
+      if (canHover) {
+        setOpen(true);
+      }
+    },
+    onMouseLeave: () => {
+      if (canHover) {
+        setOpen(false);
+      }
+    },
   };
 
   return (
