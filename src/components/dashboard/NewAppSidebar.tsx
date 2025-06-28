@@ -12,7 +12,8 @@ import {
   ChevronRight,
   User,
   Settings,
-  LogOut
+  LogOut,
+  X
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -84,27 +85,43 @@ const sidebarItems: SidebarItem[] = [
 ];
 
 const Logo = () => {
-  const { open } = useSidebar();
+  const { open, setOpen } = useSidebar();
   
   return (
-    <Link
-      to="/dashboard"
-      className={cn(
-        "font-normal flex items-center text-sm text-white py-1 relative z-20",
-        open ? "space-x-2 justify-start" : "justify-center"
-      )}
-    >
-      <div className="h-5 w-6 bg-red-500 rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
-      <motion.span
-        animate={{
-          opacity: open ? 1 : 0,
-          display: open ? "inline-block" : "none"
-        }}
-        className="font-bold text-white whitespace-pre"
+    <div className={cn(
+      "font-normal flex items-center text-sm text-white py-1 relative z-20",
+      open ? "justify-between" : "justify-center"
+    )}>
+      <Link
+        to="/dashboard"
+        className={cn(
+          "flex items-center",
+          open ? "space-x-2" : ""
+        )}
       >
-        YOUTILIFY
-      </motion.span>
-    </Link>
+        <div className="h-5 w-6 bg-red-500 rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+        <motion.span
+          animate={{
+            opacity: open ? 1 : 0,
+            display: open ? "inline-block" : "none"
+          }}
+          className="font-bold text-white whitespace-pre"
+        >
+          YOUTILIFY
+        </motion.span>
+      </Link>
+      
+      {open && (
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          onClick={() => setOpen(false)}
+          className="p-1 hover:bg-gray-800 rounded-md transition-colors"
+        >
+          <X className="w-4 h-4 text-gray-400 hover:text-white" />
+        </motion.button>
+      )}
+    </div>
   );
 };
 

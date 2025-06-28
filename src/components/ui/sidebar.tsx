@@ -1,4 +1,3 @@
-
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -100,8 +99,9 @@ export const DesktopSidebar = ({
     animate: {
       width: animate ? (open ? "300px" : "60px") : "300px",
     },
-    onMouseEnter: () => setOpen(true),
-    onMouseLeave: () => setOpen(false),
+    // Only open on hover when currently closed
+    onMouseEnter: () => !open && setOpen(true),
+    // Remove onMouseLeave - no auto-close behavior
   };
 
   return (
