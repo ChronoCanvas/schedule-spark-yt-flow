@@ -33,10 +33,10 @@ const KPICard: React.FC<KPICardProps> = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="bg-gray-800 border border-gray-700 rounded-lg p-6 hover:border-gray-600 transition-colors"
+      className="bg-gray-900 border border-gray-800 rounded-lg p-6 hover:border-gray-700 transition-colors"
     >
       <div className="flex items-center justify-between mb-4">
-        <div className="p-2 bg-gray-700/50 rounded-lg">
+        <div className="p-2 bg-gray-800/50 rounded-lg">
           <Icon className="w-5 h-5 text-gray-300" />
         </div>
         <span className={`text-sm font-medium ${getChangeColor()}`}>
