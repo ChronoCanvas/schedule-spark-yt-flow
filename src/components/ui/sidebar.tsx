@@ -1,9 +1,8 @@
-
 "use client";
 
 import { cn } from "@/lib/utils";
 import { Link, LinkProps } from "react-router-dom";
-import React, { useState, createContext, useContext } from "react";
+import React, { useState, createContext, useContext, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
@@ -95,13 +94,28 @@ export const DesktopSidebar = ({
   ...props
 }: React.ComponentProps<"div">) => {
   const { open, setOpen, animate } = useSidebar();
+  const hasHoveredRef = useRef(false);
+  const isHoveringRef = useRef(false);
   
+  const handleMouseEnter = () => {
+    isHoveringRef.current = true;
+    if (hasHoveredRef.current) {
+      setOpen(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    isHoveringRef.current = false;
+    hasHoveredRef.current = true;
+    setOpen(false);
+  };
+
   const motionProps = {
     animate: {
       width: animate ? (open ? "300px" : "60px") : "300px",
     },
-    onMouseEnter: () => setOpen(true),
-    onMouseLeave: () => setOpen(false),
+    onMouseEnter: handleMouseEnter,
+    onMouseLeave: handleMouseLeave,
   };
 
   return (
