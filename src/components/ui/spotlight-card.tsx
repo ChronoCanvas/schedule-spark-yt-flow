@@ -67,8 +67,8 @@ const GlowCard: React.FC<GlowCardProps> = ({
     const baseStyles: React.CSSProperties & Record<string, any> = {
       '--base': base,
       '--spread': spread,
-      '--radius': '14',
-      '--border': '3',
+      '--radius': '12',
+      '--border': '1',
       '--backdrop': 'hsl(0 0% 60% / 0.12)',
       '--backup-border': 'var(--backdrop)',
       '--size': '200',
@@ -76,11 +76,11 @@ const GlowCard: React.FC<GlowCardProps> = ({
       '--border-size': 'calc(var(--border, 2) * 1px)',
       '--spotlight-size': 'calc(var(--size, 150) * 1px)',
       '--hue': 'calc(var(--base) + (var(--xp, 0) * var(--spread, 0)))',
-      '--saturation': '50', // Reduced saturation for faint effect
-      '--lightness': '50', // Reduced lightness for faint effect
-      '--bg-spot-opacity': '0.05', // Much lower opacity for faint effect
-      '--border-spot-opacity': '0.3', // Lower opacity for faint border effect
-      '--border-light-opacity': '0.1', // Lower opacity for faint light effect
+      '--saturation': '50',
+      '--lightness': '50',
+      '--bg-spot-opacity': '0.05',
+      '--border-spot-opacity': '0.3',
+      '--border-light-opacity': '0.1',
       backgroundImage: `radial-gradient(
         var(--spotlight-size) var(--spotlight-size) at
         calc(var(--x, 0) * 1px)
@@ -94,6 +94,8 @@ const GlowCard: React.FC<GlowCardProps> = ({
       border: 'var(--border-size) solid var(--backup-border)',
       position: 'relative',
       touchAction: 'none',
+      borderRadius: 'calc(var(--radius) * 1px)',
+      overflow: 'hidden',
     };
 
     // Add width and height if provided
@@ -173,7 +175,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
         className={`
           ${getSizeClasses()}
           ${!customSize ? 'aspect-[3/4]' : ''}
-          rounded-2xl 
+          rounded-xl
           relative 
           grid 
           grid-rows-[1fr_auto] 
@@ -181,6 +183,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
           p-4 
           gap-4 
           backdrop-blur-[5px]
+          overflow-hidden
           ${className}
         `}
       >
