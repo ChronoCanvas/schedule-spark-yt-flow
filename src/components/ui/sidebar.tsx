@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Link, LinkProps } from "react-router-dom";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 interface Links {
   label: string;
@@ -100,7 +100,8 @@ export const DesktopSidebar = ({
     animate: {
       width: animate ? (open ? "300px" : "60px") : "300px",
     },
-    onMouseEnter: !open ? () => setOpen(true) : undefined,
+    onMouseEnter: () => setOpen(true),
+    onMouseLeave: () => setOpen(false),
   };
 
   return (
@@ -111,32 +112,7 @@ export const DesktopSidebar = ({
       )}
       {...motionProps}
     >
-      <div className="flex items-center justify-between">
-        <div className="flex-1">
-          {React.Children.toArray(children).find((child: any) =>
-            child?.type?.name === 'Logo' || 
-            (child?.props && typeof child.props.children === 'function' && child.props.children.toString().includes('YOUTILIFY'))
-          )}
-        </div>
-        
-        {/* Toggle Button - only show when open */}
-        {open && (
-          <button
-            onClick={() => setOpen(false)}
-            className="p-1 rounded-md hover:bg-gray-800 text-gray-400 hover:text-white transition-colors"
-            title="Collapse sidebar"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-        )}
-      </div>
-      
-      <div className="mt-8 flex-1">
-        {React.Children.toArray(children).filter((child: any) =>
-          !(child?.type?.name === 'Logo' || 
-            (child?.props && typeof child.props.children === 'function' && child.props.children.toString().includes('YOUTILIFY')))
-        )}
-      </div>
+      {children}
     </motion.div>
   );
 };
