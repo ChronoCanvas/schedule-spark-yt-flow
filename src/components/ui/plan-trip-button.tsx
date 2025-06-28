@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { Play, Loader2, Tablet, Eye, Triangle } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 interface PlanTripButtonProps {
   onPlanTrip?: () => Promise<void> | void
@@ -11,14 +12,12 @@ interface PlanTripButtonProps {
 }
 
 const PlanTripButton: React.FC<PlanTripButtonProps> = ({
-  onPlanTrip = async () => {
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    console.log('Trip planning completed!')
-  },
+  onPlanTrip,
   disabled = false,
   className = '',
   children = 'Level Up Your YT'
 }) => {
+  const navigate = useNavigate()
   const [isHovered, setIsHovered] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -103,15 +102,20 @@ const PlanTripButton: React.FC<PlanTripButtonProps> = ({
   const handleClick = async () => {
     if (disabled || isLoading) return
 
-    setIsLoading(true)
-    setError(null)
+    if (onPlanTrip) {
+      setIsLoading(true)
+      setError(null)
 
-    try {
-      await onPlanTrip()
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to plan trip')
-    } finally {
-      setIsLoading(false)
+      try {
+        await onPlanTrip()
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to plan trip')
+      } finally {
+        setIsLoading(false)
+      }
+    } else {
+      // Default behavior - navigate to login
+      navigate('/login')
     }
   }
 
