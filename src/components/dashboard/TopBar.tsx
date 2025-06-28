@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Search, Bell, Menu, Upload, Radio, UserPlus } from 'lucide-react';
+import { Search, Bell, Menu, Upload, Radio } from 'lucide-react';
 
 interface TopBarProps {
   title: string;
@@ -16,22 +16,15 @@ const TopBar: React.FC<TopBarProps> = ({ title, onMenuClick, showMobileMenu = fa
       id: 'upload',
       label: 'Upload Video',
       icon: Upload,
-      color: 'bg-red-500 hover:bg-red-600',
+      color: 'bg-red-600 hover:bg-red-700',
       href: '/dashboard/upload'
     },
     {
       id: 'livestream',
-      label: 'Schedule Livestream',
+      label: 'Go Live',
       icon: Radio,
-      color: 'bg-blue-500 hover:bg-blue-600',
+      color: 'bg-blue-600 hover:bg-blue-700',
       href: '/dashboard/livestreams'
-    },
-    {
-      id: 'team',
-      label: 'Add Team Member',
-      icon: UserPlus,
-      color: 'bg-green-500 hover:bg-green-600',
-      href: '/dashboard/team'
     }
   ];
 
@@ -75,12 +68,12 @@ const TopBar: React.FC<TopBarProps> = ({ title, onMenuClick, showMobileMenu = fa
         </button>
 
         {/* Quick Actions */}
-        <div className="hidden sm:flex items-center space-x-2">
+        <div className="hidden sm:flex items-center space-x-3">
           {quickActions.map((action) => (
             <button
               key={action.id}
               className={`
-                flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium
+                flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium
                 ${action.color} text-white
                 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black
               `}
@@ -92,12 +85,12 @@ const TopBar: React.FC<TopBarProps> = ({ title, onMenuClick, showMobileMenu = fa
         </div>
 
         {/* Mobile Quick Actions - Icons only */}
-        <div className="sm:hidden flex items-center space-x-1">
+        <div className="sm:hidden flex items-center space-x-2">
           {quickActions.map((action) => (
             <button
               key={action.id}
               className={`
-                p-2 rounded-lg
+                p-2 rounded-full
                 ${action.color} text-white
                 transition-all duration-200 focus:outline-none
               `}
