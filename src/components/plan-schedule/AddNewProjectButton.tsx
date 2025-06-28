@@ -9,16 +9,14 @@ interface AddNewProjectButtonProps {
 
 const AddNewProjectButton: React.FC<AddNewProjectButtonProps> = ({ onClick }) => {
   return (
-    <div className="flex justify-center mb-8">
-      <GlowButton
-        glowColor="red"
-        onClick={onClick}
-        leftIcon={<Plus className="w-5 h-5" />}
-        className="px-8 py-3 text-base font-semibold"
-      >
-        Add New Project
-      </GlowButton>
-    </div>
+    <GlowButton
+      glowColor="red"
+      onClick={onClick}
+      leftIcon={<Plus className="w-4 h-4" />}
+      className="px-4 py-2 text-sm font-medium bg-red-600 hover:bg-red-700"
+    >
+      Add New Project
+    </GlowButton>
   );
 };
 

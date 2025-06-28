@@ -21,18 +21,18 @@ const ProjectStateSection: React.FC<ProjectStateSectionProps> = ({ section, inde
       <GlowCard 
         glowColor={section.color}
         customSize={true}
-        className="bg-gray-950 border border-gray-900 rounded-lg p-6 h-full min-h-[400px]"
+        className="bg-gray-950 border border-gray-900 rounded-lg p-4 h-full min-h-[350px]"
       >
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-white">{section.title}</h3>
-          <span className="text-sm text-gray-400 bg-gray-800 px-2 py-1 rounded-full">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-base font-semibold text-white">{section.title}</h3>
+          <span className="text-xs text-gray-400 bg-gray-800 px-2 py-1 rounded-full">
             {section.projects.length}
           </span>
         </div>
         
-        <div className="space-y-3 max-h-[320px] overflow-y-auto scrollbar-hide">
+        <div className="space-y-2 max-h-[280px] overflow-y-auto scrollbar-hide">
           {section.projects.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-6 text-gray-500">
               <p className="text-sm">No projects in {section.title.toLowerCase()}</p>
             </div>
           ) : (
