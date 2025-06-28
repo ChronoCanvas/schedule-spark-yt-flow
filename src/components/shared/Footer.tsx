@@ -203,13 +203,12 @@ const Footer = ({ theme = "dark" }: FooterProps) => {
                       transition={{ duration: 0.4, delay: 0.8 }}
                       viewport={{ once: true }}
                     >
-                      <Link 
-                        to="/" 
-                        onClick={() => setTimeout(() => scrollToSection('how-it-works'), 100)}
+                      <button 
+                        onClick={() => scrollToSection('demo-section')}
                         className={`${isDark ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors hover:underline text-sm sm:text-base`}
                       >
                         How it Works
-                      </Link>
+                      </button>
                     </motion.li>
                   </ul>
                 </motion.div>
@@ -240,6 +239,16 @@ const Footer = ({ theme = "dark" }: FooterProps) => {
                       transition={{ duration: 0.4, delay: 0.9 }}
                       viewport={{ once: true }}
                     >
+                      <Link to="/support" className={`${isDark ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors hover:underline text-sm sm:text-base`}>
+                        Support
+                      </Link>
+                    </motion.li>
+                    <motion.li 
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: 1.0 }}
+                      viewport={{ once: true }}
+                    >
                       <Link to="/privacy-policy" className={`${isDark ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors hover:underline text-sm sm:text-base`}>
                         Privacy
                       </Link>
@@ -259,7 +268,7 @@ const Footer = ({ theme = "dark" }: FooterProps) => {
                 <p className={`${isDark ? 'text-white/40' : 'text-gray-500'} text-sm sm:text-base`}>
                   © 2025 Youtilify. All rights reserved.
                 </p>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
