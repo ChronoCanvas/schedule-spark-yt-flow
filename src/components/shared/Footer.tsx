@@ -201,7 +201,7 @@ const Footer = ({ theme = "dark" }: FooterProps) => {
                       viewport={{ once: true }}
                     >
                       <button 
-                        onClick={() => handleNavigation('/', 'features-section')}
+                        onClick={() => handleNavigation('/', 'features-10')}
                         className={`${isDark ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors hover:underline text-sm sm:text-base`}
                       >
                         Features
