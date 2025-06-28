@@ -158,9 +158,9 @@ const PlanSchedulePage: React.FC = () => {
                   <GlowCard
                     glowColor="red"
                     customSize={true}
-                    className="w-auto h-10 bg-gray-900/80 border border-gray-700 hover:border-red-500/50 transition-all duration-200 rounded-full flex items-center justify-center px-4"
+                    className="w-auto h-10 bg-gray-900/80 border border-gray-700 hover:border-red-500/50 transition-all duration-200 rounded-full"
                   >
-                    <div className="flex items-center justify-center space-x-2">
+                    <div className="flex items-center justify-center space-x-2 h-full px-4">
                       <span className="text-white text-sm font-medium">{selectedState}</span>
                       <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${filterOpen ? 'rotate-180' : ''}`} />
                     </div>
