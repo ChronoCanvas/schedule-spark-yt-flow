@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -16,7 +15,7 @@ import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import NotFound from "./pages/NotFound";
 import DashboardPage from "./pages/DashboardPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
-import UploadPage from "./pages/UploadPage";
+import PlanSchedulePage from "./pages/PlanSchedulePage";
 import LiveStreamsPage from "./pages/LiveStreamsPage";
 import CalendarPage from "./pages/CalendarPage";
 import CommunityPage from "./pages/CommunityPage";
@@ -129,14 +128,14 @@ const AppContent: React.FC = () => {
                 <AnalyticsPage />
               </motion.div>
             } />
-            <Route path="/dashboard/upload" element={
+            <Route path="/dashboard/plan-schedule" element={
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <UploadPage />
+                <PlanSchedulePage />
               </motion.div>
             } />
             <Route path="/dashboard/livestreams" element={

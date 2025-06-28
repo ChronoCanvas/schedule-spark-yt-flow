@@ -1,4 +1,3 @@
-
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -79,7 +78,7 @@ export const SidebarBody = ({
 }: React.ComponentProps<"div">) => {
   return (
     <>
-      <DesktopSidebar className={className} {...props}>
+      <DesktopSidebar className={className}>
         {children}
       </DesktopSidebar>
       <MobileSidebar className={className}>
@@ -92,8 +91,10 @@ export const SidebarBody = ({
 export const DesktopSidebar = ({
   className,
   children,
-  ...props
-}: React.ComponentProps<"div">) => {
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) => {
   const { open, setOpen, animate } = useSidebar();
   return (
     <motion.div
@@ -106,7 +107,6 @@ export const DesktopSidebar = ({
       }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
-      {...props}
     >
       {children}
     </motion.div>
