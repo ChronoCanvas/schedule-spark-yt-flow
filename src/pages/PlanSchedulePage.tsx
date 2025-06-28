@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import NewAppSidebar from '@/components/dashboard/NewAppSidebar';
 import { GlowCard } from '@/components/ui/spotlight-card';
@@ -208,13 +209,13 @@ const PlanSchedulePage: React.FC = () => {
 
         {/* Projects List */}
         <div className="flex-1 p-6">
-          <div className="space-y-3">
+          <div className="space-y-2">
             {filteredProjects.map((project) => (
               <GlowCard
                 key={project.id}
                 glowColor="red"
                 customSize={true}
-                className="w-full h-auto bg-gray-900/50 border border-gray-800 hover:border-red-500/50 transition-all duration-200 cursor-pointer p-4"
+                className="w-full h-auto bg-gray-900/50 border border-gray-800 hover:border-red-500/50 transition-all duration-200 cursor-pointer p-3"
               >
                 <div className="flex items-center space-x-4">
                   {/* Video Thumbnail - Smaller for list view */}
@@ -238,7 +239,7 @@ const PlanSchedulePage: React.FC = () => {
                         <h3 className="text-base font-semibold text-white mb-1 truncate">
                           {project.title}
                         </h3>
-                        <p className="text-sm text-gray-400 mb-2 line-clamp-1">
+                        <p className="text-sm text-gray-400 mb-1 line-clamp-1">
                           {project.description}
                         </p>
 
