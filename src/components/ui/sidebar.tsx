@@ -1,4 +1,3 @@
-
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -55,7 +54,7 @@ export const SidebarProvider = ({
     hoverDelayRef.current = true;
     setTimeout(() => {
       hoverDelayRef.current = false;
-    }, 2000);
+    }, 1000);
   };
 
   return (
