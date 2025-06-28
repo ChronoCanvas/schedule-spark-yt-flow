@@ -77,7 +77,7 @@ const RecentVideos: React.FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.4 }}
-      className="bg-gray-900 border border-gray-800 rounded-lg p-6"
+      className="bg-gray-950 border border-gray-900 rounded-lg p-6"
     >
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-lg font-semibold text-white">Recent Videos</h2>
@@ -93,13 +93,13 @@ const RecentVideos: React.FC = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
-            className="flex items-center space-x-4 p-3 rounded-lg hover:bg-gray-800 transition-colors cursor-pointer"
+            className="flex items-center space-x-4 p-3 rounded-lg hover:bg-gray-900 transition-colors cursor-pointer"
           >
             {/* Thumbnail - Made larger */}
             <img
               src={video.thumbnail}
               alt={video.title}
-              className="w-24 h-16 bg-gray-700 rounded object-cover flex-shrink-0"
+              className="w-24 h-16 bg-gray-800 rounded object-cover flex-shrink-0"
             />
 
             {/* Content */}
