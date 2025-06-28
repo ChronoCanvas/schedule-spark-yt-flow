@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Settings, Palette } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
@@ -21,6 +21,36 @@ const TeleprompterMode: React.FC<TeleprompterModeProps> = ({ script, onClose }) 
     { name: 'Blue', value: '#4dabf7' },
     { name: 'Purple', value: '#845ef7' }
   ];
+
+  // Create dynamic CSS for animation
+  useEffect(() => {
+    const styleId = 'teleprompter-animation';
+    let existingStyle = document.getElementById(styleId);
+    
+    if (!existingStyle) {
+      existingStyle = document.createElement('style');
+      existingStyle.id = styleId;
+      document.head.appendChild(existingStyle);
+    }
+
+    const animationDuration = 20 / scrollSpeed[0];
+    existingStyle.textContent = `
+      @keyframes teleprompter-scroll {
+        0% { transform: translateY(100vh); }
+        100% { transform: translateY(-100%); }
+      }
+      .teleprompter-content {
+        animation: teleprompter-scroll ${animationDuration}s linear infinite;
+      }
+    `;
+
+    return () => {
+      const style = document.getElementById(styleId);
+      if (style) {
+        style.remove();
+      }
+    };
+  }, [scrollSpeed]);
 
   return (
     <div className="fixed inset-0 z-50 bg-black">
@@ -95,9 +125,8 @@ const TeleprompterMode: React.FC<TeleprompterModeProps> = ({ script, onClose }) 
       <div className="h-full flex items-center justify-center p-8 pt-20">
         <div className="max-w-4xl w-full">
           <div 
-            className="text-white text-2xl md:text-3xl lg:text-4xl leading-relaxed text-center whitespace-pre-wrap"
+            className="teleprompter-content text-white text-2xl md:text-3xl lg:text-4xl leading-relaxed text-center whitespace-pre-wrap"
             style={{
-              animation: `scroll ${20 / scrollSpeed[0]}s linear infinite`,
               background: `linear-gradient(180deg, transparent 0%, ${highlightColor}20 30%, ${highlightColor}20 70%, transparent 100%)`
             }}
           >
@@ -105,13 +134,6 @@ const TeleprompterMode: React.FC<TeleprompterModeProps> = ({ script, onClose }) 
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes scroll {
-          0% { transform: translateY(100vh); }
-          100% { transform: translateY(-100%); }
-        }
-      `}</style>
     </div>
   );
 };
