@@ -42,7 +42,7 @@ export const SidebarProvider = ({
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   animate?: boolean;
 }) => {
-  const [openState, setOpenState] = useState(false);
+  const [openState, setOpenState] = useState(false); // Start collapsed
 
   const open = openProp !== undefined ? openProp : openState;
   const setOpen = setOpenProp !== undefined ? setOpenProp : setOpenState;
@@ -72,12 +72,16 @@ export const Sidebar = ({
   );
 };
 
-export const SidebarBody = (props: React.ComponentProps<typeof motion.div>) => {
-  const { className, children, ...otherProps } = props;
-  
+export const SidebarBody = ({ 
+  className, 
+  children, 
+  ...props 
+}: React.ComponentProps<typeof motion.div>) => {
   return (
     <>
-      <DesktopSidebar {...props} />
+      <DesktopSidebar className={className} {...props}>
+        {children}
+      </DesktopSidebar>
       <MobileSidebar className={className}>
         {children}
       </MobileSidebar>
