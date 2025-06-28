@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Link, LinkProps } from "react-router-dom";
-import React, { useState, createContext, useContext } from "react";
+import React, { useState, createContext, useContext, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
@@ -16,6 +16,7 @@ interface SidebarContextProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   animate: boolean;
+  closeWithDelay: () => void;
 }
 
 const SidebarContext = createContext<SidebarContextProps | undefined>(
@@ -42,12 +43,21 @@ export const SidebarProvider = ({
   animate?: boolean;
 }) => {
   const [openState, setOpenState] = useState(false);
+  const hoverDelayRef = useRef<boolean>(false);
 
   const open = openProp !== undefined ? openProp : openState;
   const setOpen = setOpenProp !== undefined ? setOpenProp : setOpenState;
 
+  const closeWithDelay = () => {
+    setOpen(false);
+    hoverDelayRef.current = true;
+    setTimeout(() => {
+      hoverDelayRef.current = false;
+    }, 2000);
+  };
+
   return (
-    <SidebarContext.Provider value={{ open, setOpen, animate }}>
+    <SidebarContext.Provider value={{ open, setOpen, animate, closeWithDelay }}>
       {children}
     </SidebarContext.Provider>
   );
@@ -94,15 +104,35 @@ export const DesktopSidebar = ({
   ...props
 }: React.ComponentProps<"div">) => {
   const { open, setOpen, animate } = useSidebar();
+  const hoverDelayRef = useRef<boolean>(false);
   
   const motionProps = {
     animate: {
       width: animate ? (open ? "300px" : "60px") : "300px",
     },
-    // Only open on hover when currently closed
-    onMouseEnter: () => !open && setOpen(true),
+    // Only open on hover when currently closed and not in delay period
+    onMouseEnter: () => {
+      if (!open && !hoverDelayRef.current) {
+        setOpen(true);
+      }
+    },
     // Remove onMouseLeave - no auto-close behavior
   };
+
+  // Expose the delay ref to the context
+  React.useEffect(() => {
+    const context = React.useContext(SidebarContext);
+    if (context) {
+      const originalCloseWithDelay = context.closeWithDelay;
+      context.closeWithDelay = () => {
+        setOpen(false);
+        hoverDelayRef.current = true;
+        setTimeout(() => {
+          hoverDelayRef.current = false;
+        }, 2000);
+      };
+    }
+  }, [setOpen]);
 
   return (
     <motion.div

@@ -85,7 +85,7 @@ const sidebarItems: SidebarItem[] = [
 ];
 
 const Logo = () => {
-  const { open, setOpen } = useSidebar();
+  const { open, closeWithDelay } = useSidebar();
   
   return (
     <div className={cn(
@@ -115,7 +115,7 @@ const Logo = () => {
         <motion.button
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          onClick={() => setOpen(false)}
+          onClick={closeWithDelay}
           className="p-1 hover:bg-gray-800 rounded-md transition-colors"
         >
           <X className="w-4 h-4 text-gray-400 hover:text-white" />
