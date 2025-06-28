@@ -15,7 +15,7 @@ const SupportPage = () => {
 
   const filteredArticles = supportArticles.articles.filter(article =>
     article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    article.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    article.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
     article.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
@@ -127,7 +127,7 @@ const SupportPage = () => {
                               {article.title}
                             </h3>
                             <p className="text-gray-400 mb-3 line-clamp-2">
-                              {article.excerpt}
+                              {article.description}
                             </p>
                             <div className="flex flex-wrap gap-2">
                               {article.tags.map((tag) => (

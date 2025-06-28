@@ -81,7 +81,7 @@ const SupportArticlePage = () => {
               <span>{article.readTime}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span>Last updated: {article.lastUpdated}</span>
+              <span>Published: {article.publishedAt}</span>
             </div>
           </div>
         </motion.div>
@@ -96,15 +96,36 @@ const SupportArticlePage = () => {
             <CardContent className="p-8">
               <div className="prose prose-invert max-w-none">
                 {article.content.map((section, index) => (
-                  <div key={index} className="mb-8">
-                    <h2 className="text-2xl font-bold text-white mb-4">
-                      {section.heading}
-                    </h2>
-                    {section.paragraphs.map((paragraph, pIndex) => (
-                      <p key={pIndex} className="text-gray-300 leading-relaxed mb-4">
-                        {paragraph}
+                  <div key={index} className="mb-6">
+                    {section.type === 'heading' && (
+                      <h2 className="text-2xl font-bold text-white mb-4">
+                        {section.text}
+                      </h2>
+                    )}
+                    {section.type === 'paragraph' && (
+                      <p className="text-gray-300 leading-relaxed mb-4">
+                        {section.text}
                       </p>
-                    ))}
+                    )}
+                    {section.type === 'callout' && (
+                      <div className={`p-4 rounded-lg mb-4 ${
+                        section.variant === 'info' ? 'bg-blue-900 border-blue-700' :
+                        section.variant === 'success' ? 'bg-green-900 border-green-700' :
+                        section.variant === 'warning' ? 'bg-yellow-900 border-yellow-700' :
+                        'bg-gray-700 border-gray-600'
+                      } border`}>
+                        <p className="text-white">{section.text}</p>
+                      </div>
+                    )}
+                    {section.type === 'image' && (
+                      <div className="mb-6">
+                        <img 
+                          src={section.src} 
+                          alt={section.alt} 
+                          className="w-full rounded-lg"
+                        />
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -159,7 +180,7 @@ const SupportArticlePage = () => {
                         {relatedArticle.title}
                       </h4>
                       <p className="text-gray-400 mb-3 line-clamp-2">
-                        {relatedArticle.excerpt}
+                        {relatedArticle.description}
                       </p>
                       <div className="flex items-center gap-2 text-sm text-gray-500">
                         <Clock className="w-3 h-3" />
