@@ -7,6 +7,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import LandingPage from "./pages/LandingPage";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 import SupportPage from "./pages/SupportPage";
 import SupportArticlePage from "./pages/SupportArticlePage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
@@ -41,6 +43,26 @@ const AppContent: React.FC = () => {
               transition={{ duration: 0.3 }}
             >
               <LandingPage />
+            </motion.div>
+          } />
+          <Route path="/login" element={
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <LoginPage />
+            </motion.div>
+          } />
+          <Route path="/signup" element={
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <SignupPage />
             </motion.div>
           } />
           <Route path="/support" element={
