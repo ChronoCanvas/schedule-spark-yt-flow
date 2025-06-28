@@ -3,7 +3,6 @@ import React from 'react';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import KPICard from '@/components/dashboard/KPICard';
 import RecentVideos from '@/components/dashboard/RecentVideos';
-import QuickActions from '@/components/dashboard/QuickActions';
 import { Eye, Users, Clock, DollarSign } from 'lucide-react';
 
 const DashboardPage: React.FC = () => {
@@ -56,17 +55,9 @@ const DashboardPage: React.FC = () => {
           ))}
         </div>
 
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Recent Videos - Takes 2 columns */}
-          <div className="lg:col-span-2">
-            <RecentVideos />
-          </div>
-
-          {/* Quick Actions - Takes 1 column */}
-          <div className="lg:col-span-1">
-            <QuickActions />
-          </div>
+        {/* Recent Videos - Full width */}
+        <div className="w-full">
+          <RecentVideos />
         </div>
       </div>
     </DashboardLayout>

@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Search, Bell, User, Menu } from 'lucide-react';
+import { Search, Bell, Menu, Upload, Radio, UserPlus } from 'lucide-react';
 
 interface TopBarProps {
   title: string;
@@ -10,6 +10,30 @@ interface TopBarProps {
 
 const TopBar: React.FC<TopBarProps> = ({ title, onMenuClick, showMobileMenu = false }) => {
   const [searchValue, setSearchValue] = useState('');
+
+  const quickActions = [
+    {
+      id: 'upload',
+      label: 'Upload Video',
+      icon: Upload,
+      color: 'bg-red-500 hover:bg-red-600',
+      href: '/dashboard/upload'
+    },
+    {
+      id: 'livestream',
+      label: 'Schedule Livestream',
+      icon: Radio,
+      color: 'bg-blue-500 hover:bg-blue-600',
+      href: '/dashboard/livestreams'
+    },
+    {
+      id: 'team',
+      label: 'Add Team Member',
+      icon: UserPlus,
+      color: 'bg-green-500 hover:bg-green-600',
+      href: '/dashboard/team'
+    }
+  ];
 
   return (
     <div className="bg-black border-b border-gray-800 px-4 py-3 flex items-center justify-between">
@@ -50,6 +74,39 @@ const TopBar: React.FC<TopBarProps> = ({ title, onMenuClick, showMobileMenu = fa
           <Search className="w-5 h-5" />
         </button>
 
+        {/* Quick Actions */}
+        <div className="hidden sm:flex items-center space-x-2">
+          {quickActions.map((action) => (
+            <button
+              key={action.id}
+              className={`
+                flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium
+                ${action.color} text-white
+                transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black
+              `}
+            >
+              <action.icon className="w-4 h-4" />
+              <span className="hidden lg:block">{action.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Mobile Quick Actions - Icons only */}
+        <div className="sm:hidden flex items-center space-x-1">
+          {quickActions.map((action) => (
+            <button
+              key={action.id}
+              className={`
+                p-2 rounded-lg
+                ${action.color} text-white
+                transition-all duration-200 focus:outline-none
+              `}
+            >
+              <action.icon className="w-4 h-4" />
+            </button>
+          ))}
+        </div>
+
         {/* Notifications */}
         <div className="relative">
           <button className="p-2 rounded-lg hover:bg-gray-800 text-gray-400 relative">
@@ -57,14 +114,6 @@ const TopBar: React.FC<TopBarProps> = ({ title, onMenuClick, showMobileMenu = fa
             <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
           </button>
         </div>
-
-        {/* User Avatar */}
-        <button className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-800">
-          <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
-            <User className="w-4 h-4 text-white" />
-          </div>
-          <span className="hidden sm:block text-sm text-white">John Creator</span>
-        </button>
       </div>
     </div>
   );
