@@ -268,7 +268,7 @@ const Footer = ({ theme = "dark" }: FooterProps) => {
                 <p className={`${isDark ? 'text-white/40' : 'text-gray-500'} text-sm sm:text-base`}>
                   © 2025 Youtilify. All rights reserved.
                 </p>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
