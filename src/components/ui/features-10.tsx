@@ -39,7 +39,7 @@ const people = [
 
 export function Features() {
     return (
-        <section className="bg-black py-16 md:py-32">
+        <section id="features-10" className="bg-black py-16 md:py-32">
             <div className="mx-auto max-w-2xl px-6 lg:max-w-5xl">
                 <div className="mx-auto grid gap-4 lg:grid-cols-2">
                     <FeatureCard>

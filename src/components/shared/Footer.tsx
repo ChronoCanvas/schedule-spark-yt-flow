@@ -110,14 +110,14 @@ const Footer = ({ theme = "dark" }: FooterProps) => {
                 className="text-center mb-12 sm:mb-16"
               >
                 <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                  YOUR DREAM TRIP,
+                  SIMPLIFY YOUR LIFE,
                   <br />
                   <span className="text-red-500">YOUR WAY</span>
                 </h2>
                 <p className={`text-lg sm:text-xl md:text-2xl ${isDark ? 'text-white/80' : 'text-gray-600'} mb-6 sm:mb-8 max-w-2xl mx-auto px-4`}>
-                  Everyone's perfect journey looks different. Share your vision, and we'll
-                  bring it to life with personalized recommendations that match your
-                  unique travel style.
+                  Discover tools and utilities that make your daily tasks easier. 
+                  From productivity helpers to lifestyle enhancers, find everything 
+                  you need to optimize your routine.
                 </p>
                 
                 <motion.button
@@ -125,7 +125,7 @@ const Footer = ({ theme = "dark" }: FooterProps) => {
                   whileTap={{ scale: 0.95 }}
                   className="bg-red-500 hover:bg-red-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:shadow-lg transition-all duration-300"
                 >
-                   Discover Now
+                   Explore Tools
                 </motion.button>
               </motion.div>
 
@@ -155,8 +155,8 @@ const Footer = ({ theme = "dark" }: FooterProps) => {
                     viewport={{ once: true }}
                     className={`${isDark ? 'text-white/60' : 'text-gray-600'} mb-4 sm:mb-6 max-w-md mx-auto sm:mx-0`}
                   >
-                    The smartest way to plan your travels. AI-powered itineraries, 
-                    collaborative planning, and intelligent expense tracking.
+                    Your ultimate toolkit for daily productivity and convenience. 
+                    Discover utilities that simplify tasks and enhance your lifestyle.
                   </motion.p>
                   
                   {/* Social media links */}
