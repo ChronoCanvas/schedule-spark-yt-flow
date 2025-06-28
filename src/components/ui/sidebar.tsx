@@ -1,3 +1,4 @@
+
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -99,6 +100,7 @@ export const DesktopSidebar = ({
     animate: {
       width: animate ? (open ? "300px" : "60px") : "300px",
     },
+    onMouseEnter: !open ? () => setOpen(true) : undefined,
   };
 
   return (
@@ -109,21 +111,31 @@ export const DesktopSidebar = ({
       )}
       {...motionProps}
     >
-      {/* Toggle Button */}
-      <button
-        onClick={() => setOpen(!open)}
-        className="absolute top-4 right-2 z-50 p-1 rounded-md hover:bg-gray-800 text-gray-400 hover:text-white transition-colors"
-        title={open ? "Collapse sidebar" : "Expand sidebar"}
-      >
-        {open ? (
-          <ChevronLeft className="w-4 h-4" />
-        ) : (
-          <ChevronRight className="w-4 h-4" />
+      <div className="flex items-center justify-between">
+        <div className="flex-1">
+          {React.Children.toArray(children).find((child: any) =>
+            child?.type?.name === 'Logo' || 
+            (child?.props && typeof child.props.children === 'function' && child.props.children.toString().includes('YOUTILIFY'))
+          )}
+        </div>
+        
+        {/* Toggle Button - only show when open */}
+        {open && (
+          <button
+            onClick={() => setOpen(false)}
+            className="p-1 rounded-md hover:bg-gray-800 text-gray-400 hover:text-white transition-colors"
+            title="Collapse sidebar"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
         )}
-      </button>
+      </div>
       
-      <div className="mt-8">
-        {children}
+      <div className="mt-8 flex-1">
+        {React.Children.toArray(children).filter((child: any) =>
+          !(child?.type?.name === 'Logo' || 
+            (child?.props && typeof child.props.children === 'function' && child.props.children.toString().includes('YOUTILIFY')))
+        )}
       </div>
     </motion.div>
   );
