@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import NewAppSidebar from '@/components/dashboard/NewAppSidebar';
 import { GlowCard } from '@/components/ui/spotlight-card';
@@ -149,7 +150,7 @@ const PlanSchedulePage: React.FC = () => {
             <div className="flex items-center space-x-4">
               <h1 className="text-2xl font-bold text-white">Plan & Schedule</h1>
               
-              {/* Filter Dropdown with GlowCard - Fixed centering */}
+              {/* Filter Dropdown with GlowCard - Override default styles */}
               <div className="relative">
                 <div 
                   className="cursor-pointer"
@@ -158,7 +159,7 @@ const PlanSchedulePage: React.FC = () => {
                   <GlowCard
                     glowColor="red"
                     customSize={true}
-                    className="w-auto h-10 bg-gray-900/80 border border-gray-700 hover:border-red-500/50 transition-all duration-200 rounded-full"
+                    className="w-auto h-10 bg-gray-900/80 border border-gray-700 hover:border-red-500/50 transition-all duration-200 rounded-full p-0 flex items-center justify-center gap-0"
                   >
                     <div className="flex items-center justify-center space-x-2 h-full px-4">
                       <span className="text-white text-sm font-medium">{selectedState}</span>
