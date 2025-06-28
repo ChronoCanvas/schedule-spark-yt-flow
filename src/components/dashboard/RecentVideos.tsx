@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Eye, ThumbsUp, MessageCircle, Calendar } from 'lucide-react';
@@ -97,7 +98,7 @@ const RecentVideos: React.FC = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
-              className="flex items-center space-x-4 p-3 rounded-lg hover:bg-gray-900 transition-colors cursor-pointer"
+              className="flex items-center space-x-4 p-3 rounded-xl hover:bg-red-500/10 hover:rounded-xl transition-all duration-300 cursor-pointer"
             >
               {/* Thumbnail - Made larger */}
               <img
@@ -108,7 +109,7 @@ const RecentVideos: React.FC = () => {
 
               {/* Content */}
               <div className="flex-1 min-w-0">
-                <h3 className="text-sm font-medium text-white truncate mb-1">
+                <h3 className="text-base font-medium text-white truncate mb-1">
                   {video.title}
                 </h3>
                 
