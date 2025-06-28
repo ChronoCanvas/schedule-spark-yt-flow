@@ -102,15 +102,8 @@ const PlanSchedulePage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black flex w-full">
-      {/* Sidebar with disabled hover animation */}
-      <div className="fixed left-0 top-0 h-full z-40">
-        <NewAppSidebar collapsed={sidebarCollapsed} onToggle={toggleSidebar} />
-        {/* Overlay to disable hover when we want static behavior */}
-        <div 
-          className="absolute inset-0 pointer-events-none z-50"
-          style={{ pointerEvents: 'none' }}
-        />
-      </div>
+      {/* Sidebar */}
+      <NewAppSidebar collapsed={sidebarCollapsed} onToggle={toggleSidebar} />
 
       {/* Main Content */}
       <div 
