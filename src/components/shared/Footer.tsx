@@ -1,9 +1,8 @@
-
 import { Card } from "@/components/ui/card";
 import { Twitter, Instagram, Facebook, Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
 import socialData from "@/data/social.json";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const iconMap = {
   twitter: Twitter,
@@ -67,10 +66,22 @@ function FloatingPaths({ position, theme = "dark" }: { position: number; theme?:
 }
 
 const Footer = ({ theme = "dark" }: FooterProps) => {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavigation = (path: string, sectionId?: string) => {
+    if (path === location.pathname && sectionId) {
+      // Same page - scroll to section
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // Different page - navigate and scroll to top
+      navigate(path);
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
     }
   };
 
@@ -189,13 +200,12 @@ const Footer = ({ theme = "dark" }: FooterProps) => {
                       transition={{ duration: 0.4, delay: 0.7 }}
                       viewport={{ once: true }}
                     >
-                      <Link 
-                        to="/" 
-                        onClick={() => setTimeout(() => scrollToSection('features-section'), 100)}
+                      <button 
+                        onClick={() => handleNavigation('/', 'features-section')}
                         className={`${isDark ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors hover:underline text-sm sm:text-base`}
                       >
                         Features
-                      </Link>
+                      </button>
                     </motion.li>
                     <motion.li 
                       initial={{ opacity: 0, x: -10 }}
@@ -203,13 +213,12 @@ const Footer = ({ theme = "dark" }: FooterProps) => {
                       transition={{ duration: 0.4, delay: 0.8 }}
                       viewport={{ once: true }}
                     >
-                      <Link 
-                        to="/" 
-                        onClick={() => setTimeout(() => scrollToSection('demo-preview'), 100)}
+                      <button 
+                        onClick={() => handleNavigation('/', 'demo-preview')}
                         className={`${isDark ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors hover:underline text-sm sm:text-base`}
                       >
                         How it Works
-                      </Link>
+                      </button>
                     </motion.li>
                   </ul>
                 </motion.div>
@@ -230,9 +239,9 @@ const Footer = ({ theme = "dark" }: FooterProps) => {
                       transition={{ duration: 0.4, delay: 0.8 }}
                       viewport={{ once: true }}
                     >
-                      <Link to="/" className={`${isDark ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors hover:underline text-sm sm:text-base`}>
+                      <button onClick={() => handleNavigation('/')} className={`${isDark ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors hover:underline text-sm sm:text-base`}>
                         Home
-                      </Link>
+                      </button>
                     </motion.li>
                     <motion.li 
                       initial={{ opacity: 0, x: -10 }}
@@ -240,9 +249,9 @@ const Footer = ({ theme = "dark" }: FooterProps) => {
                       transition={{ duration: 0.4, delay: 0.9 }}
                       viewport={{ once: true }}
                     >
-                      <Link to="/privacy-policy" className={`${isDark ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors hover:underline text-sm sm:text-base`}>
+                      <button onClick={() => handleNavigation('/privacy-policy')} className={`${isDark ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors hover:underline text-sm sm:text-base`}>
                         Privacy
-                      </Link>
+                      </button>
                     </motion.li>
                     <motion.li 
                       initial={{ opacity: 0, x: -10 }}
@@ -250,9 +259,9 @@ const Footer = ({ theme = "dark" }: FooterProps) => {
                       transition={{ duration: 0.4, delay: 1.0 }}
                       viewport={{ once: true }}
                     >
-                      <Link to="/support" className={`${isDark ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors hover:underline text-sm sm:text-base`}>
+                      <button onClick={() => handleNavigation('/support')} className={`${isDark ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-900'} transition-colors hover:underline text-sm sm:text-base`}>
                         Support
-                      </Link>
+                      </button>
                     </motion.li>
                   </ul>
                 </motion.div>
