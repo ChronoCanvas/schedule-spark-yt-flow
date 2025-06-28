@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Search, Bell, Menu, Upload, Radio } from 'lucide-react';
 import { GlowCard } from '@/components/ui/spotlight-card';
+import { GlowInput } from '@/components/ui/glow-input';
 
 interface TopBarProps {
   title: string;
@@ -49,22 +50,14 @@ const TopBar: React.FC<TopBarProps> = ({ title, onMenuClick, showMobileMenu = fa
 
       {/* Center - Search */}
       <div className="hidden md:flex flex-1 max-w-md mx-8">
-        <GlowCard 
-          glowColor="red" 
-          customSize={true}
-          className="w-full h-auto aspect-auto grid-rows-none gap-0 p-0 bg-transparent border-0 shadow-none backdrop-blur-none"
-        >
-          <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <input
-              type="text"
-              placeholder="Search videos, comments..."
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-red-500 transition-colors"
-            />
-          </div>
-        </GlowCard>
+        <GlowInput
+          glowColor="red"
+          placeholder="Search videos, comments..."
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          leftIcon={<Search className="w-4 h-4" />}
+          className="h-10"
+        />
       </div>
 
       {/* Right side */}
