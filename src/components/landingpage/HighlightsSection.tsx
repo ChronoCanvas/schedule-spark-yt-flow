@@ -20,9 +20,9 @@ const HighlightsSection = () => {
         <div className="text-center mb-16">
           <AnimatedMixedText
             segments={textSegments}
-            delay={100}
+            delay={50}
             direction="top"
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-6 leading-tight sm:leading-snug max-w-6xl mx-auto"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-6 leading-tight sm:leading-snug max-w-6xl mx-auto"
           />
         </div>
       </div>
