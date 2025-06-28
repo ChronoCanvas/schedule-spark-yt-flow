@@ -4,6 +4,7 @@
 import * as React from "react"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { X } from "lucide-react";
 
 interface SignInProps {
   mode?: "signin" | "signup";
@@ -46,9 +47,21 @@ const ModernStunningSignIn = ({ mode = "signin" }: SignInProps) => {
   const handleToggleMode = () => {
     navigate(isSignUp ? "/login" : "/signup");
   };
+
+  const handleClose = () => {
+    navigate("/");
+  };
  
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#121212] relative overflow-hidden w-full rounded-xl">
+      {/* Close button */}
+      <button
+        onClick={handleClose}
+        className="absolute top-6 left-6 z-20 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+      >
+        <X size={20} />
+      </button>
+
       {/* Centered glass card */}
       <div className="relative z-10 w-full max-w-sm rounded-3xl bg-gradient-to-r from-[#ffffff10] to-[#121212] backdrop-blur-sm shadow-2xl p-8 flex flex-col items-center">
         {/* Logo */}
