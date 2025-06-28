@@ -10,7 +10,7 @@ interface DashboardLayoutProps {
 }
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, title }) => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -29,10 +29,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, title }) =>
 
         {/* Main Content with left margin to account for fixed sidebar */}
         <div 
-          className="flex-1 flex flex-col min-w-0 transition-all duration-300"
-          style={{ 
-            marginLeft: sidebarCollapsed ? '60px' : '300px'
-          }}
+          className="flex-1 flex flex-col min-w-0 transition-all duration-300 md:ml-[60px]"
         >
           <div className="sticky top-0 z-50">
             <TopBar 
