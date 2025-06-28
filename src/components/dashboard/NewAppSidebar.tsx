@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   Home, 
@@ -136,7 +135,7 @@ const ExpandableMenuItem = ({ item }: { item: SidebarItem }) => {
           ),
         }}
         className={`${
-          isActive(item.href) ? 'bg-red-500/20 text-red-400 mx-1' : 'text-gray-400 hover:text-white hover:bg-gray-800'
+          isActive(item.href) ? 'bg-red-500/20 text-red-400' : 'text-gray-400 hover:text-white hover:bg-gray-800'
         }`}
       />
     );
@@ -199,7 +198,7 @@ const ExpandableMenuItem = ({ item }: { item: SidebarItem }) => {
                     ),
                   }}
                   className={`text-xs ${
-                    isActive(child.href) ? 'bg-red-500/20 text-red-400 mx-1' : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                    isActive(child.href) ? 'bg-red-500/20 text-red-400' : 'text-gray-400 hover:text-white hover:bg-gray-800'
                   }`}
                 />
               ))}

@@ -138,7 +138,6 @@ export const MobileSidebar = ({
                 "fixed h-full w-full inset-0 bg-black p-10 z-[100] flex flex-col justify-between overflow-y-auto scrollbar-hide",
                 className
               )}
-              {...props}
             >
               <div
                 className="absolute right-10 top-10 z-50 text-white cursor-pointer"
@@ -169,7 +168,7 @@ export const SidebarLink = ({
     <Link
       to={link.href}
       className={cn(
-        "flex items-center gap-2 group/sidebar py-2 px-2 rounded-lg transition-all duration-200 hover:bg-gray-800",
+        "flex items-center gap-2 group/sidebar py-2 px-3 rounded-lg transition-all duration-200 hover:bg-gray-800",
         open ? "justify-start" : "justify-center",
         className
       )}
