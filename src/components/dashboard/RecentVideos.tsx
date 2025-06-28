@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Eye, ThumbsUp, MessageCircle, Calendar } from 'lucide-react';
+import { GlowCard } from '@/components/ui/spotlight-card';
 
 interface Video {
   id: string;
@@ -77,69 +77,74 @@ const RecentVideos: React.FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.4 }}
-      className="bg-gray-950 border border-gray-900 rounded-lg p-6"
     >
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-lg font-semibold text-white">Recent Videos</h2>
-        <button className="text-sm text-red-400 hover:text-red-300">
-          View All
-        </button>
-      </div>
+      <GlowCard 
+        glowColor="red" 
+        customSize={true}
+        className="bg-gray-950 border border-gray-900 rounded-lg p-6 w-full h-auto aspect-auto grid-rows-none gap-0"
+      >
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-lg font-semibold text-white">Recent Videos</h2>
+          <button className="text-sm text-red-400 hover:text-red-300">
+            View All
+          </button>
+        </div>
 
-      <div className="space-y-4">
-        {mockVideos.map((video, index) => (
-          <motion.div
-            key={video.id}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
-            className="flex items-center space-x-4 p-3 rounded-lg hover:bg-gray-900 transition-colors cursor-pointer"
-          >
-            {/* Thumbnail - Made larger */}
-            <img
-              src={video.thumbnail}
-              alt={video.title}
-              className="w-24 h-16 bg-gray-800 rounded object-cover flex-shrink-0"
-            />
+        <div className="space-y-4">
+          {mockVideos.map((video, index) => (
+            <motion.div
+              key={video.id}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+              className="flex items-center space-x-4 p-3 rounded-lg hover:bg-gray-900 transition-colors cursor-pointer"
+            >
+              {/* Thumbnail - Made larger */}
+              <img
+                src={video.thumbnail}
+                alt={video.title}
+                className="w-32 h-20 bg-gray-800 rounded object-cover flex-shrink-0"
+              />
 
-            {/* Content */}
-            <div className="flex-1 min-w-0">
-              <h3 className="text-sm font-medium text-white truncate mb-1">
-                {video.title}
-              </h3>
-              
-              <div className="flex items-center space-x-4 text-xs text-gray-400">
-                <div className="flex items-center space-x-1">
-                  <Eye className="w-3 h-3" />
-                  <span>{formatNumber(video.views)}</span>
-                </div>
+              {/* Content */}
+              <div className="flex-1 min-w-0">
+                <h3 className="text-sm font-medium text-white truncate mb-1">
+                  {video.title}
+                </h3>
                 
-                <div className="flex items-center space-x-1">
-                  <ThumbsUp className="w-3 h-3" />
-                  <span>{formatNumber(video.likes)}</span>
-                </div>
-                
-                <div className="flex items-center space-x-1">
-                  <MessageCircle className="w-3 h-3" />
-                  <span>{formatNumber(video.comments)}</span>
-                </div>
-                
-                <div className="flex items-center space-x-1">
-                  <Calendar className="w-3 h-3" />
-                  <span>{video.publishDate}</span>
+                <div className="flex items-center space-x-4 text-xs text-gray-400">
+                  <div className="flex items-center space-x-1">
+                    <Eye className="w-3 h-3" />
+                    <span>{formatNumber(video.views)}</span>
+                  </div>
+                  
+                  <div className="flex items-center space-x-1">
+                    <ThumbsUp className="w-3 h-3" />
+                    <span>{formatNumber(video.likes)}</span>
+                  </div>
+                  
+                  <div className="flex items-center space-x-1">
+                    <MessageCircle className="w-3 h-3" />
+                    <span>{formatNumber(video.comments)}</span>
+                  </div>
+                  
+                  <div className="flex items-center space-x-1">
+                    <Calendar className="w-3 h-3" />
+                    <span>{video.publishDate}</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Status */}
-            <div className="flex-shrink-0">
-              <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(video.status)}`}>
-                {video.status}
-              </span>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+              {/* Status */}
+              <div className="flex-shrink-0">
+                <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(video.status)}`}>
+                  {video.status}
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </GlowCard>
     </motion.div>
   );
 };
