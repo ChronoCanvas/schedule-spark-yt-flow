@@ -81,7 +81,7 @@ const TopBar: React.FC<TopBarProps> = ({ title, onMenuClick, showMobileMenu = fa
               key={action.id}
               glowColor="red"
               leftIcon={<action.icon className="w-4 h-4" />}
-              className={`${action.color} rounded-full`}
+              className={`${action.color} rounded-full h-10`}
             >
               <span className="hidden lg:block">{action.label}</span>
             </GlowButton>
@@ -95,7 +95,7 @@ const TopBar: React.FC<TopBarProps> = ({ title, onMenuClick, showMobileMenu = fa
               key={action.id}
               glowColor="red"
               leftIcon={<action.icon className="w-4 h-4" />}
-              className={`${action.color} rounded-full p-2`}
+              className={`${action.color} rounded-full p-2 h-10 w-10`}
             >
             </GlowButton>
           ))}
@@ -103,16 +103,13 @@ const TopBar: React.FC<TopBarProps> = ({ title, onMenuClick, showMobileMenu = fa
 
         {/* Notifications */}
         <div className="relative">
-          <GlowCard 
-            glowColor="red" 
-            customSize={true}
-            className="w-auto h-auto aspect-auto grid-rows-none gap-0 p-0 bg-transparent border-0 shadow-none backdrop-blur-none"
+          <GlowButton
+            glowColor="red"
+            leftIcon={<Bell className="w-5 h-5" />}
+            className="bg-gray-800 hover:bg-gray-700 rounded-full h-10 w-10 p-0 relative"
           >
-            <button className="p-2 rounded-lg hover:bg-gray-800 text-gray-400 relative">
-              <Bell className="w-5 h-5" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-            </button>
-          </GlowCard>
+            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+          </GlowButton>
         </div>
       </div>
     </div>
