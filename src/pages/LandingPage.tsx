@@ -1,22 +1,19 @@
 
-import HeroSection from "@/components/landingpage/HeroSection";
-import HighlightsSection from "@/components/landingpage/HighlightsSection";
-import FeaturesSection from "@/components/landingpage/FeaturesSection";
-import ComparisonSection from "@/components/landingpage/ComparisonSection";
-import MarqueeSection from "@/components/landingpage/MarqueeSection";
-import DemoPreviewSection from "@/components/landingpage/DemoPreviewSection";
-import Footer from "@/components/shared/Footer";
+import React from 'react';
+import HeroSection from '@/components/landingpage/HeroSection';
+import FeaturesSection from '@/components/landingpage/FeaturesSection';
+import DemoPreviewSection from '@/components/landingpage/DemoPreviewSection';
+import ComparisonSection from '@/components/landingpage/ComparisonSection';
+import Footer from '@/components/shared/Footer';
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-black text-white overflow-x-hidden">
       <HeroSection />
-      <HighlightsSection />
       <FeaturesSection />
-      <ComparisonSection />
-      <MarqueeSection />
       <DemoPreviewSection />
-      <Footer theme="light" />
+      <ComparisonSection />
+      <Footer theme="dark" />
     </div>
   );
 };
