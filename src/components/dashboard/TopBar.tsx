@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Search, Bell, Menu, Upload, Radio } from 'lucide-react';
 import { GlowCard } from '@/components/ui/spotlight-card';
 import { GlowInput } from '@/components/ui/glow-input';
+import { GlowButton } from '@/components/ui/glow-button';
 
 interface TopBarProps {
   title: string;
@@ -76,45 +77,27 @@ const TopBar: React.FC<TopBarProps> = ({ title, onMenuClick, showMobileMenu = fa
         {/* Quick Actions */}
         <div className="hidden sm:flex items-center space-x-3">
           {quickActions.map((action) => (
-            <GlowCard 
+            <GlowButton
               key={action.id}
-              glowColor="red" 
-              customSize={true}
-              className="w-auto h-auto aspect-auto grid-rows-none gap-0 p-0 bg-transparent border-0 shadow-none backdrop-blur-none"
+              glowColor="red"
+              leftIcon={<action.icon className="w-4 h-4" />}
+              className={`${action.color} rounded-full`}
             >
-              <button
-                className={`
-                  flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium
-                  ${action.color} text-white
-                  transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black
-                `}
-              >
-                <action.icon className="w-4 h-4" />
-                <span className="hidden lg:block">{action.label}</span>
-              </button>
-            </GlowCard>
+              <span className="hidden lg:block">{action.label}</span>
+            </GlowButton>
           ))}
         </div>
 
         {/* Mobile Quick Actions - Icons only */}
         <div className="sm:hidden flex items-center space-x-2">
           {quickActions.map((action) => (
-            <GlowCard 
+            <GlowButton
               key={action.id}
-              glowColor="red" 
-              customSize={true}
-              className="w-auto h-auto aspect-auto grid-rows-none gap-0 p-0 bg-transparent border-0 shadow-none backdrop-blur-none"
+              glowColor="red"
+              leftIcon={<action.icon className="w-4 h-4" />}
+              className={`${action.color} rounded-full p-2`}
             >
-              <button
-                className={`
-                  p-2 rounded-full
-                  ${action.color} text-white
-                  transition-all duration-200 focus:outline-none
-                `}
-              >
-                <action.icon className="w-4 h-4" />
-              </button>
-            </GlowCard>
+            </GlowButton>
           ))}
         </div>
 
