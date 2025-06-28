@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
@@ -19,95 +20,98 @@ const queryClient = new QueryClient();
 const AppContent: React.FC = () => {
   const location = useLocation();
   const isLightPage = location.pathname === '/privacy-policy';
+  const isLandingPage = location.pathname === '/';
 
   return (
-    <motion.div
-      key="app-background"
-      initial={false}
-      animate={{
-        backgroundColor: isLightPage ? '#f9fafb' : '#000000'
-      }}
-      transition={{
-        duration: 0.6,
-        ease: "easeInOut"
-      }}
-      className="min-h-screen"
-    >
-      <AnimatePresence mode="wait">
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <LandingPage />
-            </motion.div>
-          } />
-          <Route path="/login" element={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <LoginPage />
-            </motion.div>
-          } />
-          <Route path="/signup" element={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <SignupPage />
-            </motion.div>
-          } />
-          <Route path="/support" element={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <SupportPage />
-            </motion.div>
-          } />
-          <Route path="/support/article/:slug" element={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <SupportArticlePage />
-            </motion.div>
-          } />
-          <Route path="/privacy-policy" element={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <PrivacyPolicyPage />
-            </motion.div>
-          } />
-          <Route path="*" element={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <NotFound />
-            </motion.div>
-          } />
-        </Routes>
-      </AnimatePresence>
-    </motion.div>
+    <SmoothScrollProvider enabled={isLandingPage}>
+      <motion.div
+        key="app-background"
+        initial={false}
+        animate={{
+          backgroundColor: isLightPage ? '#f9fafb' : '#000000'
+        }}
+        transition={{
+          duration: 0.6,
+          ease: "easeInOut"
+        }}
+        className="min-h-screen"
+      >
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <LandingPage />
+              </motion.div>
+            } />
+            <Route path="/login" element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <LoginPage />
+              </motion.div>
+            } />
+            <Route path="/signup" element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <SignupPage />
+              </motion.div>
+            } />
+            <Route path="/support" element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <SupportPage />
+              </motion.div>
+            } />
+            <Route path="/support/article/:slug" element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <SupportArticlePage />
+              </motion.div>
+            } />
+            <Route path="/privacy-policy" element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <PrivacyPolicyPage />
+              </motion.div>
+            } />
+            <Route path="*" element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <NotFound />
+              </motion.div>
+            } />
+          </Routes>
+        </AnimatePresence>
+      </motion.div>
+    </SmoothScrollProvider>
   );
 };
 
