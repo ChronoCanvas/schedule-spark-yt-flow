@@ -14,6 +14,14 @@ import SupportPage from "./pages/SupportPage";
 import SupportArticlePage from "./pages/SupportArticlePage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import NotFound from "./pages/NotFound";
+import DashboardPage from "./pages/DashboardPage";
+import AnalyticsPage from "./pages/AnalyticsPage";
+import UploadPage from "./pages/UploadPage";
+import LiveStreamsPage from "./pages/LiveStreamsPage";
+import CalendarPage from "./pages/CalendarPage";
+import CommunityPage from "./pages/CommunityPage";
+import MonetizationPage from "./pages/MonetizationPage";
+import TeamPage from "./pages/TeamPage";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +29,7 @@ const AppContent: React.FC = () => {
   const location = useLocation();
   const isLightPage = location.pathname === '/privacy-policy';
   const isLandingPage = location.pathname === '/';
+  const isDashboardPage = location.pathname.startsWith('/dashboard');
 
   return (
     <SmoothScrollProvider enabled={isLandingPage}>
@@ -98,6 +107,89 @@ const AppContent: React.FC = () => {
                 <PrivacyPolicyPage />
               </motion.div>
             } />
+            
+            {/* Dashboard Routes */}
+            <Route path="/dashboard" element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <DashboardPage />
+              </motion.div>
+            } />
+            <Route path="/dashboard/analytics/*" element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <AnalyticsPage />
+              </motion.div>
+            } />
+            <Route path="/dashboard/upload" element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <UploadPage />
+              </motion.div>
+            } />
+            <Route path="/dashboard/livestreams" element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <LiveStreamsPage />
+              </motion.div>
+            } />
+            <Route path="/dashboard/calendar" element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <CalendarPage />
+              </motion.div>
+            } />
+            <Route path="/dashboard/community" element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <CommunityPage />
+              </motion.div>
+            } />
+            <Route path="/dashboard/monetization" element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <MonetizationPage />
+              </motion.div>
+            } />
+            <Route path="/dashboard/team" element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <TeamPage />
+              </motion.div>
+            } />
+            
             <Route path="*" element={
               <motion.div
                 initial={{ opacity: 0 }}

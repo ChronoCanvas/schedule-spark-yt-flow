@@ -1,0 +1,73 @@
+
+import React, { useState } from 'react';
+import { Search, Bell, User, Menu } from 'lucide-react';
+
+interface TopBarProps {
+  title: string;
+  onMenuClick: () => void;
+  showMobileMenu?: boolean;
+}
+
+const TopBar: React.FC<TopBarProps> = ({ title, onMenuClick, showMobileMenu = false }) => {
+  const [searchValue, setSearchValue] = useState('');
+
+  return (
+    <div className="bg-black border-b border-gray-800 px-4 py-3 flex items-center justify-between">
+      {/* Left side */}
+      <div className="flex items-center space-x-4">
+        {showMobileMenu && (
+          <button
+            onClick={onMenuClick}
+            className="md:hidden p-2 rounded-lg hover:bg-gray-800 text-gray-400"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+        )}
+        
+        <div>
+          <h1 className="text-xl font-semibold text-white">{title}</h1>
+        </div>
+      </div>
+
+      {/* Center - Search */}
+      <div className="hidden md:flex flex-1 max-w-md mx-8">
+        <div className="relative w-full">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <input
+            type="text"
+            placeholder="Search videos, comments..."
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-red-500 transition-colors"
+          />
+        </div>
+      </div>
+
+      {/* Right side */}
+      <div className="flex items-center space-x-3">
+        {/* Mobile search */}
+        <button className="md:hidden p-2 rounded-lg hover:bg-gray-800 text-gray-400">
+          <Search className="w-5 h-5" />
+        </button>
+
+        {/* Notifications */}
+        <div className="relative">
+          <button className="p-2 rounded-lg hover:bg-gray-800 text-gray-400 relative">
+            <Bell className="w-5 h-5" />
+            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+          </button>
+        </div>
+
+        {/* User Avatar */}
+        <button className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-800">
+          <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+            <User className="w-4 h-4 text-white" />
+          </div>
+          <span className="hidden sm:block text-sm text-white">John Creator</span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default TopBar;
