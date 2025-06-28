@@ -1,3 +1,4 @@
+
 import { Card } from "@/components/ui/card";
 import { Twitter, Instagram, Facebook, Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
@@ -123,6 +124,7 @@ const Footer = ({ theme = "dark" }: FooterProps) => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => handleNavigation('/login')}
                   className="bg-red-500 hover:bg-red-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:shadow-lg transition-all duration-300"
                 >
                    Explore Tools
