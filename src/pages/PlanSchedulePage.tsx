@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import NewAppSidebar from '@/components/dashboard/NewAppSidebar';
 import { GlowCard } from '@/components/ui/spotlight-card';
@@ -149,19 +150,23 @@ const PlanSchedulePage: React.FC = () => {
             <div className="flex items-center space-x-4">
               <h1 className="text-2xl font-bold text-white">Plan & Schedule</h1>
               
-              {/* Filter Dropdown with GlowCard */}
+              {/* Filter Dropdown with GlowCard - Fixed height and clickable */}
               <div className="relative">
-                <GlowCard
-                  glowColor="red"
-                  customSize={true}
-                  className="w-auto h-auto p-0 bg-gray-900/80 border border-gray-700 hover:border-red-500/50 transition-all duration-200 cursor-pointer rounded-full"
+                <div 
+                  className="cursor-pointer"
                   onClick={() => setFilterOpen(!filterOpen)}
                 >
-                  <div className="flex items-center space-x-2 px-4 py-2">
-                    <span className="text-white text-sm font-medium">{selectedState}</span>
-                    <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${filterOpen ? 'rotate-180' : ''}`} />
-                  </div>
-                </GlowCard>
+                  <GlowCard
+                    glowColor="red"
+                    customSize={true}
+                    className="w-auto h-10 bg-gray-900/80 border border-gray-700 hover:border-red-500/50 transition-all duration-200 rounded-full flex items-center px-4 py-0"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <span className="text-white text-sm font-medium">{selectedState}</span>
+                      <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${filterOpen ? 'rotate-180' : ''}`} />
+                    </div>
+                  </GlowCard>
+                </div>
                 
                 {filterOpen && (
                   <div className="absolute top-full left-0 mt-2 w-40 bg-gray-800 border border-gray-700 rounded-lg shadow-lg z-50">
@@ -186,7 +191,7 @@ const PlanSchedulePage: React.FC = () => {
             <GlowButton
               glowColor="red"
               leftIcon={<Plus className="w-4 h-4" />}
-              className="bg-red-600 hover:bg-red-700 rounded-lg px-6 py-3"
+              className="bg-red-600 hover:bg-red-700 rounded-lg px-6 h-10"
             >
               Add New Video
             </GlowButton>
@@ -195,13 +200,13 @@ const PlanSchedulePage: React.FC = () => {
 
         {/* Projects Grid */}
         <div className="flex-1 p-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
             {filteredProjects.map((project) => (
               <GlowCard
                 key={project.id}
                 glowColor="red"
                 customSize={true}
-                className="w-full h-auto bg-gray-900/50 border border-gray-800 hover:border-red-500/50 transition-all duration-200 cursor-pointer p-4"
+                className="w-full h-auto bg-gray-900/50 border border-gray-800 hover:border-red-500/50 transition-all duration-200 cursor-pointer p-3"
               >
                 <div className="flex flex-col h-full">
                   {/* Video Thumbnail - 16:9 aspect ratio */}
@@ -219,17 +224,17 @@ const PlanSchedulePage: React.FC = () => {
                       </Badge>
                     </div>
                     <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
-                      <Play className="w-8 h-8 text-white" />
+                      <Play className="w-6 h-6 text-white" />
                     </div>
                   </div>
 
                   {/* Video Info */}
                   <div className="flex-1">
-                    <h3 className="text-sm font-semibold text-white mb-3 line-clamp-2 leading-tight">
+                    <h3 className="text-sm font-semibold text-white mb-2 line-clamp-2 leading-tight">
                       {project.title}
                     </h3>
 
-                    {/* YouTube Stats - Single horizontal line */}
+                    {/* YouTube Stats - Single horizontal line with icons only */}
                     <div className="flex items-center justify-between text-xs mb-2">
                       <div className="flex items-center gap-1">
                         <Eye className="w-3 h-3 text-gray-400" />
