@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import NewAppSidebar from '@/components/dashboard/NewAppSidebar';
 import { GlowCard } from '@/components/ui/spotlight-card';
@@ -215,7 +214,7 @@ const PlanSchedulePage: React.FC = () => {
                 key={project.id}
                 glowColor="red"
                 customSize={true}
-                className="w-full h-auto bg-gray-900/50 border border-gray-800 hover:border-red-500/50 transition-all duration-200 cursor-pointer p-3"
+                className="w-full h-auto bg-gray-900/50 border border-gray-800 hover:border-red-500/50 transition-all duration-200 cursor-pointer p-3 flex flex-col gap-0"
               >
                 <div className="flex items-center space-x-4">
                   {/* Video Thumbnail - Smaller for list view */}
