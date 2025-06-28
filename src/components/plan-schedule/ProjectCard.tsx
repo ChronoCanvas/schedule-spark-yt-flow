@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Calendar, Users, MoreHorizontal } from 'lucide-react';
+import { GlowCard } from '@/components/ui/spotlight-card';
 import { Project } from '@/types/project';
 
 interface ProjectCardProps {
@@ -27,74 +27,84 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
     }
   };
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
-      className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 hover:bg-red-500/10 hover:border-red-500/30 transition-all duration-300 cursor-pointer group"
-    >
-      <div className="flex items-start space-x-3">
-        {/* Thumbnail */}
-        <div className="w-12 h-8 bg-gray-700 rounded-md flex-shrink-0 overflow-hidden">
-          {project.thumbnail ? (
-            <img 
-              src={project.thumbnail} 
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="w-full h-full bg-gray-700 flex items-center justify-center">
-              <div className="w-4 h-3 bg-gray-600 rounded-sm"></div>
-            </div>
-          )}
-        </div>
+  const getGlowColor = (state: string) => {
+    switch (state) {
+      case 'planning': return 'orange' as const;
+      case 'production': return 'blue' as const;
+      case 'scheduled': return 'purple' as const;
+      case 'uploaded': return 'green' as const;
+      default: return 'blue' as const;
+    }
+  };
 
-        {/* Content */}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between mb-2">
-            <h4 className="text-sm font-medium text-white truncate group-hover:text-red-300 transition-colors">
-              {project.title}
-            </h4>
-            <button className="text-gray-400 hover:text-white transition-colors opacity-0 group-hover:opacity-100 ml-2 flex-shrink-0">
-              <MoreHorizontal className="w-4 h-4" />
-            </button>
-          </div>
-          
-          <div className="flex items-center justify-between text-xs text-gray-400 mb-2">
-            <span className={`capitalize ${getStateColor(project.state)}`}>
-              {project.state}
-            </span>
-            <div className="flex items-center space-x-1">
-              <Calendar className="w-3 h-3" />
-              <span>{formatDate(project.lastModified)}</span>
-            </div>
-          </div>
-          
-          {project.teamMembers.length > 0 && (
-            <div className="flex items-center space-x-1">
-              <Users className="w-3 h-3 text-gray-400" />
-              <div className="flex -space-x-1">
-                {project.teamMembers.slice(0, 3).map((member, idx) => (
-                  <div
-                    key={member.id}
-                    className="w-4 h-4 rounded-full bg-gray-700 border border-gray-600 flex items-center justify-center text-xs text-white"
-                    title={member.name}
-                  >
-                    {member.name.charAt(0).toUpperCase()}
-                  </div>
-                ))}
-                {project.teamMembers.length > 3 && (
-                  <div className="w-4 h-4 rounded-full bg-gray-600 border border-gray-500 flex items-center justify-center text-xs text-gray-300">
-                    +{project.teamMembers.length - 3}
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
+  return (
+    <GlowCard 
+      glowColor={getGlowColor(project.state)}
+      customSize={true}
+      className="bg-gray-950 border border-gray-900 rounded-lg p-6 h-full cursor-pointer group hover:border-red-500/30 transition-all duration-300"
+    >
+      <div className="flex items-start justify-between mb-4">
+        <div className="flex items-center space-x-2">
+          <span className={`text-sm font-medium capitalize ${getStateColor(project.state)}`}>
+            {project.state}
+          </span>
         </div>
+        <button className="text-gray-400 hover:text-white transition-colors opacity-0 group-hover:opacity-100">
+          <MoreHorizontal className="w-5 h-5" />
+        </button>
       </div>
-    </motion.div>
+
+      {/* Thumbnail */}
+      <div className="w-full h-32 bg-gray-700 rounded-lg mb-4 overflow-hidden">
+        {project.thumbnail ? (
+          <img 
+            src={project.thumbnail} 
+            alt={project.title}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-700 flex items-center justify-center">
+            <div className="w-16 h-12 bg-gray-600 rounded-sm"></div>
+          </div>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="space-y-3">
+        <h4 className="text-lg font-semibold text-white group-hover:text-red-300 transition-colors line-clamp-2">
+          {project.title}
+        </h4>
+        
+        <div className="flex items-center justify-between text-sm text-gray-400">
+          <div className="flex items-center space-x-1">
+            <Calendar className="w-4 h-4" />
+            <span>Modified {formatDate(project.lastModified)}</span>
+          </div>
+        </div>
+        
+        {project.teamMembers.length > 0 && (
+          <div className="flex items-center space-x-2">
+            <Users className="w-4 h-4 text-gray-400" />
+            <div className="flex -space-x-1">
+              {project.teamMembers.slice(0, 4).map((member, idx) => (
+                <div
+                  key={member.id}
+                  className="w-6 h-6 rounded-full bg-gray-700 border border-gray-600 flex items-center justify-center text-xs text-white"
+                  title={member.name}
+                >
+                  {member.name.charAt(0).toUpperCase()}
+                </div>
+              ))}
+              {project.teamMembers.length > 4 && (
+                <div className="w-6 h-6 rounded-full bg-gray-600 border border-gray-500 flex items-center justify-center text-xs text-gray-300">
+                  +{project.teamMembers.length - 4}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </GlowCard>
   );
 };
 

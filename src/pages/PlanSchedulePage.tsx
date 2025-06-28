@@ -1,10 +1,12 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import ProjectStateSection from '@/components/plan-schedule/ProjectStateSection';
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/dashboard/AppSidebar';
 import AddNewProjectButton from '@/components/plan-schedule/AddNewProjectButton';
 import StateFilters from '@/components/plan-schedule/StateFilters';
-import { Project, ProjectStateSection as ProjectStateSectionType, ProjectState } from '@/types/project';
+import ProjectCard from '@/components/plan-schedule/ProjectCard';
+import { Project, ProjectState } from '@/types/project';
 
 // Mock data for projects with thumbnails
 const mockProjects: Project[] = [
@@ -83,68 +85,47 @@ const PlanSchedulePage: React.FC = () => {
     ? projects 
     : projects.filter(p => p.state === activeFilter);
 
-  // Group projects by state
-  const projectSections: ProjectStateSectionType[] = [
-    {
-      state: 'planning',
-      title: '🟡 Planning',
-      color: 'orange',
-      projects: filteredProjects.filter(p => p.state === 'planning')
-    },
-    {
-      state: 'production',
-      title: '🛠️ Production',
-      color: 'blue',
-      projects: filteredProjects.filter(p => p.state === 'production')
-    },
-    {
-      state: 'scheduled',
-      title: '🗓 Scheduled',
-      color: 'purple',
-      projects: filteredProjects.filter(p => p.state === 'scheduled')
-    },
-    {
-      state: 'uploaded',
-      title: '✅ Uploaded',
-      color: 'green',
-      projects: filteredProjects.filter(p => p.state === 'uploaded')
-    }
-  ];
-
-  // Hide sections if they're empty and we're filtering
-  const visibleSections = activeFilter === 'all' 
-    ? projectSections 
-    : projectSections.filter(section => section.projects.length > 0);
-
   return (
-    <div className="min-h-screen bg-black">
-      {/* Custom header without DashboardLayout */}
-      <div className="border-b border-gray-800 px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <h1 className="text-2xl font-semibold text-white">Plan & Schedule</h1>
-            <AddNewProjectButton onClick={handleAddNewProject} />
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full bg-black">
+        <AppSidebar />
+        
+        <main className="flex-1">
+          {/* Header */}
+          <div className="border-b border-gray-800 px-6 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <h1 className="text-2xl font-semibold text-white">Plan & Schedule</h1>
+                <AddNewProjectButton onClick={handleAddNewProject} />
+              </div>
+              <StateFilters 
+                activeFilter={activeFilter}
+                onFilterChange={setActiveFilter}
+              />
+            </div>
           </div>
-          <StateFilters 
-            activeFilter={activeFilter}
-            onFilterChange={setActiveFilter}
-          />
-        </div>
-      </div>
 
-      {/* Main content */}
-      <div className="p-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
-          {visibleSections.map((section, index) => (
-            <ProjectStateSection
-              key={section.state}
-              section={section}
-              index={index}
-            />
-          ))}
-        </div>
+          {/* Main content */}
+          <div className="p-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {filteredProjects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <ProjectCard 
+                    project={project} 
+                    index={index}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </main>
       </div>
-    </div>
+    </SidebarProvider>
   );
 };
 
