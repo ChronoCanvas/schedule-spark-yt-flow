@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Eye, ThumbsUp, MessageCircle, Calendar } from 'lucide-react';
+import { Eye, ThumbsUp, MessageCircle, Calendar, TrendingUp, Award } from 'lucide-react';
 import { GlowCard } from '@/components/ui/spotlight-card';
 
 interface Video {
@@ -13,6 +12,7 @@ interface Video {
   comments: number;
   publishDate: string;
   status: 'published' | 'scheduled' | 'draft';
+  engagementRate?: number;
 }
 
 const mockVideos: Video[] = [
@@ -24,7 +24,8 @@ const mockVideos: Video[] = [
     likes: 1205,
     comments: 89,
     publishDate: '2024-06-27',
-    status: 'published'
+    status: 'published',
+    engagementRate: 2.86
   },
   {
     id: '2',
@@ -34,7 +35,8 @@ const mockVideos: Video[] = [
     likes: 892,
     comments: 67,
     publishDate: '2024-06-25',
-    status: 'published'
+    status: 'published',
+    engagementRate: 2.99
   },
   {
     id: '3',
@@ -44,7 +46,8 @@ const mockVideos: Video[] = [
     likes: 445,
     comments: 34,
     publishDate: '2024-06-23',
-    status: 'published'
+    status: 'published',
+    engagementRate: 2.55
   },
   {
     id: '4',
@@ -54,7 +57,8 @@ const mockVideos: Video[] = [
     likes: 0,
     comments: 0,
     publishDate: '2024-06-30',
-    status: 'scheduled'
+    status: 'scheduled',
+    engagementRate: 0
   }
 ];
 
@@ -72,6 +76,15 @@ const RecentVideos: React.FC = () => {
     if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
     return num.toString();
   };
+
+  // Find the top performing video based on engagement rate
+  const publishedVideos = mockVideos.filter(video => video.status === 'published');
+  const topPerformer = publishedVideos.reduce((prev, current) => 
+    (prev.engagementRate || 0) > (current.engagementRate || 0) ? prev : current
+  );
+
+  // Get remaining videos excluding the top performer
+  const otherVideos = mockVideos.filter(video => video.id !== topPerformer.id);
 
   return (
     <motion.div
@@ -91,27 +104,80 @@ const RecentVideos: React.FC = () => {
           </button>
         </div>
 
-        <div className="space-y-4">
-          {mockVideos.map((video, index) => (
+        {/* Top Performer Section */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3, delay: 0.5 }}
+          className="mb-6 p-4 rounded-xl bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 relative overflow-hidden"
+        >
+          <div className="flex items-center gap-2 mb-3">
+            <Award className="w-5 h-5 text-yellow-400" />
+            <span className="text-sm font-medium text-yellow-400">Top Performer</span>
+            <div className="flex items-center gap-1 text-xs text-green-400">
+              <TrendingUp className="w-3 h-3" />
+              <span>{topPerformer.engagementRate}% engagement</span>
+            </div>
+          </div>
+          
+          <div className="flex items-start space-x-4">
+            <img
+              src={topPerformer.thumbnail}
+              alt={topPerformer.title}
+              className="w-40 h-24 bg-gray-800 rounded-lg object-cover flex-shrink-0"
+            />
+            
+            <div className="flex-1 min-w-0">
+              <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2">
+                {topPerformer.title}
+              </h3>
+              
+              <div className="flex items-center space-x-6 text-sm text-gray-300">
+                <div className="flex items-center space-x-2">
+                  <Eye className="w-4 h-4" />
+                  <span className="font-medium">{formatNumber(topPerformer.views)}</span>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <ThumbsUp className="w-4 h-4" />
+                  <span>{formatNumber(topPerformer.likes)}</span>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <MessageCircle className="w-4 h-4" />
+                  <span>{formatNumber(topPerformer.comments)}</span>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <Calendar className="w-4 h-4" />
+                  <span>{topPerformer.publishDate}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Other Videos Section */}
+        <div className="space-y-3">
+          <h3 className="text-sm font-medium text-gray-400 mb-3">Other Recent Videos</h3>
+          {otherVideos.map((video, index) => (
             <motion.div
               key={video.id}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+              transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
               className="flex items-center space-x-4 p-3 rounded-xl hover:bg-red-500/10 hover:rounded-xl transition-all duration-300 cursor-pointer"
             >
-              {/* Thumbnail - Made larger */}
               <img
                 src={video.thumbnail}
                 alt={video.title}
-                className="w-32 h-20 bg-gray-800 rounded object-cover flex-shrink-0"
+                className="w-24 h-16 bg-gray-800 rounded object-cover flex-shrink-0"
               />
 
-              {/* Content */}
               <div className="flex-1 min-w-0">
-                <h3 className="text-base font-medium text-white truncate mb-1">
+                <h4 className="text-sm font-medium text-white truncate mb-1">
                   {video.title}
-                </h3>
+                </h4>
                 
                 <div className="flex items-center space-x-4 text-xs text-gray-400">
                   <div className="flex items-center space-x-1">
@@ -136,7 +202,6 @@ const RecentVideos: React.FC = () => {
                 </div>
               </div>
 
-              {/* Status */}
               <div className="flex-shrink-0">
                 <span className={`text-xs px-2 py-1 rounded-full ${getStatusColor(video.status)}`}>
                   {video.status}

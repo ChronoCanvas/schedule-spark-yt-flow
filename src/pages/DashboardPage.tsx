@@ -3,6 +3,7 @@ import React from 'react';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import KPICard from '@/components/dashboard/KPICard';
 import RecentVideos from '@/components/dashboard/RecentVideos';
+import ScheduleCalendar from '@/components/dashboard/ScheduleCalendar';
 import { Eye, Users, Clock, DollarSign } from 'lucide-react';
 
 const DashboardPage: React.FC = () => {
@@ -58,6 +59,11 @@ const DashboardPage: React.FC = () => {
         {/* Recent Videos - Full width */}
         <div className="w-full">
           <RecentVideos />
+        </div>
+
+        {/* Schedule Calendar - Full width */}
+        <div className="w-full">
+          <ScheduleCalendar />
         </div>
       </div>
     </DashboardLayout>
