@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import NewAppSidebar from '@/components/dashboard/NewAppSidebar';
 import { GlowCard } from '@/components/ui/spotlight-card';
@@ -17,6 +16,7 @@ interface Project {
   thumbnail: string;
   state: ProjectState;
   createdAt: string;
+  scheduledDate?: string; // Add scheduled date for scheduled videos
   description?: string;
   stats: {
     views: number;
@@ -52,6 +52,7 @@ const mockProjects: Project[] = [
     thumbnail: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=300&fit=crop',
     state: 'Scheduled',
     createdAt: '2024-06-15',
+    scheduledDate: '2024-07-02T10:00:00Z',
     description: 'Layout comparison and best practices',
     stats: { views: 0, comments: 0, watchTime: 0, likes: 0 }
   },
@@ -218,7 +219,7 @@ const PlanSchedulePage: React.FC = () => {
                 className="w-full h-auto bg-gray-900/50 border border-gray-800 hover:border-red-500/50 transition-all duration-200 cursor-pointer p-2 flex flex-col gap-0"
               >
                 <div className="flex items-center space-x-3">
-                  {/* Video Thumbnail - Even smaller for tighter list */}
+                  {/* Video Thumbnail */}
                   <div className="relative flex-shrink-0">
                     <div className="w-24 h-14 rounded-md overflow-hidden">
                       <img
@@ -232,7 +233,7 @@ const PlanSchedulePage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Video Info - Compact layout */}
+                  {/* Video Info */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between">
                       <div className="flex-1 min-w-0">
@@ -243,7 +244,7 @@ const PlanSchedulePage: React.FC = () => {
                           {project.description}
                         </p>
 
-                        {/* Stats Row - More compact */}
+                        {/* Stats Row */}
                         <div className="flex items-center space-x-3 text-xs text-gray-500">
                           <div className="flex items-center gap-1">
                             <Eye className="w-3 h-3" />
@@ -261,16 +262,24 @@ const PlanSchedulePage: React.FC = () => {
                             <Clock className="w-3 h-3" />
                             <span>{formatWatchTime(project.stats.watchTime)}</span>
                           </div>
-                          <span>•</span>
-                          <span>{new Date(project.createdAt).toLocaleDateString()}</span>
                         </div>
                       </div>
 
-                      {/* Status Badge */}
-                      <div className="flex-shrink-0 ml-3">
-                        <Badge className={`${getStateColor(project.state)} border text-xs`}>
+                      {/* Status Badge and Scheduled Date */}
+                      <div className="flex-shrink-0 ml-3 flex flex-col items-end">
+                        <Badge className={`${getStateColor(project.state)} border text-xs mb-1`}>
                           {project.state}
                         </Badge>
+                        {project.state === 'Scheduled' && project.scheduledDate && (
+                          <div className="text-xs text-gray-400">
+                            {new Date(project.scheduledDate).toLocaleDateString('en-US', {
+                              month: 'short',
+                              day: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
