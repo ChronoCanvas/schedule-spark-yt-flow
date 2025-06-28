@@ -1,10 +1,10 @@
-
 "use client" 
 
 import * as React from "react"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
+import { Squares } from "./squares-background";
 
 interface SignInProps {
   mode?: "signin" | "signup";
@@ -53,7 +53,18 @@ const ModernStunningSignIn = ({ mode = "signin" }: SignInProps) => {
   };
  
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#121212] relative overflow-hidden w-full rounded-xl">
+    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden w-full rounded-xl">
+      {/* Animated squares background */}
+      <div className="absolute inset-0 z-0">
+        <Squares 
+          direction="diagonal"
+          speed={0.5}
+          squareSize={40}
+          borderColor="#333" 
+          hoverFillColor="#222"
+        />
+      </div>
+
       {/* Close button */}
       <button
         onClick={handleClose}
