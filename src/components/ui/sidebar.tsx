@@ -2,9 +2,10 @@
 
 import { cn } from "@/lib/utils";
 import { Link, LinkProps } from "react-router-dom";
-import React, { useState, createContext, useContext, useRef } from "react";
+import React, { useState, createContext, useContext, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 interface Links {
   label: string;
@@ -94,8 +95,16 @@ export const DesktopSidebar = ({
   ...props
 }: React.ComponentProps<"div">) => {
   const { open, setOpen, animate } = useSidebar();
+  const location = useLocation();
   const hasHoveredRef = useRef(false);
   const isHoveringRef = useRef(false);
+  
+  // Reset hover state when route changes
+  useEffect(() => {
+    hasHoveredRef.current = false;
+    isHoveringRef.current = false;
+    setOpen(false);
+  }, [location.pathname, setOpen]);
   
   const handleMouseEnter = () => {
     isHoveringRef.current = true;
