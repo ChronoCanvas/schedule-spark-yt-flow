@@ -1,5 +1,7 @@
 
 import React, { useEffect, useRef, forwardRef } from 'react';
+import SimpleBar from 'simplebar-react';
+import 'simplebar-react/dist/simplebar.min.css';
 
 interface GlowTextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   glowColor?: 'blue' | 'purple' | 'green' | 'red' | 'orange';
@@ -110,6 +112,20 @@ const GlowTextarea = forwardRef<HTMLTextAreaElement, GlowTextareaProps>(({
         hsl(0 100% 100% / var(--border-light-opacity, 1)), transparent 100%
       );
     }
+
+    /* Custom SimpleBar styles for dark theme */
+    .simplebar-scrollbar::before {
+      background-color: rgba(255, 255, 255, 0.3) !important;
+      border-radius: 4px !important;
+    }
+    
+    .simplebar-scrollbar.simplebar-hover::before {
+      background-color: rgba(255, 255, 255, 0.5) !important;
+    }
+    
+    .simplebar-track {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+    }
   `;
 
   return (
@@ -121,11 +137,14 @@ const GlowTextarea = forwardRef<HTMLTextAreaElement, GlowTextareaProps>(({
         style={getInlineStyles()}
         className={`relative w-full flex ${className}`}
       >
-        <textarea
-          ref={ref}
-          {...props}
-          className="w-full flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none border-none resize-none p-4"
-        />
+        <SimpleBar style={{ width: '100%', height: '100%' }}>
+          <textarea
+            ref={ref}
+            {...props}
+            className="w-full bg-transparent text-white placeholder-gray-400 focus:outline-none border-none resize-none p-4"
+            style={{ minHeight: 'inherit' }}
+          />
+        </SimpleBar>
       </div>
     </>
   );
