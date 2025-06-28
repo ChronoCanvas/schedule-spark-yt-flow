@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   Home, 
@@ -18,6 +17,7 @@ import {
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sidebar, SidebarBody, SidebarLink, useSidebar } from '@/components/ui/sidebar';
+import { cn } from '@/lib/utils';
 
 interface SidebarItem {
   id: string;
@@ -89,7 +89,10 @@ const Logo = () => {
   return (
     <Link
       to="/dashboard"
-      className="font-normal flex space-x-2 items-center text-sm text-white py-1 relative z-20"
+      className={cn(
+        "font-normal flex items-center text-sm text-white py-1 relative z-20",
+        open ? "space-x-2 justify-start" : "justify-center"
+      )}
     >
       <div className="h-5 w-6 bg-red-500 rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
       <motion.span
@@ -142,13 +145,13 @@ const ExpandableMenuItem = ({ item }: { item: SidebarItem }) => {
     <div className="w-full">
       <button
         onClick={() => open && setExpanded(!expanded)}
-        className={`
-          flex items-center justify-between w-full px-3 py-2 rounded-lg transition-all duration-200
-          text-gray-400 hover:text-white hover:bg-gray-800
-          ${hasActiveChild ? 'text-red-400' : ''}
-        `}
+        className={cn(
+          "flex items-center w-full px-3 py-2 rounded-lg transition-all duration-200 text-gray-400 hover:text-white hover:bg-gray-800",
+          open ? "justify-between" : "justify-center",
+          hasActiveChild ? 'text-red-400' : ''
+        )}
       >
-        <div className="flex items-center gap-2">
+        <div className={cn("flex items-center", open ? "gap-2" : "")}>
           <item.icon className="w-4 h-4 flex-shrink-0" />
           <motion.span
             animate={{
@@ -215,7 +218,10 @@ const UserProfile = () => {
     <div className="relative">
       <button
         onClick={() => open && setShowDropdown(!showDropdown)}
-        className="flex items-center w-full p-3 rounded-lg transition-all duration-200 text-gray-400 hover:text-white hover:bg-gray-800"
+        className={cn(
+          "flex items-center w-full p-3 rounded-lg transition-all duration-200 text-gray-400 hover:text-white hover:bg-gray-800",
+          open ? "justify-start" : "justify-center"
+        )}
       >
         <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
           <User className="w-4 h-4 text-white" />
