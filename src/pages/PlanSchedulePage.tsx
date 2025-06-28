@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import NewAppSidebar from '@/components/dashboard/NewAppSidebar';
 import { GlowCard } from '@/components/ui/spotlight-card';
@@ -150,23 +149,15 @@ const PlanSchedulePage: React.FC = () => {
             <div className="flex items-center space-x-4">
               <h1 className="text-2xl font-bold text-white">Plan & Schedule</h1>
               
-              {/* Filter Dropdown with GlowCard - Override default styles */}
+              {/* Filter Dropdown - Regular pill-shaped button */}
               <div className="relative">
-                <div 
-                  className="cursor-pointer"
+                <button 
+                  className="flex items-center justify-center space-x-2 h-10 px-4 bg-gray-900/80 border border-gray-700 hover:border-red-500/50 transition-all duration-200 rounded-full cursor-pointer"
                   onClick={() => setFilterOpen(!filterOpen)}
                 >
-                  <GlowCard
-                    glowColor="red"
-                    customSize={true}
-                    className="w-auto h-10 bg-gray-900/80 border border-gray-700 hover:border-red-500/50 transition-all duration-200 rounded-full p-0 flex items-center justify-center gap-0"
-                  >
-                    <div className="flex items-center justify-center space-x-2 h-full px-4">
-                      <span className="text-white text-sm font-medium">{selectedState}</span>
-                      <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${filterOpen ? 'rotate-180' : ''}`} />
-                    </div>
-                  </GlowCard>
-                </div>
+                  <span className="text-white text-sm font-medium">{selectedState}</span>
+                  <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${filterOpen ? 'rotate-180' : ''}`} />
+                </button>
                 
                 {filterOpen && (
                   <div className="absolute top-full left-0 mt-2 w-40 bg-gray-800 border border-gray-700 rounded-lg shadow-lg z-50">
