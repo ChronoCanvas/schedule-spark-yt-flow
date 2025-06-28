@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import NewAppSidebar from '@/components/dashboard/NewAppSidebar';
 import { GlowCard } from '@/components/ui/spotlight-card';
@@ -149,20 +150,11 @@ const PlanSchedulePage: React.FC = () => {
       >
         {/* Header */}
         <div className="p-6 border-b border-gray-800">
-          <div className="flex items-center justify-between mb-4">
+          <div className="mb-4">
             <h1 className="text-2xl font-bold text-white">Plan & Schedule</h1>
-
-            {/* Add New Project Button */}
-            <GlowButton
-              glowColor="red"
-              leftIcon={<Plus className="w-4 h-4" />}
-              className="bg-red-600 hover:bg-red-700 rounded-lg px-6 h-10"
-            >
-              Add New Video
-            </GlowButton>
           </div>
 
-          {/* Search and Filter Row */}
+          {/* Single Row with Search, Filter, and Add Button */}
           <div className="flex items-center space-x-4">
             {/* Search Bar */}
             <div className="flex-1 max-w-md">
@@ -203,47 +195,56 @@ const PlanSchedulePage: React.FC = () => {
                 </div>
               )}
             </div>
+
+            {/* Add New Video Button */}
+            <GlowButton
+              glowColor="red"
+              leftIcon={<Plus className="w-4 h-4" />}
+              className="bg-red-600 hover:bg-red-700 rounded-lg px-6 h-10"
+            >
+              Add New Video
+            </GlowButton>
           </div>
         </div>
 
         {/* Projects List */}
         <div className="flex-1 p-6">
-          <div className="space-y-2">
+          <div className="space-y-1">
             {filteredProjects.map((project) => (
               <GlowCard
                 key={project.id}
                 glowColor="red"
                 customSize={true}
-                className="w-full h-auto bg-gray-900/50 border border-gray-800 hover:border-red-500/50 transition-all duration-200 cursor-pointer p-3 flex flex-col gap-0"
+                className="w-full h-auto bg-gray-900/50 border border-gray-800 hover:border-red-500/50 transition-all duration-200 cursor-pointer p-2 flex flex-col gap-0"
               >
-                <div className="flex items-center space-x-4">
-                  {/* Video Thumbnail - Smaller for list view */}
+                <div className="flex items-center space-x-3">
+                  {/* Video Thumbnail - Even smaller for tighter list */}
                   <div className="relative flex-shrink-0">
-                    <div className="w-32 h-18 rounded-lg overflow-hidden">
+                    <div className="w-24 h-14 rounded-md overflow-hidden">
                       <img
                         src={project.thumbnail}
                         alt={project.title}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200 rounded-lg">
-                      <Play className="w-4 h-4 text-white" />
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200 rounded-md">
+                      <Play className="w-3 h-3 text-white" />
                     </div>
                   </div>
 
-                  {/* Video Info - Takes remaining space */}
+                  {/* Video Info - Compact layout */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between">
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-base font-semibold text-white mb-1 truncate">
+                        <h3 className="text-sm font-semibold text-white mb-0.5 truncate">
                           {project.title}
                         </h3>
-                        <p className="text-sm text-gray-400 mb-1 line-clamp-1">
+                        <p className="text-xs text-gray-400 mb-1 line-clamp-1">
                           {project.description}
                         </p>
 
-                        {/* Stats Row */}
-                        <div className="flex items-center space-x-4 text-xs text-gray-500">
+                        {/* Stats Row - More compact */}
+                        <div className="flex items-center space-x-3 text-xs text-gray-500">
                           <div className="flex items-center gap-1">
                             <Eye className="w-3 h-3" />
                             <span>{formatNumber(project.stats.views)}</span>
@@ -266,7 +267,7 @@ const PlanSchedulePage: React.FC = () => {
                       </div>
 
                       {/* Status Badge */}
-                      <div className="flex-shrink-0 ml-4">
+                      <div className="flex-shrink-0 ml-3">
                         <Badge className={`${getStateColor(project.state)} border text-xs`}>
                           {project.state}
                         </Badge>
