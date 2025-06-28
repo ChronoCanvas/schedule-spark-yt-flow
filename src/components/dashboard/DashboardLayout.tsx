@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import AppSidebar from './AppSidebar';
+import NewAppSidebar from './NewAppSidebar';
 import TopBar from './TopBar';
 import { NotificationProvider } from '@/contexts/NotificationContext';
 
@@ -23,21 +23,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, title }) =>
 
   return (
     <NotificationProvider>
-      <div className="min-h-screen bg-black flex">
-        {/* Desktop Sidebar */}
-        <div className="hidden md:block">
-          <AppSidebar collapsed={sidebarCollapsed} onToggle={toggleSidebar} />
-        </div>
-
-        {/* Mobile Sidebar Overlay */}
-        {mobileMenuOpen && (
-          <div className="md:hidden fixed inset-0 z-50 flex">
-            <div className="fixed inset-0 bg-black bg-opacity-50" onClick={toggleMobileMenu} />
-            <div className="relative">
-              <AppSidebar collapsed={false} onToggle={toggleMobileMenu} />
-            </div>
-          </div>
-        )}
+      <div className="min-h-screen bg-black flex w-full">
+        {/* New Sidebar */}
+        <NewAppSidebar collapsed={sidebarCollapsed} onToggle={toggleSidebar} />
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col min-w-0">

@@ -72,11 +72,11 @@ export const Sidebar = ({
   );
 };
 
-export const SidebarBody = (props: React.ComponentProps<"div">) => {
+export const SidebarBody = (props: React.ComponentProps<typeof motion.div>) => {
   return (
     <>
       <DesktopSidebar {...props} />
-      <MobileSidebar {...props} />
+      <MobileSidebar {...(props as React.ComponentProps<"div">)} />
     </>
   );
 };
@@ -85,20 +85,20 @@ export const DesktopSidebar = ({
   className,
   children,
   ...props
-}: React.ComponentProps<"div">) => {
+}: React.ComponentProps<typeof motion.div>) => {
   const { open, setOpen, animate } = useSidebar();
   return (
     <motion.div
       className={cn(
-        "h-full px-4 py-4 hidden md:flex md:flex-col bg-white border-r border-spot-primary/10 flex-shrink-0",
+        "h-full px-4 py-4 hidden md:flex md:flex-col bg-black border-r border-gray-800 w-[300px] flex-shrink-0",
         className
       )}
       animate={{
-        width: animate ? (open ? 180 : 60) : 180,
+        width: animate ? (open ? "300px" : "60px") : "300px",
       }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
+      {...props}
     >
       {children}
     </motion.div>
@@ -115,12 +115,13 @@ export const MobileSidebar = ({
     <>
       <div
         className={cn(
-          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-white border-b border-spot-primary/10 w-full"
+          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-black border-b border-gray-800 w-full"
         )}
+        {...props}
       >
         <div className="flex justify-end z-20 w-full">
           <Menu
-            className="text-spot-primary cursor-pointer"
+            className="text-white cursor-pointer"
             onClick={() => setOpen(!open)}
           />
         </div>
@@ -135,12 +136,12 @@ export const MobileSidebar = ({
                 ease: "easeInOut",
               }}
               className={cn(
-                "fixed h-full w-full inset-0 bg-white p-10 z-[100] flex flex-col justify-between",
+                "fixed h-full w-full inset-0 bg-black p-10 z-[100] flex flex-col justify-between",
                 className
               )}
             >
               <div
-                className="absolute right-10 top-10 z-50 text-spot-primary cursor-pointer"
+                className="absolute right-10 top-10 z-50 text-white cursor-pointer"
                 onClick={() => setOpen(!open)}
               >
                 <X />
@@ -168,22 +169,21 @@ export const SidebarLink = ({
     <Link
       to={link.href}
       className={cn(
-        "flex items-center gap-2 group/sidebar py-2 px-0 rounded-md hover:bg-spot-primary/10 transition-colors min-h-[40px]",
+        "flex items-center justify-start gap-2 group/sidebar py-2 px-3 rounded-lg transition-all duration-200 hover:bg-gray-800",
         className
       )}
       {...props}
     >
-      <div className="flex-shrink-0 flex items-center justify-center w-6 h-6">
-        {link.icon}
-      </div>
-      <span
-        className={cn(
-          "text-spot-primary text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-nowrap flex-1",
-          animate && !open && "opacity-0 w-0 overflow-hidden"
-        )}
+      {link.icon}
+      <motion.span
+        animate={{
+          display: animate ? (open ? "inline-block" : "none") : "inline-block",
+          opacity: animate ? (open ? 1 : 0) : 1,
+        }}
+        className="text-gray-400 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
       >
         {link.label}
-      </span>
+      </motion.span>
     </Link>
   );
 };
