@@ -45,10 +45,10 @@ const sidebarItems: SidebarItem[] = [
     ]
   },
   {
-    id: 'plan-schedule',
-    label: 'Plan & Schedule',
+    id: 'upload',
+    label: 'Upload & Scheduling',
     icon: Upload,
-    href: '/dashboard/plan-schedule'
+    href: '/dashboard/upload'
   },
   {
     id: 'livestreams',
