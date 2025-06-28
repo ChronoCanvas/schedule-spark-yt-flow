@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import NewAppSidebar from '@/components/dashboard/NewAppSidebar';
 import { GlowCard } from '@/components/ui/spotlight-card';
 import { GlowButton } from '@/components/ui/glow-button';
+import { GlowInput } from '@/components/ui/glow-input';
 import { Badge } from '@/components/ui/badge';
-import { Plus, ChevronDown, Play, Eye, MessageSquare, Clock, ThumbsUp } from 'lucide-react';
+import { Plus, ChevronDown, Play, Eye, MessageSquare, Clock, ThumbsUp, Search } from 'lucide-react';
 
 // Project state type
 type ProjectState = 'Planning' | 'Production' | 'Scheduled' | 'Uploaded';
@@ -120,12 +121,15 @@ const PlanSchedulePage: React.FC = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [selectedState, setSelectedState] = useState<ProjectState | 'All'>('All');
   const [filterOpen, setFilterOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const states: (ProjectState | 'All')[] = ['All', 'Planning', 'Production', 'Scheduled', 'Uploaded'];
 
-  const filteredProjects = selectedState === 'All' 
-    ? mockProjects 
-    : mockProjects.filter(project => project.state === selectedState);
+  const filteredProjects = mockProjects.filter(project => {
+    const matchesState = selectedState === 'All' || project.state === selectedState;
+    const matchesSearch = project.title.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesState && matchesSearch;
+  });
 
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
@@ -145,38 +149,8 @@ const PlanSchedulePage: React.FC = () => {
       >
         {/* Header */}
         <div className="p-6 border-b border-gray-800">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold text-white">Plan & Schedule</h1>
-              
-              {/* Filter Dropdown - Regular pill-shaped button */}
-              <div className="relative">
-                <button 
-                  className="flex items-center justify-center space-x-2 h-10 px-4 bg-gray-900/80 border border-gray-700 hover:border-red-500/50 transition-all duration-200 rounded-full cursor-pointer"
-                  onClick={() => setFilterOpen(!filterOpen)}
-                >
-                  <span className="text-white text-sm font-medium">{selectedState}</span>
-                  <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${filterOpen ? 'rotate-180' : ''}`} />
-                </button>
-                
-                {filterOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-40 bg-gray-800 border border-gray-700 rounded-lg shadow-lg z-50">
-                    {states.map(state => (
-                      <div
-                        key={state}
-                        className="px-4 py-2 text-sm text-white hover:bg-gray-700 cursor-pointer first:rounded-t-lg last:rounded-b-lg"
-                        onClick={() => {
-                          setSelectedState(state);
-                          setFilterOpen(false);
-                        }}
-                      >
-                        {state}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
+          <div className="flex items-center justify-between mb-4">
+            <h1 className="text-2xl font-bold text-white">Plan & Schedule</h1>
 
             {/* Add New Project Button */}
             <GlowButton
@@ -187,66 +161,116 @@ const PlanSchedulePage: React.FC = () => {
               Add New Video
             </GlowButton>
           </div>
+
+          {/* Search and Filter Row */}
+          <div className="flex items-center space-x-4">
+            {/* Search Bar */}
+            <div className="flex-1 max-w-md">
+              <GlowInput
+                glowColor="red"
+                placeholder="Search videos..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                leftIcon={<Search className="w-4 h-4" />}
+                className="h-10"
+              />
+            </div>
+            
+            {/* Filter Dropdown */}
+            <div className="relative">
+              <button 
+                className="flex items-center justify-center space-x-2 h-10 px-4 bg-gray-900/80 border border-gray-700 hover:border-red-500/50 transition-all duration-200 rounded-full cursor-pointer"
+                onClick={() => setFilterOpen(!filterOpen)}
+              >
+                <span className="text-white text-sm font-medium">{selectedState}</span>
+                <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${filterOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {filterOpen && (
+                <div className="absolute top-full left-0 mt-2 w-40 bg-gray-800 border border-gray-700 rounded-lg shadow-lg z-50">
+                  {states.map(state => (
+                    <div
+                      key={state}
+                      className="px-4 py-2 text-sm text-white hover:bg-gray-700 cursor-pointer first:rounded-t-lg last:rounded-b-lg"
+                      onClick={() => {
+                        setSelectedState(state);
+                        setFilterOpen(false);
+                      }}
+                    >
+                      {state}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
-        {/* Projects Grid */}
+        {/* Projects List */}
         <div className="flex-1 p-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+          <div className="space-y-3">
             {filteredProjects.map((project) => (
               <GlowCard
                 key={project.id}
                 glowColor="red"
                 customSize={true}
-                className="w-full h-auto bg-gray-900/50 border border-gray-800 hover:border-red-500/50 transition-all duration-200 cursor-pointer p-3"
+                className="w-full h-auto bg-gray-900/50 border border-gray-800 hover:border-red-500/50 transition-all duration-200 cursor-pointer p-4"
               >
-                <div className="flex flex-col h-full">
-                  {/* Video Thumbnail - 16:9 aspect ratio */}
-                  <div className="relative mb-3 rounded-lg overflow-hidden">
-                    <div className="aspect-[16/9] w-full">
+                <div className="flex items-center space-x-4">
+                  {/* Video Thumbnail - Smaller for list view */}
+                  <div className="relative flex-shrink-0">
+                    <div className="w-32 h-18 rounded-lg overflow-hidden">
                       <img
                         src={project.thumbnail}
                         alt={project.title}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <div className="absolute top-2 right-2">
-                      <Badge className={`${getStateColor(project.state)} border text-xs`}>
-                        {project.state}
-                      </Badge>
-                    </div>
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
-                      <Play className="w-6 h-6 text-white" />
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200 rounded-lg">
+                      <Play className="w-4 h-4 text-white" />
                     </div>
                   </div>
 
-                  {/* Video Info */}
-                  <div className="flex-1">
-                    <h3 className="text-sm font-semibold text-white mb-2 line-clamp-2 leading-tight">
-                      {project.title}
-                    </h3>
+                  {/* Video Info - Takes remaining space */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-base font-semibold text-white mb-1 truncate">
+                          {project.title}
+                        </h3>
+                        <p className="text-sm text-gray-400 mb-2 line-clamp-1">
+                          {project.description}
+                        </p>
 
-                    {/* YouTube Stats - Single horizontal line with icons only */}
-                    <div className="flex items-center justify-between text-xs mb-2">
-                      <div className="flex items-center gap-1">
-                        <Eye className="w-3 h-3 text-gray-400" />
-                        <span className="text-gray-300">{formatNumber(project.stats.views)}</span>
+                        {/* Stats Row */}
+                        <div className="flex items-center space-x-4 text-xs text-gray-500">
+                          <div className="flex items-center gap-1">
+                            <Eye className="w-3 h-3" />
+                            <span>{formatNumber(project.stats.views)}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <ThumbsUp className="w-3 h-3" />
+                            <span>{formatNumber(project.stats.likes)}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <MessageSquare className="w-3 h-3" />
+                            <span>{formatNumber(project.stats.comments)}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            <span>{formatWatchTime(project.stats.watchTime)}</span>
+                          </div>
+                          <span>•</span>
+                          <span>{new Date(project.createdAt).toLocaleDateString()}</span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-1">
-                        <ThumbsUp className="w-3 h-3 text-gray-400" />
-                        <span className="text-gray-300">{formatNumber(project.stats.likes)}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <MessageSquare className="w-3 h-3 text-gray-400" />
-                        <span className="text-gray-300">{formatNumber(project.stats.comments)}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Clock className="w-3 h-3 text-gray-400" />
-                        <span className="text-gray-300">{formatWatchTime(project.stats.watchTime)}</span>
-                      </div>
-                    </div>
 
-                    <div className="text-xs text-gray-500">
-                      {new Date(project.createdAt).toLocaleDateString()}
+                      {/* Status Badge */}
+                      <div className="flex-shrink-0 ml-4">
+                        <Badge className={`${getStateColor(project.state)} border text-xs`}>
+                          {project.state}
+                        </Badge>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -261,9 +285,11 @@ const PlanSchedulePage: React.FC = () => {
                 <div className="text-6xl mb-4">📹</div>
                 <h3 className="text-xl font-semibold mb-2">No videos found</h3>
                 <p className="text-sm">
-                  {selectedState === 'All' 
-                    ? 'Create your first video to get started'
-                    : `No videos in ${selectedState} state`
+                  {searchQuery 
+                    ? `No videos match your search "${searchQuery}"`
+                    : selectedState === 'All' 
+                      ? 'Create your first video to get started'
+                      : `No videos in ${selectedState} state`
                   }
                 </p>
               </div>
