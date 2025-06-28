@@ -42,7 +42,7 @@ export const SidebarProvider = ({
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   animate?: boolean;
 }) => {
-  const [openState, setOpenState] = useState(false); // Start collapsed
+  const [openState, setOpenState] = useState(false);
 
   const open = openProp !== undefined ? openProp : openState;
   const setOpen = setOpenProp !== undefined ? setOpenProp : setOpenState;
@@ -95,18 +95,22 @@ export const DesktopSidebar = ({
   ...props
 }: React.ComponentProps<"div">) => {
   const { open, setOpen, animate } = useSidebar();
+  
+  const motionProps = {
+    animate: {
+      width: animate ? (open ? "300px" : "60px") : "300px",
+    },
+    onMouseEnter: () => setOpen(true),
+    onMouseLeave: () => setOpen(false),
+  };
+
   return (
     <motion.div
       className={cn(
         "h-screen px-4 py-4 hidden md:flex md:flex-col bg-black border-r border-gray-800 flex-shrink-0 overflow-y-auto scrollbar-hide fixed left-0 top-0 z-40",
         className
       )}
-      animate={{
-        width: animate ? (open ? "300px" : "60px") : "300px",
-      }}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-      {...props}
+      {...motionProps}
     >
       {children}
     </motion.div>
