@@ -8,7 +8,7 @@ import {
   Calendar, 
   Users, 
   DollarSign, 
-  UserGroup,
+  Users as TeamIcon,
   ChevronDown,
   ChevronRight,
   User,
@@ -77,7 +77,7 @@ const sidebarItems: SidebarItem[] = [
   {
     id: 'team',
     label: 'Team',
-    icon: UserGroup,
+    icon: TeamIcon,
     href: '/dashboard/team'
   }
 ];
