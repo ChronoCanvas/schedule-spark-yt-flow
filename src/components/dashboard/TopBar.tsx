@@ -115,7 +115,7 @@ const TopBar: React.FC<TopBarProps> = ({ title, onMenuClick, showMobileMenu = fa
           >
             <Bell className="w-6 h-6 text-gray-300" />
             {unreadCount > 0 && (
-              <span className="absolute -top-1 -right-1 min-w-[20px] h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center px-1 font-medium shadow-lg border-2 border-black">
+              <span className="absolute -top-1 -right-1 min-w-[20px] h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center px-1 font-medium shadow-lg border-2 border-black z-20">
                 {unreadCount > 99 ? '99+' : unreadCount}
               </span>
             )}
