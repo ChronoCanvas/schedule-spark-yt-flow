@@ -13,6 +13,7 @@ const ModernStunningSignIn = ({ mode = "signin" }: SignInProps) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [name, setName] = React.useState("");
   const [error, setError] = React.useState("");
   const navigate = useNavigate();
   const isSignUp = mode === "signup";
@@ -24,6 +25,10 @@ const ModernStunningSignIn = ({ mode = "signin" }: SignInProps) => {
   const handleSubmit = () => {
     if (!email || !password) {
       setError("Please enter both email and password.");
+      return;
+    }
+    if (isSignUp && !name) {
+      setError("Please enter your name.");
       return;
     }
     if (!validateEmail(email)) {
@@ -57,6 +62,15 @@ const ModernStunningSignIn = ({ mode = "signin" }: SignInProps) => {
         {/* Form */}
         <div className="flex flex-col w-full gap-4">
           <div className="w-full flex flex-col gap-3">
+            {isSignUp && (
+              <input
+                placeholder="Full Name"
+                type="text"
+                value={name}
+                className="w-full px-5 py-3 rounded-xl bg-white/10 text-white placeholder-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+                onChange={(e) => setName(e.target.value)}
+              />
+            )}
             <input
               placeholder="Email"
               type="email"
@@ -115,35 +129,37 @@ const ModernStunningSignIn = ({ mode = "signin" }: SignInProps) => {
           </div>
         </div>
       </div>
-      {/* User count and avatars */}
-      <div className="relative z-10 mt-12 flex flex-col items-center text-center">
-        <p className="text-gray-400 text-sm mb-2">
-          Join <span className="font-medium text-white">thousands</span> of
-          developers who are already using YOUTILIFY.
-        </p>
-        <div className="flex">
-          <img
-            src="https://randomuser.me/api/portraits/men/32.jpg"
-            alt="user"
-            className="w-8 h-8 rounded-full border-2 border-[#181824] object-cover"
-          />
-          <img
-            src="https://randomuser.me/api/portraits/women/44.jpg"
-            alt="user"
-            className="w-8 h-8 rounded-full border-2 border-[#181824] object-cover"
-          />
-          <img
-            src="https://randomuser.me/api/portraits/men/54.jpg"
-            alt="user"
-            className="w-8 h-8 rounded-full border-2 border-[#181824] object-cover"
-          />
-          <img
-            src="https://randomuser.me/api/portraits/women/68.jpg"
-            alt="user"
-            className="w-8 h-8 rounded-full border-2 border-[#181824] object-cover"
-          />
+      {/* User count and avatars - only show on signup */}
+      {isSignUp && (
+        <div className="relative z-10 mt-12 flex flex-col items-center text-center">
+          <p className="text-gray-400 text-sm mb-2">
+            Join <span className="font-medium text-white">thousands</span> of
+            developers who are already using YOUTILIFY.
+          </p>
+          <div className="flex">
+            <img
+              src="https://randomuser.me/api/portraits/men/32.jpg"
+              alt="user"
+              className="w-8 h-8 rounded-full border-2 border-[#181824] object-cover"
+            />
+            <img
+              src="https://randomuser.me/api/portraits/women/44.jpg"
+              alt="user"
+              className="w-8 h-8 rounded-full border-2 border-[#181824] object-cover"
+            />
+            <img
+              src="https://randomuser.me/api/portraits/men/54.jpg"
+              alt="user"
+              className="w-8 h-8 rounded-full border-2 border-[#181824] object-cover"
+            />
+            <img
+              src="https://randomuser.me/api/portraits/women/68.jpg"
+              alt="user"
+              className="w-8 h-8 rounded-full border-2 border-[#181824] object-cover"
+            />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
