@@ -72,18 +72,12 @@ export const Sidebar = ({
   );
 };
 
-export const SidebarBody = ({ 
-  className, 
-  children 
-}: { 
-  className?: string; 
-  children: React.ReactNode; 
-}) => {
+export const SidebarBody = (props: React.ComponentProps<typeof motion.div>) => {
+  const { className, children, ...otherProps } = props;
+  
   return (
     <>
-      <DesktopSidebar className={className}>
-        {children}
-      </DesktopSidebar>
+      <DesktopSidebar {...props} />
       <MobileSidebar className={className}>
         {children}
       </MobileSidebar>
@@ -94,10 +88,8 @@ export const SidebarBody = ({
 export const DesktopSidebar = ({
   className,
   children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) => {
+  ...props
+}: React.ComponentProps<typeof motion.div>) => {
   const { open, setOpen, animate } = useSidebar();
   return (
     <motion.div
@@ -110,6 +102,7 @@ export const DesktopSidebar = ({
       }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
+      {...props}
     >
       {children}
     </motion.div>

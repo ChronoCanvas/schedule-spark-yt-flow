@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   Home, 
@@ -284,7 +283,7 @@ interface NewAppSidebarProps {
 
 const NewAppSidebar: React.FC<NewAppSidebarProps> = ({ collapsed, onToggle }) => {
   return (
-    <Sidebar open={!collapsed} animate={true}>
+    <Sidebar open={!collapsed} setOpen={(open) => onToggle()} animate={true}>
       <SidebarBody className="justify-between gap-10 h-screen bg-black border-r border-gray-800 scrollbar-hide overflow-y-auto">
         <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden scrollbar-hide">
           <Logo />
