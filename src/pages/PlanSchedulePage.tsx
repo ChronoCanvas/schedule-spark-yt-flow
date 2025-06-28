@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import NewAppSidebar from '@/components/dashboard/NewAppSidebar';
 import { GlowCard } from '@/components/ui/spotlight-card';
@@ -162,7 +161,7 @@ const PlanSchedulePage: React.FC = () => {
                     className="w-auto h-10 bg-gray-900/80 border border-gray-700 hover:border-red-500/50 transition-all duration-200 rounded-full flex items-center px-4 py-0"
                   >
                     <div className="flex items-center space-x-2">
-                      <span className="text-white text-sm font-medium">{selectedState}</span>
+                      <span className="text-white text-sm font-medium">All</span>
                       <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${filterOpen ? 'rotate-180' : ''}`} />
                     </div>
                   </GlowCard>
