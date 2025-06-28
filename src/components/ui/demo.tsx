@@ -1,10 +1,10 @@
 
-import { Feature } from "@/components/ui/feature-with-image-comparison";
+import { SignIn1 } from "@/components/ui/modern-stunning-sign-in";
 
 function FeatureDemo() {
   return (
     <div className="w-full">
-      <Feature />
+      <SignIn1 />
     </div>
   );
 }
