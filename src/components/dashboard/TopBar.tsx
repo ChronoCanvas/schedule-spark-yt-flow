@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Search, Bell, Menu, Upload, Radio } from 'lucide-react';
+import { GlowCard } from '@/components/ui/spotlight-card';
 
 interface TopBarProps {
   title: string;
@@ -48,64 +49,94 @@ const TopBar: React.FC<TopBarProps> = ({ title, onMenuClick, showMobileMenu = fa
 
       {/* Center - Search */}
       <div className="hidden md:flex flex-1 max-w-md mx-8">
-        <div className="relative w-full">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-          <input
-            type="text"
-            placeholder="Search videos, comments..."
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-red-500 transition-colors"
-          />
-        </div>
+        <GlowCard 
+          glowColor="red" 
+          customSize={true}
+          className="w-full h-auto aspect-auto grid-rows-none gap-0 p-0 bg-transparent border-0 shadow-none backdrop-blur-none"
+        >
+          <div className="relative w-full">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <input
+              type="text"
+              placeholder="Search videos, comments..."
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-red-500 transition-colors"
+            />
+          </div>
+        </GlowCard>
       </div>
 
       {/* Right side */}
       <div className="flex items-center space-x-3">
         {/* Mobile search */}
-        <button className="md:hidden p-2 rounded-lg hover:bg-gray-800 text-gray-400">
-          <Search className="w-5 h-5" />
-        </button>
+        <GlowCard 
+          glowColor="red" 
+          customSize={true}
+          className="md:hidden w-auto h-auto aspect-auto grid-rows-none gap-0 p-0 bg-transparent border-0 shadow-none backdrop-blur-none"
+        >
+          <button className="p-2 rounded-lg hover:bg-gray-800 text-gray-400">
+            <Search className="w-5 h-5" />
+          </button>
+        </GlowCard>
 
         {/* Quick Actions */}
         <div className="hidden sm:flex items-center space-x-3">
           {quickActions.map((action) => (
-            <button
+            <GlowCard 
               key={action.id}
-              className={`
-                flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium
-                ${action.color} text-white
-                transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black
-              `}
+              glowColor="red" 
+              customSize={true}
+              className="w-auto h-auto aspect-auto grid-rows-none gap-0 p-0 bg-transparent border-0 shadow-none backdrop-blur-none"
             >
-              <action.icon className="w-4 h-4" />
-              <span className="hidden lg:block">{action.label}</span>
-            </button>
+              <button
+                className={`
+                  flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium
+                  ${action.color} text-white
+                  transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black
+                `}
+              >
+                <action.icon className="w-4 h-4" />
+                <span className="hidden lg:block">{action.label}</span>
+              </button>
+            </GlowCard>
           ))}
         </div>
 
         {/* Mobile Quick Actions - Icons only */}
         <div className="sm:hidden flex items-center space-x-2">
           {quickActions.map((action) => (
-            <button
+            <GlowCard 
               key={action.id}
-              className={`
-                p-2 rounded-full
-                ${action.color} text-white
-                transition-all duration-200 focus:outline-none
-              `}
+              glowColor="red" 
+              customSize={true}
+              className="w-auto h-auto aspect-auto grid-rows-none gap-0 p-0 bg-transparent border-0 shadow-none backdrop-blur-none"
             >
-              <action.icon className="w-4 h-4" />
-            </button>
+              <button
+                className={`
+                  p-2 rounded-full
+                  ${action.color} text-white
+                  transition-all duration-200 focus:outline-none
+                `}
+              >
+                <action.icon className="w-4 h-4" />
+              </button>
+            </GlowCard>
           ))}
         </div>
 
         {/* Notifications */}
         <div className="relative">
-          <button className="p-2 rounded-lg hover:bg-gray-800 text-gray-400 relative">
-            <Bell className="w-5 h-5" />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-          </button>
+          <GlowCard 
+            glowColor="red" 
+            customSize={true}
+            className="w-auto h-auto aspect-auto grid-rows-none gap-0 p-0 bg-transparent border-0 shadow-none backdrop-blur-none"
+          >
+            <button className="p-2 rounded-lg hover:bg-gray-800 text-gray-400 relative">
+              <Bell className="w-5 h-5" />
+              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+          </GlowCard>
         </div>
       </div>
     </div>
