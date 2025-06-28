@@ -1,10 +1,12 @@
 
-import { SignIn1 } from "@/components/ui/modern-stunning-sign-in"
+import { Feature } from "@/components/ui/feature-with-image-comparison";
 
-const Demo = () => {
-    return (
-        <SignIn1/>
-    )
+function FeatureDemo() {
+  return (
+    <div className="w-full">
+      <Feature />
+    </div>
+  );
 }
 
-export {Demo}
+export { FeatureDemo };

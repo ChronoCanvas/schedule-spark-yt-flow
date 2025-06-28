@@ -10,8 +10,6 @@ import LandingPage from "./pages/LandingPage";
 import SupportPage from "./pages/SupportPage";
 import SupportArticlePage from "./pages/SupportArticlePage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
-import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/SignupPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -73,26 +71,6 @@ const AppContent: React.FC = () => {
               transition={{ duration: 0.3 }}
             >
               <PrivacyPolicyPage />
-            </motion.div>
-          } />
-          <Route path="/login" element={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <LoginPage />
-            </motion.div>
-          } />
-          <Route path="/signup" element={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <SignupPage />
             </motion.div>
           } />
           <Route path="*" element={
