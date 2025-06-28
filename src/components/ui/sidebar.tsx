@@ -1,3 +1,4 @@
+
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -17,6 +18,7 @@ interface SidebarContextProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   animate: boolean;
   closeWithDelay: () => void;
+  hoverDelayRef: React.MutableRefObject<boolean>;
 }
 
 const SidebarContext = createContext<SidebarContextProps | undefined>(
@@ -57,7 +59,7 @@ export const SidebarProvider = ({
   };
 
   return (
-    <SidebarContext.Provider value={{ open, setOpen, animate, closeWithDelay }}>
+    <SidebarContext.Provider value={{ open, setOpen, animate, closeWithDelay, hoverDelayRef }}>
       {children}
     </SidebarContext.Provider>
   );
@@ -103,8 +105,7 @@ export const DesktopSidebar = ({
   children,
   ...props
 }: React.ComponentProps<"div">) => {
-  const { open, setOpen, animate } = useSidebar();
-  const hoverDelayRef = useRef<boolean>(false);
+  const { open, setOpen, animate, hoverDelayRef } = useSidebar();
   
   const motionProps = {
     animate: {
@@ -118,21 +119,6 @@ export const DesktopSidebar = ({
     },
     // Remove onMouseLeave - no auto-close behavior
   };
-
-  // Expose the delay ref to the context
-  React.useEffect(() => {
-    const context = React.useContext(SidebarContext);
-    if (context) {
-      const originalCloseWithDelay = context.closeWithDelay;
-      context.closeWithDelay = () => {
-        setOpen(false);
-        hoverDelayRef.current = true;
-        setTimeout(() => {
-          hoverDelayRef.current = false;
-        }, 2000);
-      };
-    }
-  }, [setOpen]);
 
   return (
     <motion.div
