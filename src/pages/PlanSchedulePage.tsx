@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import NewAppSidebar from '@/components/dashboard/NewAppSidebar';
 import { GlowCard } from '@/components/ui/spotlight-card';
@@ -150,7 +149,7 @@ const PlanSchedulePage: React.FC = () => {
             <div className="flex items-center space-x-4">
               <h1 className="text-2xl font-bold text-white">Plan & Schedule</h1>
               
-              {/* Filter Dropdown with GlowCard - Fixed height and clickable */}
+              {/* Filter Dropdown with GlowCard - Fixed centering */}
               <div className="relative">
                 <div 
                   className="cursor-pointer"
@@ -159,9 +158,9 @@ const PlanSchedulePage: React.FC = () => {
                   <GlowCard
                     glowColor="red"
                     customSize={true}
-                    className="w-auto h-10 bg-gray-900/80 border border-gray-700 hover:border-red-500/50 transition-all duration-200 rounded-full flex items-center px-4 py-0"
+                    className="w-auto h-10 bg-gray-900/80 border border-gray-700 hover:border-red-500/50 transition-all duration-200 rounded-full flex items-center justify-center px-4"
                   >
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center justify-center space-x-2">
                       <span className="text-white text-sm font-medium">{selectedState}</span>
                       <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${filterOpen ? 'rotate-180' : ''}`} />
                     </div>
