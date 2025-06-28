@@ -1,6 +1,7 @@
 
 import React from 'react';
 import HeroSection from '@/components/landingpage/HeroSection';
+import HighlightsSection from '@/components/landingpage/HighlightsSection';
 import FeaturesSection from '@/components/landingpage/FeaturesSection';
 import ComparisonSection from '@/components/landingpage/ComparisonSection';
 import DemoPreviewSection from '@/components/landingpage/DemoPreviewSection';
@@ -10,6 +11,7 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       <HeroSection />
+      <HighlightsSection />
       <FeaturesSection />
       <ComparisonSection />
       <DemoPreviewSection />
