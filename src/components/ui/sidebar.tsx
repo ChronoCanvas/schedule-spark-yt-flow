@@ -1,10 +1,10 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Link, LinkProps, useLocation } from "react-router-dom";
-import React, { useState, createContext, useContext, useEffect, useRef } from "react";
+import { Link, LinkProps } from "react-router-dom";
+import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Links {
   label: string;
@@ -94,44 +94,10 @@ export const DesktopSidebar = ({
   ...props
 }: React.ComponentProps<"div">) => {
   const { open, setOpen, animate } = useSidebar();
-  const location = useLocation();
-  const [canHover, setCanHover] = useState(false);
-  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  
-  // Reset hover state on route change and add delay
-  useEffect(() => {
-    setCanHover(false);
-    
-    // Clear any existing timeout
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
-    }
-    
-    // Add delay before allowing hover interactions
-    hoverTimeoutRef.current = setTimeout(() => {
-      setCanHover(true);
-    }, 150);
-    
-    return () => {
-      if (hoverTimeoutRef.current) {
-        clearTimeout(hoverTimeoutRef.current);
-      }
-    };
-  }, [location.pathname]);
   
   const motionProps = {
     animate: {
       width: animate ? (open ? "300px" : "60px") : "300px",
-    },
-    onMouseEnter: () => {
-      if (canHover) {
-        setOpen(true);
-      }
-    },
-    onMouseLeave: () => {
-      if (canHover) {
-        setOpen(false);
-      }
     },
   };
 
@@ -143,7 +109,22 @@ export const DesktopSidebar = ({
       )}
       {...motionProps}
     >
-      {children}
+      {/* Toggle Button */}
+      <button
+        onClick={() => setOpen(!open)}
+        className="absolute top-4 right-2 z-50 p-1 rounded-md hover:bg-gray-800 text-gray-400 hover:text-white transition-colors"
+        title={open ? "Collapse sidebar" : "Expand sidebar"}
+      >
+        {open ? (
+          <ChevronLeft className="w-4 h-4" />
+        ) : (
+          <ChevronRight className="w-4 h-4" />
+        )}
+      </button>
+      
+      <div className="mt-8">
+        {children}
+      </div>
     </motion.div>
   );
 };
