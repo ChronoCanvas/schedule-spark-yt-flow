@@ -5,7 +5,6 @@ import { GlowButton } from '@/components/ui/glow-button';
 import { GlowInput } from '@/components/ui/glow-input';
 import { Badge } from '@/components/ui/badge';
 import { Plus, ChevronDown, Play, Eye, MessageSquare, Clock, ThumbsUp, Search } from 'lucide-react';
-import AddNewVideoModal from '@/components/addnewvideo/AddNewVideoModal';
 
 // Project state type
 type ProjectState = 'Planning' | 'Production' | 'Scheduled' | 'Uploaded';
@@ -125,7 +124,6 @@ const PlanSchedulePage: React.FC = () => {
   const [selectedState, setSelectedState] = useState<ProjectState | 'All'>('All');
   const [filterOpen, setFilterOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [addVideoModalOpen, setAddVideoModalOpen] = useState(false);
 
   const states: (ProjectState | 'All')[] = ['All', 'Planning', 'Production', 'Scheduled', 'Uploaded'];
 
@@ -204,7 +202,6 @@ const PlanSchedulePage: React.FC = () => {
               glowColor="red"
               leftIcon={<Plus className="w-4 h-4" />}
               className="bg-red-600 hover:bg-red-700 rounded-lg px-6 h-10"
-              onClick={() => setAddVideoModalOpen(true)}
             >
               Add New Video
             </GlowButton>
@@ -318,12 +315,6 @@ const PlanSchedulePage: React.FC = () => {
           onClick={() => setFilterOpen(false)}
         />
       )}
-
-      {/* Add New Video Modal */}
-      <AddNewVideoModal
-        open={addVideoModalOpen}
-        onClose={() => setAddVideoModalOpen(false)}
-      />
     </div>
   );
 };
