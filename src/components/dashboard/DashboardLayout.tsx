@@ -24,11 +24,16 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, title }) =>
   return (
     <NotificationProvider>
       <div className="min-h-screen bg-black flex w-full">
-        {/* New Sidebar */}
+        {/* Fixed Sidebar */}
         <NewAppSidebar collapsed={sidebarCollapsed} onToggle={toggleSidebar} />
 
-        {/* Main Content */}
-        <div className="flex-1 flex flex-col min-w-0">
+        {/* Main Content with left margin to account for fixed sidebar */}
+        <div 
+          className="flex-1 flex flex-col min-w-0 transition-all duration-300"
+          style={{ 
+            marginLeft: sidebarCollapsed ? '60px' : '300px'
+          }}
+        >
           <div className="sticky top-0 z-50">
             <TopBar 
               title={title} 
