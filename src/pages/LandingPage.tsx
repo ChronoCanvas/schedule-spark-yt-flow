@@ -2,8 +2,8 @@
 import React from 'react';
 import HeroSection from '@/components/landingpage/HeroSection';
 import FeaturesSection from '@/components/landingpage/FeaturesSection';
-import DemoPreviewSection from '@/components/landingpage/DemoPreviewSection';
 import ComparisonSection from '@/components/landingpage/ComparisonSection';
+import DemoPreviewSection from '@/components/landingpage/DemoPreviewSection';
 import Footer from '@/components/shared/Footer';
 
 const LandingPage = () => {
@@ -11,8 +11,8 @@ const LandingPage = () => {
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       <HeroSection />
       <FeaturesSection />
-      <DemoPreviewSection />
       <ComparisonSection />
+      <DemoPreviewSection />
       <Footer theme="dark" />
     </div>
   );
