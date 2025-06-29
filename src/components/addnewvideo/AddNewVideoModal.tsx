@@ -125,11 +125,11 @@ const AddNewVideoModal: React.FC<AddNewVideoModalProps> = ({ isOpen, onClose }) 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black">
+    <div className="fixed inset-0 z-[9999] bg-black">
       {/* Close button */}
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 z-60 text-gray-400 hover:text-white transition-colors"
+        className="absolute top-4 right-4 z-[10000] text-gray-400 hover:text-white transition-colors"
       >
         <X className="w-6 h-6" />
       </button>
