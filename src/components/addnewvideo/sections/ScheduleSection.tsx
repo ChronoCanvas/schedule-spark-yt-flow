@@ -76,7 +76,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
             <SelectTrigger className="w-full bg-gray-800 border-gray-600 text-white rounded-xl">
               <SelectValue placeholder="Select an option" />
             </SelectTrigger>
-            <SelectContent className="bg-gray-800 border-gray-600 rounded-xl z-50">
+            <SelectContent className="bg-gray-800 border-gray-600 rounded-xl">
               <SelectItem value="schedule" className="text-white hover:bg-gray-700">Schedule</SelectItem>
               <SelectItem value="upload" className="text-white hover:bg-gray-700">Upload</SelectItem>
             </SelectContent>
@@ -108,7 +108,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
                       {scheduledDate ? format(scheduledDate, "PPP") : <span>Pick a date</span>}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0 bg-gray-800 border-gray-600 rounded-xl z-50" align="start">
+                  <PopoverContent className="w-auto p-0 bg-gray-800 border-gray-600 rounded-xl z-[10000]" align="start">
                     <CalendarComponent
                       mode="single"
                       selected={scheduledDate}
