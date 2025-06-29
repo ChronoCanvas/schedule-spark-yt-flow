@@ -5,7 +5,6 @@ import { GlowButton } from '@/components/ui/glow-button';
 import { Upload, FileText, Play } from 'lucide-react';
 import TeleprompterMode from '../teleprompter/TeleprompterMode';
 import { TiptapEditor, TiptapEditorRef } from '@/components/ui/tiptap-editor';
-import { GlowTextarea } from '@/components/ui/glow-textarea';
 
 interface WorkspaceSectionProps {
   ideas: string;
@@ -39,18 +38,17 @@ const WorkspaceSection: React.FC<WorkspaceSectionProps> = ({
 
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-        {/* Left Column - Ideation */}
+      <div className="space-y-8 mb-8">
+        {/* Ideation Section */}
         <GlowCard glowColor="blue" customSize className="w-full p-6">
           <div className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Ideation</h2>
             
-            <GlowTextarea
-              glowColor="blue"
+            <textarea
               value={ideas}
               onChange={(e) => onIdeasChange(e.target.value)}
               placeholder="Brainstorm your video ideas here... What's the concept? Target audience? Key messages?"
-              className="min-h-[200px]"
+              className="w-full min-h-[200px] bg-transparent border border-gray-600 rounded-lg p-4 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 resize-none"
             />
 
             {/* File Upload Section */}
@@ -102,7 +100,7 @@ const WorkspaceSection: React.FC<WorkspaceSectionProps> = ({
           </div>
         </GlowCard>
 
-        {/* Right Column - Script Editor */}
+        {/* Script Editor Section */}
         <GlowCard glowColor="purple" customSize className="w-full p-6">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
