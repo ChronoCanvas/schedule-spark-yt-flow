@@ -90,7 +90,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
       backgroundColor: 'var(--backdrop, transparent)',
       backgroundSize: 'calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)))',
       backgroundPosition: '50% 50%',
-      backgroundAttachment: 'fixed',
+      backgroundAttachment: 'scroll', // Changed from 'fixed' to 'scroll'
       border: 'var(--border-size) solid var(--backup-border)',
       position: 'relative',
       touchAction: 'none',
@@ -118,7 +118,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
       inset: calc(var(--border-size) * -1);
       border: var(--border-size) solid transparent;
       border-radius: calc(var(--radius) * 1px);
-      background-attachment: fixed;
+      background-attachment: scroll;
       background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
       background-repeat: no-repeat;
       background-position: 50% 50%;
@@ -147,8 +147,8 @@ const GlowCard: React.FC<GlowCardProps> = ({
     }
     
     [data-glow] [data-glow] {
-      position: absolute;
-      inset: 0;
+      position: relative;
+      inset: auto;
       will-change: filter;
       opacity: var(--outer, 1);
       border-radius: calc(var(--radius) * 1px);
@@ -157,11 +157,17 @@ const GlowCard: React.FC<GlowCardProps> = ({
       background: none;
       pointer-events: none;
       border: none;
+      z-index: -1;
     }
     
     [data-glow] > [data-glow]::before {
       inset: -10px;
       border-width: 10px;
+    }
+    
+    [data-glow] > * {
+      position: relative;
+      z-index: 1;
     }
   `;
 
@@ -188,7 +194,9 @@ const GlowCard: React.FC<GlowCardProps> = ({
         `}
       >
         <div ref={innerRef} data-glow></div>
-        {children}
+        <div className="relative z-10">
+          {children}
+        </div>
       </div>
     </>
   );
