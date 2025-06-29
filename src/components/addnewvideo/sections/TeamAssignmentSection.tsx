@@ -1,9 +1,9 @@
 
 import React from 'react';
 import { GlowCard } from '@/components/ui/spotlight-card';
-import { GlowButton } from '@/components/ui/glow-button';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Users } from 'lucide-react';
 
 // Updated interface to support all 8 roles
@@ -88,6 +88,12 @@ const TeamAssignmentSection: React.FC<TeamAssignmentSectionProps> = ({
     return assignedRoles;
   };
 
+  const handleRoleSelect = (memberId: string, roleKey: string) => {
+    if (roleKey && roleKey !== 'placeholder') {
+      toggleAssignment(memberId, roleKey as keyof TeamAssignments);
+    }
+  };
+
   // NOTE: Once roles are assigned and project is saved, all assigned team members will be contacted by email
   
   return (
@@ -149,27 +155,32 @@ const TeamAssignmentSection: React.FC<TeamAssignmentSectionProps> = ({
                     </TableCell>
                     
                     <TableCell className="py-4">
-                      <div className="grid grid-cols-4 gap-1">
-                        {Object.entries(roleLabels).map(([roleKey, roleLabel]) => {
-                          const role = roleKey as keyof TeamAssignments;
-                          const assigned = isAssigned(member.id, role);
-                          
-                          return (
-                            <GlowButton
-                              key={role}
-                              glowColor="orange"
-                              onClick={() => toggleAssignment(member.id, role)}
-                              className={`text-xs px-2 py-1 rounded transition-colors ${
-                                assigned
-                                  ? 'bg-orange-600 hover:bg-orange-700 text-white'
-                                  : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
-                              }`}
-                            >
-                              {roleLabel}
-                            </GlowButton>
-                          );
-                        })}
-                      </div>
+                      <Select onValueChange={(value) => handleRoleSelect(member.id, value)}>
+                        <SelectTrigger className="w-[180px] bg-gray-800 border-gray-600 text-white">
+                          <SelectValue placeholder="Select role to assign" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-gray-800 border-gray-600">
+                          {Object.entries(roleLabels).map(([roleKey, roleLabel]) => {
+                            const assigned = isAssigned(member.id, roleKey as keyof TeamAssignments);
+                            return (
+                              <SelectItem 
+                                key={roleKey} 
+                                value={roleKey}
+                                className="text-white hover:bg-gray-700 focus:bg-gray-700"
+                              >
+                                <div className="flex items-center justify-between w-full">
+                                  <span>{roleLabel}</span>
+                                  {assigned && (
+                                    <Badge className="ml-2 bg-orange-600/20 text-orange-300 border-orange-500/50 text-xs">
+                                      Assigned
+                                    </Badge>
+                                  )}
+                                </div>
+                              </SelectItem>
+                            );
+                          })}
+                        </SelectContent>
+                      </Select>
                     </TableCell>
                   </TableRow>
                 );
@@ -179,7 +190,7 @@ const TeamAssignmentSection: React.FC<TeamAssignmentSectionProps> = ({
         </div>
 
         <div className="text-sm text-gray-400 space-y-1">
-          <p>• Click role buttons to assign/unassign team members</p>
+          <p>• Use the dropdown to assign/unassign roles to team members</p>
           <p>• Team members can have multiple roles</p>
           <p>• Assigned roles will appear as badges in the "Current Roles" column</p>
         </div>
