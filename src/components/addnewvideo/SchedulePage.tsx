@@ -47,14 +47,19 @@ const SchedulePage: React.FC<SchedulePageProps> = ({
           onMetadataChange={updateMetadata}
         />
 
+        {/* Gap between sections */}
+        <div className="h-12"></div>
+
         {/* Schedule Section */}
         <ScheduleSection
           scheduledDate={formData.scheduledDate}
           scheduledTime={formData.scheduledTime}
           uploadNow={formData.uploadNow}
+          selectedMode={formData.selectedMode}
           onScheduledDateChange={(date) => updateFormData('scheduledDate', date)}
           onScheduledTimeChange={(time) => updateFormData('scheduledTime', time)}
           onUploadNowChange={(uploadNow) => updateFormData('uploadNow', uploadNow)}
+          onModeChange={(mode) => updateFormData('selectedMode', mode)}
         />
       </div>
     </div>
