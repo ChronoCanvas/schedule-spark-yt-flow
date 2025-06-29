@@ -4,6 +4,7 @@ import React, { useEffect, useRef, forwardRef } from 'react';
 interface GlowButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   glowColor?: 'blue' | 'purple' | 'green' | 'red' | 'orange';
   leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -19,6 +20,7 @@ const GlowButton = forwardRef<HTMLButtonElement, GlowButtonProps>(({
   className = '', 
   glowColor = 'red',
   leftIcon,
+  rightIcon,
   children,
   ...props
 }, ref) => {
@@ -136,6 +138,11 @@ const GlowButton = forwardRef<HTMLButtonElement, GlowButtonProps>(({
           </span>
         )}
         {children}
+        {rightIcon && (
+          <span className="flex-shrink-0">
+            {rightIcon}
+          </span>
+        )}
       </button>
     </>
   );
