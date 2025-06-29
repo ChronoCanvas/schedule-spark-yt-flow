@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Sparkles, RefreshCw, MessageSquare, Hash, Type } from 'lucide-react';
 import { GlowCard } from '@/components/ui/spotlight-card';
@@ -101,8 +100,8 @@ Don't forget to subscribe for more valuable content and hit the notification bel
     onRegenerate: () => void;
     isTextarea?: boolean;
   }) => (
-    <GlowCard glowColor="purple" customSize className="w-full p-4 bg-gray-900/80">
-      <div className="space-y-3">
+    <GlowCard glowColor="purple" customSize className="w-full p-4 bg-gray-900">
+      <div className="space-y-3 relative z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Icon className="w-5 h-5 text-purple-400" />
@@ -128,7 +127,7 @@ Don't forget to subscribe for more valuable content and hit the notification bel
                   onMetadataChange({ description: e.target.value });
                 }
               }}
-              className="bg-gray-800 border-gray-600 text-white min-h-[120px] resize-none"
+              className="bg-gray-800 border-gray-700 text-white min-h-[120px] resize-none relative z-10"
               placeholder={cardIsGenerating ? 'Generating...' : `Enter ${title.toLowerCase()}...`}
               disabled={cardIsGenerating}
             />
@@ -142,7 +141,7 @@ Don't forget to subscribe for more valuable content and hit the notification bel
                   onMetadataChange({ tags: e.target.value.split(', ').filter(tag => tag.trim()) });
                 }
               }}
-              className="bg-gray-800 border-gray-600 text-white"
+              className="bg-gray-800 border-gray-700 text-white relative z-10"
               placeholder={cardIsGenerating ? 'Generating...' : `Enter ${title.toLowerCase()}...`}
               disabled={cardIsGenerating}
             />
@@ -153,8 +152,8 @@ Don't forget to subscribe for more valuable content and hit the notification bel
   );
 
   return (
-    <GlowCard glowColor="purple" customSize className="w-full p-6 bg-gray-900/90">
-      <div className="space-y-6">
+    <GlowCard glowColor="purple" customSize className="w-full p-6 bg-gray-900">
+      <div className="space-y-6 relative z-10">
         <div className="space-y-3">
           <div className="flex items-center gap-3">
             <Sparkles className="w-6 h-6 text-purple-400" />
@@ -166,15 +165,15 @@ Don't forget to subscribe for more valuable content and hit the notification bel
         </div>
 
         {!hasScript && (
-          <GlowCard glowColor="orange" customSize className="w-full p-4 bg-orange-900/20">
-            <div className="space-y-3">
+          <GlowCard glowColor="orange" customSize className="w-full p-4 bg-orange-900/40">
+            <div className="space-y-3 relative z-10">
               <p className="text-white font-medium">Enter a short video idea to generate metadata automatically:</p>
               <div className="flex gap-3">
                 <Input
                   value={videoIdea}
                   onChange={(e) => setVideoIdea(e.target.value)}
                   placeholder="e.g., How to improve productivity using time management techniques"
-                  className="bg-gray-800 border-gray-600 text-white flex-1"
+                  className="bg-gray-800 border-gray-700 text-white flex-1 relative z-10"
                 />
                 <GlowButton
                   glowColor="orange"
