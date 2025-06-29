@@ -78,8 +78,8 @@ const presetTags = [
 const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChange }) => {
   const [editingShotId, setEditingShotId] = useState<string | null>(null);
   const [editingSceneId, setEditingSceneId] = useState<string | null>(null);
-  const [selectedCameraId, setSelectedCameraId] = useState<string>('');
-  const [selectedLensId, setSelectedLensId] = useState<string>('');
+  const [selectedCameraId, setSelectedCameraId] = useState<string>('none');
+  const [selectedLensId, setSelectedLensId] = useState<string>('none');
 
   const addScene = () => {
     const newScene: Scene = {
@@ -157,23 +157,23 @@ const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChang
     if (shot) {
       setEditingSceneId(sceneId);
       setEditingShotId(shotId);
-      setSelectedCameraId(shot.cameraId || '');
-      setSelectedLensId(shot.lensId || '');
+      setSelectedCameraId(shot.cameraId || 'none');
+      setSelectedLensId(shot.lensId || 'none');
     }
   };
 
   const closeEditShotModal = () => {
     setEditingShotId(null);
     setEditingSceneId(null);
-    setSelectedCameraId('');
-    setSelectedLensId('');
+    setSelectedCameraId('none');
+    setSelectedLensId('none');
   };
 
   const saveEditShot = () => {
     if (editingSceneId && editingShotId) {
       updateShot(editingSceneId, editingShotId, {
-        cameraId: selectedCameraId || undefined,
-        lensId: selectedLensId || undefined
+        cameraId: selectedCameraId === 'none' ? undefined : selectedCameraId,
+        lensId: selectedLensId === 'none' ? undefined : selectedLensId
       });
       closeEditShotModal();
     }
@@ -357,7 +357,7 @@ const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChang
                 value={selectedCameraId}
                 onValueChange={(value) => {
                   setSelectedCameraId(value);
-                  setSelectedLensId(''); // Reset lens when camera changes
+                  setSelectedLensId('none'); // Reset lens when camera changes
                 }}
               >
                 <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
@@ -367,7 +367,7 @@ const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChang
                   className="bg-gray-700 border-gray-600 text-white" 
                   position="popper"
                 >
-                  <SelectItem value="" className="text-white hover:bg-gray-600">
+                  <SelectItem value="none" className="text-white hover:bg-gray-600">
                     None
                   </SelectItem>
                   {cameraLineup && cameraLineup.map((camera) => (
@@ -392,7 +392,7 @@ const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChang
               <Select
                 value={selectedLensId}
                 onValueChange={setSelectedLensId}
-                disabled={!selectedCameraId}
+                disabled={selectedCameraId === 'none'}
               >
                 <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                   <SelectValue placeholder="Select lens" />
@@ -401,10 +401,10 @@ const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChang
                   className="bg-gray-700 border-gray-600 text-white" 
                   position="popper"
                 >
-                  <SelectItem value="" className="text-white hover:bg-gray-600">
+                  <SelectItem value="none" className="text-white hover:bg-gray-600">
                     None
                   </SelectItem>
-                  {selectedCameraId && getCompatibleLenses(selectedCameraId).map((lens) => (
+                  {selectedCameraId !== 'none' && getCompatibleLenses(selectedCameraId).map((lens) => (
                     <SelectItem 
                       key={lens.id} 
                       value={lens.id} 
