@@ -160,6 +160,7 @@ const WorkspaceSection: React.FC<WorkspaceSectionProps> = ({
             <GlowTextarea
               ref={scriptTextareaRef}
               glowColor="purple"
+              showFormatting={true}
               value={script}
               onChange={handleScriptChange}
               placeholder="Write your script here... Use formatting for emphasis and clarity."
