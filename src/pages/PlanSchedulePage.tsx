@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NewAppSidebar from '@/components/dashboard/NewAppSidebar';
@@ -229,12 +230,12 @@ const PlanSchedulePage: React.FC = () => {
                 <GlowCard
                   glowColor="red"
                   customSize={true}
-                  className="w-full h-auto bg-gray-900/50 border border-gray-800 hover:border-red-500/50 transition-all duration-200 p-2 flex flex-col gap-0"
+                  className="w-full h-auto bg-gray-900/50 border border-gray-800 hover:border-red-500/50 transition-all duration-200 p-3 flex flex-col gap-0"
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-4">
                     {/* Video Thumbnail */}
                     <div className="relative flex-shrink-0">
-                      <div className="w-24 h-14 rounded-md overflow-hidden">
+                      <div className="w-28 h-16 rounded-md overflow-hidden">
                         <img
                           src={project.thumbnail}
                           alt={project.title}
@@ -242,7 +243,7 @@ const PlanSchedulePage: React.FC = () => {
                         />
                       </div>
                       <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200 rounded-md">
-                        <Play className="w-3 h-3 text-white" />
+                        <Play className="w-4 h-4 text-white" />
                       </div>
                     </div>
 
@@ -250,10 +251,10 @@ const PlanSchedulePage: React.FC = () => {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between">
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-sm font-semibold text-white mb-0.5 truncate">
+                          <h3 className="text-base font-bold text-white mb-1 truncate">
                             {project.title}
                           </h3>
-                          <p className="text-xs text-gray-400 mb-1 line-clamp-1">
+                          <p className="text-sm text-gray-400 mb-2 line-clamp-2 leading-relaxed">
                             {project.description}
                           </p>
 
@@ -279,7 +280,7 @@ const PlanSchedulePage: React.FC = () => {
                         </div>
 
                         {/* Status Badge and Scheduled Date */}
-                        <div className="flex-shrink-0 ml-3 flex flex-col items-end">
+                        <div className="flex-shrink-0 ml-4 flex flex-col items-end">
                           <Badge className={`${getStateColor(project.state)} border text-xs mb-1`}>
                             {project.state}
                           </Badge>
