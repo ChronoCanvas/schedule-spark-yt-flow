@@ -128,7 +128,7 @@ Don't forget to subscribe for more valuable content and hit the notification bel
                   onMetadataChange({ description: e.target.value });
                 }
               }}
-              className="bg-gray-900/50 border-gray-600 text-white min-h-[120px] resize-none focus:border-purple-500/50 rounded-xl"
+              className="bg-gray-900/50 border-gray-600 text-white min-h-[200px] resize-none focus:border-purple-500/50 rounded-xl"
               placeholder={cardIsGenerating ? 'Generating...' : `Enter ${title.toLowerCase()}...`}
               disabled={cardIsGenerating}
             />
