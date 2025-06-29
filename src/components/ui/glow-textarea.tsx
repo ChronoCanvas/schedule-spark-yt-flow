@@ -1,9 +1,8 @@
 
-import React, { useEffect, useRef, forwardRef, useImperativeHandle, useState } from 'react';
+import React, { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 
 interface GlowTextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   glowColor?: 'blue' | 'purple' | 'green' | 'red' | 'orange';
-  showFormatting?: boolean;
 }
 
 export interface GlowTextareaRef {
@@ -24,14 +23,12 @@ const glowColorMap = {
 const GlowTextarea = forwardRef<GlowTextareaRef, GlowTextareaProps>(({ 
   className = '', 
   glowColor = 'red',
-  showFormatting = false,
   onChange,
   value,
   ...props
 }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [isFocused, setIsFocused] = useState(false);
 
   useImperativeHandle(ref, () => ({
     getSelection: () => {
@@ -51,12 +48,14 @@ const GlowTextarea = forwardRef<GlowTextareaRef, GlowTextareaProps>(({
       const currentValue = textarea.value;
       const newValue = currentValue.substring(0, start) + text + currentValue.substring(end);
       
+      // Create synthetic event
       const event = {
         target: { value: newValue }
       } as React.ChangeEvent<HTMLTextAreaElement>;
       
       onChange(event);
       
+      // Set cursor position after the inserted text
       setTimeout(() => {
         textarea.focus();
         textarea.setSelectionRange(start + text.length, start + text.length);
@@ -70,12 +69,14 @@ const GlowTextarea = forwardRef<GlowTextareaRef, GlowTextareaProps>(({
       const currentValue = textarea.value;
       const newValue = currentValue.substring(0, start) + newText + currentValue.substring(end);
       
+      // Create synthetic event
       const event = {
         target: { value: newValue }
       } as React.ChangeEvent<HTMLTextAreaElement>;
       
       onChange(event);
       
+      // Set selection to the new text
       setTimeout(() => {
         textarea.focus();
         textarea.setSelectionRange(start, start + newText.length);
@@ -85,21 +86,6 @@ const GlowTextarea = forwardRef<GlowTextareaRef, GlowTextareaProps>(({
       textareaRef.current?.focus();
     }
   }));
-
-  // Parse formatted text for display
-  const parseFormattedText = (text: string) => {
-    if (!text) return '';
-    
-    let formattedText = text
-      // Replace **text** with bold formatting
-      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold">$1</strong>')
-      // Replace ==text== with highlight formatting
-      .replace(/==(.*?)==/g, '<span class="bg-yellow-400 text-black px-1 rounded">$1</span>')
-      // Replace line breaks with <br> tags
-      .replace(/\n/g, '<br>');
-    
-    return formattedText;
-  };
 
   useEffect(() => {
     const syncPointer = (e: PointerEvent) => {
@@ -202,33 +188,12 @@ const GlowTextarea = forwardRef<GlowTextareaRef, GlowTextareaProps>(({
         style={getInlineStyles()}
         className={`relative w-full flex ${className}`}
       >
-        {/* Formatted text overlay (only when showing formatting and not focused) */}
-        {showFormatting && !isFocused && value && (
-          <div 
-            className="absolute inset-0 p-4 text-white whitespace-pre-wrap pointer-events-none z-10"
-            style={{ 
-              fontSize: 'inherit',
-              fontFamily: 'inherit',
-              lineHeight: 'inherit',
-              wordBreak: 'break-word'
-            }}
-            dangerouslySetInnerHTML={{ __html: parseFormattedText(value as string) }}
-          />
-        )}
-        
         <textarea
           ref={textareaRef}
           value={value}
           onChange={onChange}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
           {...props}
-          className={`w-full flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none border-none resize-none p-4 ${
-            showFormatting && !isFocused ? 'text-transparent caret-white' : ''
-          }`}
-          style={{
-            caretColor: showFormatting && !isFocused ? 'white' : 'inherit'
-          }}
+          className="w-full flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none border-none resize-none p-4"
         />
       </div>
     </>
