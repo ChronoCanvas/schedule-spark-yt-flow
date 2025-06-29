@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Calendar, Clock, Upload, ExternalLink } from 'lucide-react';
+import { Calendar, Clock, Upload } from 'lucide-react';
 import { GlowCard } from '@/components/ui/spotlight-card';
 import { GlowButton } from '@/components/ui/glow-button';
 import { Calendar as CalendarComponent } from '@/components/ui/calendar';
@@ -38,12 +38,10 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
     onScheduledTimeChange(`${hour}:${minute} ${ampm}`);
   };
 
-  const handleUploadNow = () => {
+  const handleUploadNowAndOpenStudio = () => {
     onUploadNowChange(true);
     console.log('Uploading now...');
-  };
-
-  const openYouTubeStudio = () => {
+    // Open YouTube Studio in a new tab
     window.open('https://studio.youtube.com', '_blank');
   };
 
@@ -57,7 +55,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
 
         {/* Option A: Schedule Future Date & Time */}
         <div className="space-y-4">
-          <h3 className="text-lg font-medium text-white">Option A: Schedule a Future Date & Time</h3>
+          <h3 className="text-lg font-medium text-white">Option A:</h3>
           
           <div className="flex flex-col sm:flex-row gap-4">
             {/* Date Picker */}
@@ -68,7 +66,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
                   <Button
                     variant="outline"
                     className={cn(
-                      "w-full justify-start text-left font-normal bg-gray-800 border-gray-600 text-white hover:bg-gray-700",
+                      "w-full justify-start text-left font-normal bg-gray-800 border-gray-600 text-white hover:bg-gray-700 rounded-xl",
                       !scheduledDate && "text-gray-400"
                     )}
                   >
@@ -76,7 +74,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
                     {scheduledDate ? format(scheduledDate, "PPP") : <span>Pick a date</span>}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0 bg-gray-800 border-gray-600" align="start">
+                <PopoverContent className="w-auto p-0 bg-gray-800 border-gray-600 rounded-xl" align="start">
                   <CalendarComponent
                     mode="single"
                     selected={scheduledDate}
@@ -84,6 +82,29 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
                     disabled={(date) => date < new Date()}
                     initialFocus
                     className="p-3 pointer-events-auto"
+                    classNames={{
+                      months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+                      month: "space-y-4",
+                      caption: "flex justify-center pt-1 relative items-center text-white",
+                      caption_label: "text-sm font-medium text-white",
+                      nav: "space-x-1 flex items-center",
+                      nav_button: "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 text-white hover:bg-gray-700 rounded-md",
+                      nav_button_previous: "absolute left-1",
+                      nav_button_next: "absolute right-1",
+                      table: "w-full border-collapse space-y-1",
+                      head_row: "flex",
+                      head_cell: "text-gray-400 rounded-md w-9 font-normal text-[0.8rem]",
+                      row: "flex w-full mt-2",
+                      cell: "h-9 w-9 text-center text-sm p-0 relative text-white hover:bg-gray-700 rounded-md",
+                      day: "h-9 w-9 p-0 font-normal aria-selected:opacity-100 text-white hover:bg-gray-700 rounded-md",
+                      day_range_end: "day-range-end",
+                      day_selected: "bg-red-500 text-white hover:bg-red-600 focus:bg-red-500 rounded-md",
+                      day_today: "bg-gray-700 text-white rounded-md",
+                      day_outside: "text-gray-600 opacity-50",
+                      day_disabled: "text-gray-600 opacity-50",
+                      day_range_middle: "aria-selected:bg-gray-700 aria-selected:text-white",
+                      day_hidden: "invisible",
+                    }}
                   />
                 </PopoverContent>
               </Popover>
@@ -96,7 +117,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
                 <select
                   value={timeHour}
                   onChange={(e) => handleTimeChange(e.target.value, timeMinute, timeAmPm)}
-                  className="flex-1 px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                  className="flex-1 px-3 py-2 pr-8 bg-gray-800 border border-gray-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 4 5\"><path fill=\"%23ffffff\" d=\"M2 0L0 2h4zm0 5L0 3h4z\"/></svg>')] bg-no-repeat bg-right-2 bg-center"
                 >
                   {Array.from({ length: 12 }, (_, i) => {
                     const hour = i + 1;
@@ -110,7 +131,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
                 <select
                   value={timeMinute}
                   onChange={(e) => handleTimeChange(timeHour, e.target.value, timeAmPm)}
-                  className="flex-1 px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                  className="flex-1 px-3 py-2 pr-8 bg-gray-800 border border-gray-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 4 5\"><path fill=\"%23ffffff\" d=\"M2 0L0 2h4zm0 5L0 3h4z\"/></svg>')] bg-no-repeat bg-right-2 bg-center"
                 >
                   {Array.from({ length: 60 }, (_, i) => (
                     <option key={i} value={i.toString().padStart(2, '0')}>
@@ -121,7 +142,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
                 <select
                   value={timeAmPm}
                   onChange={(e) => handleTimeChange(timeHour, timeMinute, e.target.value)}
-                  className="px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                  className="px-3 py-2 pr-8 bg-gray-800 border border-gray-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 4 5\"><path fill=\"%23ffffff\" d=\"M2 0L0 2h4zm0 5L0 3h4z\"/></svg>')] bg-no-repeat bg-right-2 bg-center"
                 >
                   <option value="AM">AM</option>
                   <option value="PM">PM</option>
@@ -139,31 +160,22 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
 
         {/* Option B: Upload Now */}
         <div className="space-y-4">
-          <h3 className="text-lg font-medium text-white">Option B: Upload Now</h3>
+          <h3 className="text-lg font-medium text-white">Option B:</h3>
           
           <div className="flex flex-col sm:flex-row gap-3">
             <GlowButton
               glowColor="green"
               leftIcon={<Upload className="w-4 h-4" />}
-              onClick={handleUploadNow}
-              className="bg-green-600 hover:bg-green-700 rounded-lg px-6 h-10"
+              onClick={handleUploadNowAndOpenStudio}
+              className="bg-green-600 hover:bg-green-700 rounded-xl px-6 h-10"
             >
-              Upload Now
-            </GlowButton>
-
-            <GlowButton
-              glowColor="blue"
-              leftIcon={<ExternalLink className="w-4 h-4" />}
-              onClick={openYouTubeStudio}
-              className="bg-blue-600 hover:bg-blue-700 rounded-lg px-6 h-10"
-            >
-              Open in YouTube Studio
+              Upload Now & Open Studio
             </GlowButton>
           </div>
         </div>
 
         {/* Warning Alert */}
-        <Alert className="bg-yellow-900/20 border-yellow-600 text-yellow-200">
+        <Alert className="bg-yellow-900/20 border-yellow-600 text-yellow-200 rounded-2xl">
           <AlertDescription>
             <strong>⚠️ Due to YouTube API limitations, direct uploads are restricted:</strong>
             <ul className="mt-2 ml-4 list-disc space-y-1 text-sm">
