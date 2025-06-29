@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { GlowCard } from '@/components/ui/spotlight-card';
 import { GlowButton } from '@/components/ui/glow-button';
@@ -43,7 +42,9 @@ interface ShotLoggingSectionProps {
   onChange: (scenes: Scene[]) => void;
 }
 
-// Mock camera lineup data
+// TODO: Connect to user settings for camera/lens management
+// Camera lineup and lenses will be populated from user's equipment settings
+// This should be managed through a separate settings page/component
 const cameraLineup: Camera[] = [
   { id: '1', brand: 'Canon', model: 'EOS R5', type: 'Mirrorless' },
   { id: '2', brand: 'Canon', model: 'EOS R6 Mark II', type: 'Mirrorless' },
@@ -340,7 +341,7 @@ const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChang
 
       {/* Edit Shot Modal */}
       <Dialog open={editingShotId !== null} onOpenChange={closeEditShotModal}>
-        <DialogContent className="sm:max-w-md bg-gray-800 border-gray-700">
+        <DialogContent className="sm:max-w-md bg-gray-800 border-gray-700 text-white">
           <DialogHeader>
             <DialogTitle className="text-white">Choose Camera & Lens</DialogTitle>
           </DialogHeader>
@@ -362,10 +363,19 @@ const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChang
                 <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                   <SelectValue placeholder="Select camera" />
                 </SelectTrigger>
-                <SelectContent className="bg-gray-700 border-gray-600 text-white z-[100]">
-                  <SelectItem value="" className="text-white">None</SelectItem>
-                  {cameraLineup.map((camera) => (
-                    <SelectItem key={camera.id} value={camera.id} className="text-white">
+                <SelectContent 
+                  className="bg-gray-700 border-gray-600 text-white" 
+                  position="popper"
+                >
+                  <SelectItem value="" className="text-white hover:bg-gray-600">
+                    None
+                  </SelectItem>
+                  {cameraLineup && cameraLineup.map((camera) => (
+                    <SelectItem 
+                      key={camera.id} 
+                      value={camera.id} 
+                      className="text-white hover:bg-gray-600"
+                    >
                       {camera.brand} {camera.model} ({camera.type})
                     </SelectItem>
                   ))}
@@ -387,10 +397,19 @@ const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChang
                 <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                   <SelectValue placeholder="Select lens" />
                 </SelectTrigger>
-                <SelectContent className="bg-gray-700 border-gray-600 text-white z-[100]">
-                  <SelectItem value="" className="text-white">None</SelectItem>
+                <SelectContent 
+                  className="bg-gray-700 border-gray-600 text-white" 
+                  position="popper"
+                >
+                  <SelectItem value="" className="text-white hover:bg-gray-600">
+                    None
+                  </SelectItem>
                   {selectedCameraId && getCompatibleLenses(selectedCameraId).map((lens) => (
-                    <SelectItem key={lens.id} value={lens.id} className="text-white">
+                    <SelectItem 
+                      key={lens.id} 
+                      value={lens.id} 
+                      className="text-white hover:bg-gray-600"
+                    >
                       {lens.name}
                     </SelectItem>
                   ))}
