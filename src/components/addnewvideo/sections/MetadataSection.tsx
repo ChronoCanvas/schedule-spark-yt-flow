@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Sparkles, RefreshCw, MessageSquare, Hash, Type } from 'lucide-react';
 import { GlowCard } from '@/components/ui/spotlight-card';
@@ -100,8 +101,8 @@ Don't forget to subscribe for more valuable content and hit the notification bel
     onRegenerate: () => void;
     isTextarea?: boolean;
   }) => (
-    <GlowCard glowColor="purple" customSize className="w-full p-4 bg-gray-900">
-      <div className="space-y-3 relative z-10">
+    <GlowCard glowColor="purple" customSize className="w-full p-4">
+      <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Icon className="w-5 h-5 text-purple-400" />
@@ -127,7 +128,7 @@ Don't forget to subscribe for more valuable content and hit the notification bel
                   onMetadataChange({ description: e.target.value });
                 }
               }}
-              className="bg-gray-800 border-gray-700 text-white min-h-[120px] resize-none relative z-10"
+              className="bg-gray-800 border-gray-600 text-white min-h-[120px] resize-none"
               placeholder={cardIsGenerating ? 'Generating...' : `Enter ${title.toLowerCase()}...`}
               disabled={cardIsGenerating}
             />
@@ -141,7 +142,7 @@ Don't forget to subscribe for more valuable content and hit the notification bel
                   onMetadataChange({ tags: e.target.value.split(', ').filter(tag => tag.trim()) });
                 }
               }}
-              className="bg-gray-800 border-gray-700 text-white relative z-10"
+              className="bg-gray-800 border-gray-600 text-white"
               placeholder={cardIsGenerating ? 'Generating...' : `Enter ${title.toLowerCase()}...`}
               disabled={cardIsGenerating}
             />
@@ -152,51 +153,46 @@ Don't forget to subscribe for more valuable content and hit the notification bel
   );
 
   return (
-    <GlowCard glowColor="purple" customSize className="w-full p-6 bg-gray-900">
-      <div className="space-y-6 relative z-10">
-        <div className="space-y-3">
-          <div className="flex items-center gap-3">
-            <Sparkles className="w-6 h-6 text-purple-400" />
-            <h2 className="text-xl font-semibold text-white">Generate Video Details</h2>
-          </div>
-          <p className="text-gray-300 text-sm leading-relaxed">
-            Generate titles, tags, and descriptions optimized for YouTube upload to maximize reach and engagement
-          </p>
-        </div>
+    <div className="space-y-6">
+      <div className="flex items-center gap-3 mb-6">
+        <Sparkles className="w-6 h-6 text-purple-400" />
+        <h2 className="text-xl font-semibold text-white">AI Metadata Generator</h2>
+      </div>
 
-        {!hasScript && (
-          <GlowCard glowColor="orange" customSize className="w-full p-4 bg-orange-900/40">
-            <div className="space-y-3 relative z-10">
-              <p className="text-white font-medium">Enter a short video idea to generate metadata automatically:</p>
-              <div className="flex gap-3">
-                <Input
-                  value={videoIdea}
-                  onChange={(e) => setVideoIdea(e.target.value)}
-                  placeholder="e.g., How to improve productivity using time management techniques"
-                  className="bg-gray-800 border-gray-700 text-white flex-1 relative z-10"
-                />
-                <GlowButton
-                  glowColor="orange"
-                  onClick={() => console.log('Generate from idea:', videoIdea)}
-                  disabled={!videoIdea.trim()}
-                  className="bg-orange-600 hover:bg-orange-700 rounded-lg px-4 h-10"
-                >
-                  Generate All
-                </GlowButton>
-              </div>
+      {!hasScript && (
+        <GlowCard glowColor="blue" customSize className="w-full p-4 mb-6">
+          <div className="space-y-3">
+            <p className="text-white font-medium">Enter a short video idea to generate metadata automatically:</p>
+            <div className="flex gap-3">
+              <Input
+                value={videoIdea}
+                onChange={(e) => setVideoIdea(e.target.value)}
+                placeholder="e.g., How to improve productivity using time management techniques"
+                className="bg-gray-800 border-gray-600 text-white flex-1"
+              />
+              <GlowButton
+                glowColor="blue"
+                onClick={() => console.log('Generate from idea:', videoIdea)}
+                disabled={!videoIdea.trim()}
+                className="bg-blue-600 hover:bg-blue-700 rounded-lg px-4 h-10"
+              >
+                Generate All
+              </GlowButton>
             </div>
-          </GlowCard>
-        )}
+          </div>
+        </GlowCard>
+      )}
 
-        <div className="space-y-4">
-          <MetadataCard
-            title="Title"
-            icon={Type}
-            value={metadata.title}
-            isGenerating={isGenerating.title}
-            onRegenerate={generateTitle}
-          />
-          
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+        <MetadataCard
+          title="Title"
+          icon={Type}
+          value={metadata.title}
+          isGenerating={isGenerating.title}
+          onRegenerate={generateTitle}
+        />
+        
+        <div className="lg:col-span-2 xl:col-span-1">
           <MetadataCard
             title="Tags"
             icon={Hash}
@@ -204,7 +200,9 @@ Don't forget to subscribe for more valuable content and hit the notification bel
             isGenerating={isGenerating.tags}
             onRegenerate={generateTags}
           />
-          
+        </div>
+        
+        <div className="lg:col-span-2 xl:col-span-3">
           <MetadataCard
             title="Description"
             icon={MessageSquare}
@@ -215,7 +213,7 @@ Don't forget to subscribe for more valuable content and hit the notification bel
           />
         </div>
       </div>
-    </GlowCard>
+    </div>
   );
 };
 

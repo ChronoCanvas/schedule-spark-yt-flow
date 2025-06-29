@@ -8,7 +8,7 @@ interface GlowCardProps {
   size?: 'sm' | 'md' | 'lg';
   width?: string | number;
   height?: string | number;
-  customSize?: boolean;
+  customSize?: boolean; // When true, ignores size prop and uses width/height or className
 }
 
 const glowColorMap = {
@@ -55,9 +55,10 @@ const GlowCard: React.FC<GlowCardProps> = ({
 
   const { base, spread } = glowColorMap[glowColor];
 
+  // Determine sizing
   const getSizeClasses = () => {
     if (customSize) {
-      return '';
+      return ''; // Let className or inline styles handle sizing
     }
     return sizeMap[size];
   };
@@ -68,7 +69,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
       '--spread': spread,
       '--radius': '12',
       '--border': '1',
-      '--backdrop': 'hsl(0 0% 10% / 0.9)',
+      '--backdrop': 'hsl(0 0% 60% / 0.12)',
       '--backup-border': 'var(--backdrop)',
       '--size': '200',
       '--outer': '1',
@@ -95,9 +96,9 @@ const GlowCard: React.FC<GlowCardProps> = ({
       touchAction: 'none',
       borderRadius: 'calc(var(--radius) * 1px)',
       overflow: 'hidden',
-      zIndex: 1,
     };
 
+    // Add width and height if provided
     if (width !== undefined) {
       baseStyles.width = typeof width === 'number' ? `${width}px` : width;
     }
@@ -124,7 +125,6 @@ const GlowCard: React.FC<GlowCardProps> = ({
       mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
       mask-clip: padding-box, border-box;
       mask-composite: intersect;
-      z-index: -1;
     }
     
     [data-glow]::before {
@@ -157,17 +157,11 @@ const GlowCard: React.FC<GlowCardProps> = ({
       background: none;
       pointer-events: none;
       border: none;
-      z-index: -2;
     }
     
     [data-glow] > [data-glow]::before {
       inset: -10px;
       border-width: 10px;
-    }
-
-    [data-glow] > * {
-      position: relative;
-      z-index: 10;
     }
   `;
 
@@ -187,15 +181,14 @@ const GlowCard: React.FC<GlowCardProps> = ({
           grid-rows-[1fr_auto] 
           shadow-[0_1rem_2rem_-1rem_black] 
           p-4 
-          gap-4
+          gap-4 
+          backdrop-blur-[5px]
           overflow-hidden
           ${className}
         `}
       >
         <div ref={innerRef} data-glow></div>
-        <div className="relative z-10">
-          {children}
-        </div>
+        {children}
       </div>
     </>
   );
