@@ -1,10 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { GlowCard } from '@/components/ui/spotlight-card';
-import { GlowTextarea } from '@/components/ui/glow-textarea';
+import { GlowTextarea, GlowTextareaRef } from '@/components/ui/glow-textarea';
 import { GlowButton } from '@/components/ui/glow-button';
-import { Upload, FileText, Play } from 'lucide-react';
+import { Upload, FileText, Play, Bold, Highlighter } from 'lucide-react';
 import TeleprompterMode from '../teleprompter/TeleprompterMode';
+import { useTextFormatting } from '@/hooks/useTextFormatting';
 
 interface WorkspaceSectionProps {
   ideas: string;
@@ -24,6 +25,15 @@ const WorkspaceSection: React.FC<WorkspaceSectionProps> = ({
   onStoryboardFilesChange
 }) => {
   const [showTeleprompter, setShowTeleprompter] = useState(false);
+  const scriptTextareaRef = useRef<GlowTextareaRef>(null);
+  
+  const {
+    isBoldActive,
+    isHighlightActive,
+    toggleBold,
+    toggleHighlight,
+    checkFormattingAtCursor
+  } = useTextFormatting(scriptTextareaRef, script);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -34,6 +44,29 @@ const WorkspaceSection: React.FC<WorkspaceSectionProps> = ({
     const newFiles = storyboardFiles.filter((_, i) => i !== index);
     onStoryboardFilesChange(newFiles);
   };
+
+  const handleScriptChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    onScriptChange(e.target.value);
+    setTimeout(checkFormattingAtCursor, 0);
+  };
+
+  // Handle keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey)) {
+        if (e.key === 'b') {
+          e.preventDefault();
+          toggleBold();
+        } else if (e.key === 'h') {
+          e.preventDefault();
+          toggleHighlight();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [toggleBold, toggleHighlight]);
 
   return (
     <>
@@ -125,20 +158,43 @@ const WorkspaceSection: React.FC<WorkspaceSectionProps> = ({
             </div>
             
             <GlowTextarea
+              ref={scriptTextareaRef}
               glowColor="purple"
               value={script}
-              onChange={(e) => onScriptChange(e.target.value)}
+              onChange={handleScriptChange}
               placeholder="Write your script here... Use formatting for emphasis and clarity."
               className="min-h-[300px]"
+              onSelect={checkFormattingAtCursor}
+              onClick={checkFormattingAtCursor}
             />
 
             <div className="flex space-x-2 flex-wrap">
-              <button className="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-sm text-white transition-colors">
-                Bold
+              <button 
+                onClick={toggleBold}
+                className={`flex items-center space-x-1 px-3 py-1 rounded text-sm transition-colors ${
+                  isBoldActive 
+                    ? 'bg-purple-600 text-white' 
+                    : 'bg-gray-700 hover:bg-gray-600 text-white'
+                }`}
+              >
+                <Bold className="w-3 h-3" />
+                <span>Bold</span>
               </button>
-              <button className="px-3 py-1 bg-red-900/30 hover:bg-red-900/50 rounded text-sm text-white transition-colors">
-                Highlight
+              <button 
+                onClick={toggleHighlight}
+                className={`flex items-center space-x-1 px-3 py-1 rounded text-sm transition-colors ${
+                  isHighlightActive 
+                    ? 'bg-yellow-600 text-white' 
+                    : 'bg-red-900/30 hover:bg-red-900/50 text-white'
+                }`}
+              >
+                <Highlighter className="w-3 h-3" />
+                <span>Highlight</span>
               </button>
+            </div>
+
+            <div className="text-xs text-gray-500 mt-2">
+              <p>Tip: Select text and click formatting buttons, or use Ctrl+B (bold) and Ctrl+H (highlight)</p>
             </div>
           </div>
         </GlowCard>

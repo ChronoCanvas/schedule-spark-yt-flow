@@ -46,6 +46,19 @@ const TeleprompterMode: React.FC<TeleprompterModeProps> = ({ script, onClose }) 
     { name: 'Purple', value: '#a855f7' }
   ];
 
+  // Parse markdown-style formatting
+  const parseFormattedText = (text: string) => {
+    if (!text) return 'No script content available. Add content in the script editor to see it here.';
+    
+    // Replace **text** with bold formatting
+    let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    
+    // Replace ==text== with highlight formatting
+    formattedText = formattedText.replace(/==(.*?)==/g, `<span style="background-color: ${highlightColor}; color: black; padding: 2px 4px; border-radius: 3px;">$1</span>`);
+    
+    return formattedText;
+  };
+
   return (
     <div className="fixed inset-0 z-[100] bg-black">
       {/* Toolbar */}
@@ -151,15 +164,14 @@ const TeleprompterMode: React.FC<TeleprompterModeProps> = ({ script, onClose }) 
               textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
               lineHeight: '1.6'
             }}
-          >
-            {script || 'No script content available. Add content in the script editor to see it here.'}
-          </div>
+            dangerouslySetInnerHTML={{ __html: parseFormattedText(script) }}
+          />
         </div>
       </div>
 
       {/* Keyboard shortcuts info */}
       <div className="absolute bottom-4 left-4 text-gray-500 text-sm">
-        <p>Press ESC to close • Space to start/pause</p>
+        <p>Press ESC to close • Space to start/pause • Ctrl+B for bold • Ctrl+H for highlight</p>
       </div>
 
       {/* Keyboard event handlers */}

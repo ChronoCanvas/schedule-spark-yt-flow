@@ -1,8 +1,15 @@
 
-import React, { useEffect, useRef, forwardRef } from 'react';
+import React, { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 
 interface GlowTextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   glowColor?: 'blue' | 'purple' | 'green' | 'red' | 'orange';
+}
+
+export interface GlowTextareaRef {
+  getSelection: () => { start: number; end: number; text: string };
+  insertTextAtCursor: (text: string) => void;
+  replaceSelection: (newText: string) => void;
+  focus: () => void;
 }
 
 const glowColorMap = {
@@ -13,12 +20,72 @@ const glowColorMap = {
   orange: { base: 30, spread: 200 }
 };
 
-const GlowTextarea = forwardRef<HTMLTextAreaElement, GlowTextareaProps>(({ 
+const GlowTextarea = forwardRef<GlowTextareaRef, GlowTextareaProps>(({ 
   className = '', 
   glowColor = 'red',
+  onChange,
+  value,
   ...props
 }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useImperativeHandle(ref, () => ({
+    getSelection: () => {
+      if (!textareaRef.current) return { start: 0, end: 0, text: '' };
+      const textarea = textareaRef.current;
+      return {
+        start: textarea.selectionStart,
+        end: textarea.selectionEnd,
+        text: textarea.value.substring(textarea.selectionStart, textarea.selectionEnd)
+      };
+    },
+    insertTextAtCursor: (text: string) => {
+      if (!textareaRef.current || !onChange) return;
+      const textarea = textareaRef.current;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const currentValue = textarea.value;
+      const newValue = currentValue.substring(0, start) + text + currentValue.substring(end);
+      
+      // Create synthetic event
+      const event = {
+        target: { value: newValue }
+      } as React.ChangeEvent<HTMLTextAreaElement>;
+      
+      onChange(event);
+      
+      // Set cursor position after the inserted text
+      setTimeout(() => {
+        textarea.focus();
+        textarea.setSelectionRange(start + text.length, start + text.length);
+      }, 0);
+    },
+    replaceSelection: (newText: string) => {
+      if (!textareaRef.current || !onChange) return;
+      const textarea = textareaRef.current;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const currentValue = textarea.value;
+      const newValue = currentValue.substring(0, start) + newText + currentValue.substring(end);
+      
+      // Create synthetic event
+      const event = {
+        target: { value: newValue }
+      } as React.ChangeEvent<HTMLTextAreaElement>;
+      
+      onChange(event);
+      
+      // Set selection to the new text
+      setTimeout(() => {
+        textarea.focus();
+        textarea.setSelectionRange(start, start + newText.length);
+      }, 0);
+    },
+    focus: () => {
+      textareaRef.current?.focus();
+    }
+  }));
 
   useEffect(() => {
     const syncPointer = (e: PointerEvent) => {
@@ -122,7 +189,9 @@ const GlowTextarea = forwardRef<HTMLTextAreaElement, GlowTextareaProps>(({
         className={`relative w-full flex ${className}`}
       >
         <textarea
-          ref={ref}
+          ref={textareaRef}
+          value={value}
+          onChange={onChange}
           {...props}
           className="w-full flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none border-none resize-none p-4"
         />
