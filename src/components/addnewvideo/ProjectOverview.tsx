@@ -248,10 +248,10 @@ const ProjectOverview: React.FC<ProjectOverviewProps> = ({
       )}
 
       {/* Ideas & Storyboards */}
-      <GlowCard glowColor="yellow" customSize className="w-full p-6 bg-gray-900/50">
+      <GlowCard glowColor="orange" customSize className="w-full p-6 bg-gray-900/50">
         <div className="space-y-4">
           <div className="flex items-center gap-2 mb-4">
-            <Lightbulb className="w-5 h-5 text-yellow-400" />
+            <Lightbulb className="w-5 h-5 text-orange-400" />
             <h2 className="text-xl font-semibold text-white">Ideas & Storyboards</h2>
           </div>
           

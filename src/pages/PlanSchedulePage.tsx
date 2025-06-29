@@ -221,80 +221,84 @@ const PlanSchedulePage: React.FC = () => {
         <div className="flex-1 p-6">
           <div className="space-y-1">
             {filteredProjects.map((project) => (
-              <GlowCard
+              <div
                 key={project.id}
-                glowColor="red"
-                customSize={true}
-                className="w-full h-auto bg-gray-900/50 border border-gray-800 hover:border-red-500/50 transition-all duration-200 cursor-pointer p-2 flex flex-col gap-0"
                 onClick={() => handleProjectClick(project.id)}
+                className="cursor-pointer"
               >
-                <div className="flex items-center space-x-3">
-                  {/* Video Thumbnail */}
-                  <div className="relative flex-shrink-0">
-                    <div className="w-24 h-14 rounded-md overflow-hidden">
-                      <img
-                        src={project.thumbnail}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                      />
+                <GlowCard
+                  glowColor="red"
+                  customSize={true}
+                  className="w-full h-auto bg-gray-900/50 border border-gray-800 hover:border-red-500/50 transition-all duration-200 p-2 flex flex-col gap-0"
+                >
+                  <div className="flex items-center space-x-3">
+                    {/* Video Thumbnail */}
+                    <div className="relative flex-shrink-0">
+                      <div className="w-24 h-14 rounded-md overflow-hidden">
+                        <img
+                          src={project.thumbnail}
+                          alt={project.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200 rounded-md">
+                        <Play className="w-3 h-3 text-white" />
+                      </div>
                     </div>
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200 rounded-md">
-                      <Play className="w-3 h-3 text-white" />
-                    </div>
-                  </div>
 
-                  {/* Video Info */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-sm font-semibold text-white mb-0.5 truncate">
-                          {project.title}
-                        </h3>
-                        <p className="text-xs text-gray-400 mb-1 line-clamp-1">
-                          {project.description}
-                        </p>
+                    {/* Video Info */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-sm font-semibold text-white mb-0.5 truncate">
+                            {project.title}
+                          </h3>
+                          <p className="text-xs text-gray-400 mb-1 line-clamp-1">
+                            {project.description}
+                          </p>
 
-                        {/* Stats Row */}
-                        <div className="flex items-center space-x-3 text-xs text-gray-500">
-                          <div className="flex items-center gap-1">
-                            <Eye className="w-3 h-3" />
-                            <span>{formatNumber(project.stats.views)}</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <ThumbsUp className="w-3 h-3" />
-                            <span>{formatNumber(project.stats.likes)}</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <MessageSquare className="w-3 h-3" />
-                            <span>{formatNumber(project.stats.comments)}</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
-                            <span>{formatWatchTime(project.stats.watchTime)}</span>
+                          {/* Stats Row */}
+                          <div className="flex items-center space-x-3 text-xs text-gray-500">
+                            <div className="flex items-center gap-1">
+                              <Eye className="w-3 h-3" />
+                              <span>{formatNumber(project.stats.views)}</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <ThumbsUp className="w-3 h-3" />
+                              <span>{formatNumber(project.stats.likes)}</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <MessageSquare className="w-3 h-3" />
+                              <span>{formatNumber(project.stats.comments)}</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              <span>{formatWatchTime(project.stats.watchTime)}</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      {/* Status Badge and Scheduled Date */}
-                      <div className="flex-shrink-0 ml-3 flex flex-col items-end">
-                        <Badge className={`${getStateColor(project.state)} border text-xs mb-1`}>
-                          {project.state}
-                        </Badge>
-                        {project.state === 'Scheduled' && project.scheduledDate && (
-                          <div className="text-xs text-gray-400">
-                            {new Date(project.scheduledDate).toLocaleDateString('en-US', {
-                              month: 'short',
-                              day: 'numeric',
-                              hour: '2-digit',
-                              minute: '2-digit'
-                            })}
-                          </div>
-                        )}
+                        {/* Status Badge and Scheduled Date */}
+                        <div className="flex-shrink-0 ml-3 flex flex-col items-end">
+                          <Badge className={`${getStateColor(project.state)} border text-xs mb-1`}>
+                            {project.state}
+                          </Badge>
+                          {project.state === 'Scheduled' && project.scheduledDate && (
+                            <div className="text-xs text-gray-400">
+                              {new Date(project.scheduledDate).toLocaleDateString('en-US', {
+                                month: 'short',
+                                day: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                              })}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </GlowCard>
+                </GlowCard>
+              </div>
             ))}
           </div>
 
