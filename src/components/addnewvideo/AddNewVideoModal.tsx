@@ -25,9 +25,14 @@ const AddNewVideoModal: React.FC<AddNewVideoModalProps> = ({ isOpen, onClose }) 
       }>;
     }>,
     teamAssignments: {
-      script: [] as string[],
-      editing: [] as string[],
-      uploading: [] as string[]
+      scriptwriter: [] as string[],
+      storyboardArtist: [] as string[],
+      researcher: [] as string[],
+      director: [] as string[],
+      videoEditor: [] as string[],
+      thumbnailDesigner: [] as string[],
+      videographer: [] as string[],
+      insightsLead: [] as string[]
     }
   });
 
