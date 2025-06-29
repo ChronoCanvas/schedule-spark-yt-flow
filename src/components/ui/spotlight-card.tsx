@@ -9,6 +9,8 @@ interface GlowCardProps {
   width?: string | number;
   height?: string | number;
   customSize?: boolean; // When true, ignores size prop and uses width/height or className
+  backdropBlur?: boolean; // Controls the frosted glass effect
+  backdropOpacity?: number; // Controls the background opacity (0-1)
 }
 
 const glowColorMap = {
@@ -32,7 +34,9 @@ const GlowCard: React.FC<GlowCardProps> = ({
   size = 'md',
   width,
   height,
-  customSize = false
+  customSize = false,
+  backdropBlur = true,
+  backdropOpacity = 0.1
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
@@ -90,7 +94,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
       backgroundColor: 'var(--backdrop, transparent)',
       backgroundSize: 'calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)))',
       backgroundPosition: '50% 50%',
-      backgroundAttachment: 'scroll', // Changed from 'fixed' to 'scroll'
+      backgroundAttachment: 'scroll',
       border: 'var(--border-size) solid var(--backup-border)',
       position: 'relative',
       touchAction: 'none',
@@ -188,12 +192,24 @@ const GlowCard: React.FC<GlowCardProps> = ({
           shadow-[0_1rem_2rem_-1rem_black] 
           p-4 
           gap-4 
-          backdrop-blur-[5px]
           overflow-hidden
           ${className}
         `}
       >
         <div ref={innerRef} data-glow></div>
+        
+        {/* Backdrop blur layer */}
+        {backdropBlur && (
+          <div 
+            className="absolute inset-0 backdrop-blur-md z-0"
+            style={{
+              backgroundColor: `rgba(0, 0, 0, ${backdropOpacity})`,
+              borderRadius: 'inherit',
+            }}
+          />
+        )}
+        
+        {/* Content container with proper z-index */}
         <div className="relative z-10">
           {children}
         </div>
