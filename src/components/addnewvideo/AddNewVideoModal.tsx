@@ -40,9 +40,21 @@ const AddNewVideoModal: React.FC<AddNewVideoModalProps> = ({ isOpen, onClose }) 
 
   const handleFormChange = (newData: any) => {
     setFormData(newData);
-    // Basic validation - at least one scene or some content
-    const hasContent = newData.ideas || newData.script || newData.scenes.length > 0;
-    setIsFormValid(hasContent);
+    
+    // Check if at least one required field is filled
+    const hasTitle = newData.title && newData.title.trim() !== '';
+    const hasIdeas = newData.ideas && newData.ideas.trim() !== '';
+    const hasScript = newData.script && newData.script.trim() !== '';
+    const hasStoryboardFiles = newData.storyboardFiles && newData.storyboardFiles.length > 0;
+    const hasShotLog = newData.scenes && newData.scenes.length > 0;
+    
+    // Check if any team assignment has at least one member
+    const hasTeamAssignments = Object.values(newData.teamAssignments).some(
+      (assignments: any) => Array.isArray(assignments) && assignments.length > 0
+    );
+    
+    const isValid = hasTitle || hasIdeas || hasScript || hasStoryboardFiles || hasShotLog || hasTeamAssignments;
+    setIsFormValid(isValid);
   };
 
   const handleSave = () => {
