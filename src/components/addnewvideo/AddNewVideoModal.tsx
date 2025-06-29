@@ -136,7 +136,7 @@ const AddNewVideoModal: React.FC<AddNewVideoModalProps> = ({ isOpen, onClose }) 
 
       {/* Main content */}
       <div className="flex flex-col h-full">
-        <div className="flex-1 overflow-y-auto pb-20">
+        <div className="flex-1 overflow-y-auto pb-20 scrollbar-hide">
           {currentStep === 'plan' ? (
             <PlanningShootingPage 
               formData={formData}
