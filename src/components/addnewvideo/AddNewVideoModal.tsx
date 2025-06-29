@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import PlanningShootingPage from './PlanningShootingPage';
@@ -39,6 +40,7 @@ const AddNewVideoModal: React.FC<AddNewVideoModalProps> = ({ isOpen, onClose }) 
     scheduledDate: null as Date | null,
     scheduledTime: '',
     uploadNow: false,
+    selectedMode: 'schedule' as 'schedule' | 'upload',
     metadata: {
       title: '',
       description: '',
