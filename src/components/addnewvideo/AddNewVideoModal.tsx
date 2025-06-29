@@ -51,6 +51,12 @@ const AddNewVideoModal: React.FC<AddNewVideoModalProps> = ({ isOpen, onClose }) 
     onClose();
   };
 
+  const handleNext = () => {
+    console.log('Moving to next step:', formData);
+    // TODO: Implement next step logic
+    // This would typically navigate to the next page in the flow
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -76,6 +82,7 @@ const AddNewVideoModal: React.FC<AddNewVideoModalProps> = ({ isOpen, onClose }) 
           isFormValid={isFormValid}
           onBack={onClose}
           onSave={handleSave}
+          onNext={handleNext}
         />
       </div>
     </div>

@@ -1,18 +1,20 @@
 
 import React from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { GlowButton } from '@/components/ui/glow-button';
 
 interface PersistentBottomBarProps {
   isFormValid: boolean;
   onBack: () => void;
   onSave: () => void;
+  onNext?: () => void;
 }
 
 const PersistentBottomBar: React.FC<PersistentBottomBarProps> = ({
   isFormValid,
   onBack,
-  onSave
+  onSave,
+  onNext
 }) => {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm border-t border-gray-800 p-4 z-50">
@@ -26,18 +28,36 @@ const PersistentBottomBar: React.FC<PersistentBottomBarProps> = ({
           Back
         </GlowButton>
 
-        <GlowButton
-          glowColor="red"
-          onClick={onSave}
-          disabled={!isFormValid}
-          className={`rounded-lg px-8 h-10 ${
-            isFormValid 
-              ? 'bg-red-600 hover:bg-red-700' 
-              : 'bg-gray-600 cursor-not-allowed opacity-50'
-          }`}
-        >
-          Save Project
-        </GlowButton>
+        <div className="flex items-center gap-3">
+          <GlowButton
+            glowColor="red"
+            onClick={onSave}
+            disabled={!isFormValid}
+            className={`rounded-lg px-6 h-10 ${
+              isFormValid 
+                ? 'bg-red-600 hover:bg-red-700' 
+                : 'bg-gray-600 cursor-not-allowed opacity-50'
+            }`}
+          >
+            Save Project
+          </GlowButton>
+
+          {onNext && (
+            <GlowButton
+              glowColor="red"
+              rightIcon={<ArrowRight className="w-4 h-4" />}
+              onClick={onNext}
+              disabled={!isFormValid}
+              className={`rounded-lg px-8 h-10 ${
+                isFormValid 
+                  ? 'bg-red-600 hover:bg-red-700' 
+                  : 'bg-gray-600 cursor-not-allowed opacity-50'
+              }`}
+            >
+              Next
+            </GlowButton>
+          )}
+        </div>
       </div>
     </div>
   );
