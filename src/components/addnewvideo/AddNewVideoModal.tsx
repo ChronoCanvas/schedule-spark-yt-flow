@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import PlanningShootingPage from './PlanningShootingPage';
+import SchedulePage from './SchedulePage';
 import PersistentBottomBar from './PersistentBottomBar';
 
 interface AddNewVideoModalProps {
@@ -10,6 +11,7 @@ interface AddNewVideoModalProps {
 }
 
 const AddNewVideoModal: React.FC<AddNewVideoModalProps> = ({ isOpen, onClose }) => {
+  const [currentStep, setCurrentStep] = useState<'plan' | 'schedule'>('plan');
   const [formData, setFormData] = useState({
     title: '',
     ideas: '',
@@ -33,6 +35,14 @@ const AddNewVideoModal: React.FC<AddNewVideoModalProps> = ({ isOpen, onClose }) 
       thumbnailDesigner: [] as string[],
       videographer: [] as string[],
       insightsLead: [] as string[]
+    },
+    scheduledDate: null as Date | null,
+    scheduledTime: '',
+    uploadNow: false,
+    metadata: {
+      title: '',
+      description: '',
+      tags: []
     }
   });
 
@@ -64,9 +74,21 @@ const AddNewVideoModal: React.FC<AddNewVideoModalProps> = ({ isOpen, onClose }) 
   };
 
   const handleNext = () => {
-    console.log('Moving to next step:', formData);
-    // TODO: Implement next step logic
-    // This would typically navigate to the next page in the flow
+    if (currentStep === 'plan') {
+      setCurrentStep('schedule');
+    } else {
+      console.log('Finishing project:', formData);
+      // TODO: Implement finish logic
+      onClose();
+    }
+  };
+
+  const handleBack = () => {
+    if (currentStep === 'schedule') {
+      setCurrentStep('plan');
+    } else {
+      onClose();
+    }
   };
 
   if (!isOpen) return null;
@@ -84,15 +106,23 @@ const AddNewVideoModal: React.FC<AddNewVideoModalProps> = ({ isOpen, onClose }) 
       {/* Main content */}
       <div className="flex flex-col h-full">
         <div className="flex-1 overflow-y-auto pb-20">
-          <PlanningShootingPage 
-            formData={formData}
-            onChange={handleFormChange}
-          />
+          {currentStep === 'plan' ? (
+            <PlanningShootingPage 
+              formData={formData}
+              onChange={handleFormChange}
+            />
+          ) : (
+            <SchedulePage
+              formData={formData}
+              onChange={handleFormChange}
+            />
+          )}
         </div>
 
         <PersistentBottomBar
+          currentStep={currentStep}
           isFormValid={isFormValid}
-          onBack={onClose}
+          onBack={handleBack}
           onSave={handleSave}
           onNext={handleNext}
         />

@@ -1,0 +1,64 @@
+
+import React from 'react';
+import ScheduleSection from './sections/ScheduleSection';
+import MetadataSection from './sections/MetadataSection';
+
+interface SchedulePageProps {
+  formData: any;
+  onChange: (data: any) => void;
+}
+
+const SchedulePage: React.FC<SchedulePageProps> = ({
+  formData,
+  onChange
+}) => {
+  const updateFormData = (field: string, value: any) => {
+    const newData = {
+      ...formData,
+      [field]: value
+    };
+    onChange(newData);
+  };
+
+  const updateMetadata = (metadata: any) => {
+    const newData = {
+      ...formData,
+      metadata: {
+        ...formData.metadata,
+        ...metadata
+      }
+    };
+    onChange(newData);
+  };
+
+  return (
+    <div className="min-h-screen bg-black p-6 space-y-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-white mb-2">Schedule</h1>
+          <p className="text-gray-400">Schedule your video release and generate AI-powered metadata</p>
+        </div>
+
+        {/* Schedule Section */}
+        <ScheduleSection
+          scheduledDate={formData.scheduledDate}
+          scheduledTime={formData.scheduledTime}
+          uploadNow={formData.uploadNow}
+          onScheduledDateChange={(date) => updateFormData('scheduledDate', date)}
+          onScheduledTimeChange={(time) => updateFormData('scheduledTime', time)}
+          onUploadNowChange={(uploadNow) => updateFormData('uploadNow', uploadNow)}
+        />
+
+        {/* Metadata Section */}
+        <MetadataSection
+          metadata={formData.metadata}
+          hasScript={formData.script && formData.script.trim() !== ''}
+          onMetadataChange={updateMetadata}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default SchedulePage;
