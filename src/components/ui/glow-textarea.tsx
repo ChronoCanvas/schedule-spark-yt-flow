@@ -135,14 +135,14 @@ const GlowTextarea = forwardRef<HTMLTextAreaElement, GlowTextareaProps>(({
         ref={containerRef}
         data-glow-textarea
         style={getInlineStyles()}
-        className={`relative w-full h-full ${className}`}
+        className={`relative w-full ${className}`}
       >
-        <SimpleBar style={{ width: '100%', height: '100%' }} className="h-full">
+        <SimpleBar style={{ width: '100%', minHeight: 'inherit' }} className="h-full">
           <textarea
             ref={ref}
             {...props}
-            className="w-full h-full bg-transparent text-white placeholder-gray-400 focus:outline-none border-none resize-none p-4"
-            style={{ minHeight: '100%' }}
+            className="w-full bg-transparent text-white placeholder-gray-400 focus:outline-none border-none resize-none p-4"
+            style={{ minHeight: 'inherit', height: '100%' }}
           />
         </SimpleBar>
       </div>
