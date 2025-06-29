@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Calendar, Clock, Upload } from 'lucide-react';
 import { GlowCard } from '@/components/ui/spotlight-card';
@@ -15,23 +14,26 @@ interface ScheduleSectionProps {
   scheduledDate: Date | null;
   scheduledTime: string;
   uploadNow: boolean;
+  selectedMode: 'schedule' | 'upload';
   onScheduledDateChange: (date: Date | null) => void;
   onScheduledTimeChange: (time: string) => void;
   onUploadNowChange: (uploadNow: boolean) => void;
+  onModeChange: (mode: 'schedule' | 'upload') => void;
 }
 
 const ScheduleSection: React.FC<ScheduleSectionProps> = ({
   scheduledDate,
   scheduledTime,
   uploadNow,
+  selectedMode,
   onScheduledDateChange,
   onScheduledTimeChange,
-  onUploadNowChange
+  onUploadNowChange,
+  onModeChange
 }) => {
   const [timeHour, setTimeHour] = useState('12');
   const [timeMinute, setTimeMinute] = useState('00');
   const [timeAmPm, setTimeAmPm] = useState('PM');
-  const [selectedMode, setSelectedMode] = useState<'schedule' | 'upload'>('schedule');
 
   const handleTimeChange = (hour: string, minute: string, ampm: string) => {
     setTimeHour(hour);
@@ -47,7 +49,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
   };
 
   const handleModeChange = (mode: 'schedule' | 'upload') => {
-    setSelectedMode(mode);
+    onModeChange(mode);
     if (mode === 'upload') {
       onUploadNowChange(true);
     } else {
