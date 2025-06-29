@@ -40,13 +40,13 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
 
   const handleUploadNowAndOpenStudio = () => {
     onUploadNowChange(true);
-    console.log('Uploading now...');
+    console.log('Uploading now and opening YouTube Studio...');
     // Open YouTube Studio in a new tab
     window.open('https://studio.youtube.com', '_blank');
   };
 
   return (
-    <GlowCard glowColor="red" customSize className="w-full p-6 mb-8">
+    <GlowCard glowColor="red" customSize className="w-full p-6 mb-8 rounded-2xl">
       <div className="space-y-6">
         <div className="flex items-center gap-3 mb-4">
           <Calendar className="w-6 h-6 text-red-400" />
@@ -117,7 +117,13 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
                 <select
                   value={timeHour}
                   onChange={(e) => handleTimeChange(e.target.value, timeMinute, timeAmPm)}
-                  className="flex-1 px-3 py-2 pr-8 bg-gray-800 border border-gray-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 4 5\"><path fill=\"%23ffffff\" d=\"M2 0L0 2h4zm0 5L0 3h4z\"/></svg>')] bg-no-repeat bg-right-2 bg-center"
+                  className="flex-1 px-3 py-2 pr-8 bg-gray-800 border border-gray-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500 appearance-none"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml;charset=US-ASCII,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23ffffff' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 0.5rem center',
+                    backgroundSize: '12px'
+                  }}
                 >
                   {Array.from({ length: 12 }, (_, i) => {
                     const hour = i + 1;
@@ -131,7 +137,13 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
                 <select
                   value={timeMinute}
                   onChange={(e) => handleTimeChange(timeHour, e.target.value, timeAmPm)}
-                  className="flex-1 px-3 py-2 pr-8 bg-gray-800 border border-gray-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 4 5\"><path fill=\"%23ffffff\" d=\"M2 0L0 2h4zm0 5L0 3h4z\"/></svg>')] bg-no-repeat bg-right-2 bg-center"
+                  className="flex-1 px-3 py-2 pr-8 bg-gray-800 border border-gray-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500 appearance-none"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml;charset=US-ASCII,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23ffffff' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 0.5rem center',
+                    backgroundSize: '12px'
+                  }}
                 >
                   {Array.from({ length: 60 }, (_, i) => (
                     <option key={i} value={i.toString().padStart(2, '0')}>
@@ -142,7 +154,13 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
                 <select
                   value={timeAmPm}
                   onChange={(e) => handleTimeChange(timeHour, timeMinute, e.target.value)}
-                  className="px-3 py-2 pr-8 bg-gray-800 border border-gray-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 4 5\"><path fill=\"%23ffffff\" d=\"M2 0L0 2h4zm0 5L0 3h4z\"/></svg>')] bg-no-repeat bg-right-2 bg-center"
+                  className="px-3 py-2 pr-8 bg-gray-800 border border-gray-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-red-500 appearance-none"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml;charset=US-ASCII,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23ffffff' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 0.5rem center',
+                    backgroundSize: '12px'
+                  }}
                 >
                   <option value="AM">AM</option>
                   <option value="PM">PM</option>
