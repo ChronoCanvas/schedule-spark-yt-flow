@@ -1,18 +1,10 @@
-
 import React, { useState, useRef } from 'react';
 import { X } from 'lucide-react';
 import PlanningShootingPage from './PlanningShootingPage';
 import SchedulePage from './SchedulePage';
 import ProjectOverview from './ProjectOverview';
 import PersistentBottomBar from './PersistentBottomBar';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+import ValidationDialog from '@/components/ui/validation-dialog';
 
 interface AddNewVideoModalProps {
   isOpen: boolean;
@@ -258,25 +250,12 @@ const AddNewVideoModal: React.FC<AddNewVideoModalProps> = ({ isOpen, onClose }) 
         </div>
       </div>
 
-      {/* Validation Dialog */}
-      <AlertDialog open={showValidationDialog} onOpenChange={setShowValidationDialog}>
-        <AlertDialogContent className="bg-gray-900 border-gray-700 text-white max-w-md">
-          <AlertDialogHeader>
-            <AlertDialogTitle className="text-white text-lg font-semibold">
-              Complete Required Fields
-            </AlertDialogTitle>
-            <AlertDialogDescription className="text-gray-300">
-              Please complete all required fields before finishing this project.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogAction
-            onClick={handleValidationDialogClose}
-            className="bg-red-600 hover:bg-red-700 text-white"
-          >
-            Fill Missing Fields
-          </AlertDialogAction>
-        </AlertDialogContent>
-      </AlertDialog>
+      {/* Custom Validation Dialog */}
+      <ValidationDialog
+        isOpen={showValidationDialog}
+        onClose={() => setShowValidationDialog(false)}
+        onFillMissingFields={handleValidationDialogClose}
+      />
     </>
   );
 };
