@@ -6,11 +6,15 @@ import MetadataSection from './sections/MetadataSection';
 interface SchedulePageProps {
   formData: any;
   onChange: (data: any) => void;
+  metadataSectionRef?: React.RefObject<HTMLDivElement>;
+  scheduleSectionRef?: React.RefObject<HTMLDivElement>;
 }
 
 const SchedulePage: React.FC<SchedulePageProps> = ({
   formData,
-  onChange
+  onChange,
+  metadataSectionRef,
+  scheduleSectionRef
 }) => {
   const updateFormData = (field: string, value: any) => {
     const newData = {
@@ -41,26 +45,30 @@ const SchedulePage: React.FC<SchedulePageProps> = ({
         </div>
 
         {/* Metadata Section */}
-        <MetadataSection
-          metadata={formData.metadata}
-          hasScript={formData.script && formData.script.trim() !== ''}
-          onMetadataChange={updateMetadata}
-        />
+        <div ref={metadataSectionRef}>
+          <MetadataSection
+            metadata={formData.metadata}
+            hasScript={formData.script && formData.script.trim() !== ''}
+            onMetadataChange={updateMetadata}
+          />
+        </div>
 
         {/* Gap between sections */}
         <div className="h-12"></div>
 
         {/* Schedule Section */}
-        <ScheduleSection
-          scheduledDate={formData.scheduledDate}
-          scheduledTime={formData.scheduledTime}
-          uploadNow={formData.uploadNow}
-          selectedMode={formData.selectedMode}
-          onScheduledDateChange={(date) => updateFormData('scheduledDate', date)}
-          onScheduledTimeChange={(time) => updateFormData('scheduledTime', time)}
-          onUploadNowChange={(uploadNow) => updateFormData('uploadNow', uploadNow)}
-          onModeChange={(mode) => updateFormData('selectedMode', mode)}
-        />
+        <div ref={scheduleSectionRef}>
+          <ScheduleSection
+            scheduledDate={formData.scheduledDate}
+            scheduledTime={formData.scheduledTime}
+            uploadNow={formData.uploadNow}
+            selectedMode={formData.selectedMode}
+            onScheduledDateChange={(date) => updateFormData('scheduledDate', date)}
+            onScheduledTimeChange={(time) => updateFormData('scheduledTime', time)}
+            onUploadNowChange={(uploadNow) => updateFormData('uploadNow', uploadNow)}
+            onModeChange={(mode) => updateFormData('selectedMode', mode)}
+          />
+        </div>
       </div>
     </div>
   );
