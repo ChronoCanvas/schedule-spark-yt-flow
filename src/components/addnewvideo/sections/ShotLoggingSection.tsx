@@ -1,8 +1,9 @@
+
 import React, { useState } from 'react';
 import { GlowCard } from '@/components/ui/spotlight-card';
 import { GlowButton } from '@/components/ui/glow-button';
 import { GlowInput } from '@/components/ui/glow-input';
-import { Plus, X, Camera, Aperture } from 'lucide-react';
+import { Plus, X, Camera } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -296,12 +297,7 @@ const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChang
                           glowColor="green"
                           onClick={() => openEditShotModal(scene.id, shot.id)}
                           className="bg-green-600 hover:bg-green-700 rounded-lg px-4 py-2 h-8 text-sm"
-                          leftIcon={
-                            <div className="flex items-center gap-1">
-                              <Camera className="w-3 h-3" />
-                              <Aperture className="w-3 h-3" />
-                            </div>
-                          }
+                          leftIcon={<Camera className="w-3 h-3" />}
                         >
                           Choose Camera & Lens
                         </GlowButton>
@@ -324,7 +320,7 @@ const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChang
                           )}
                           {shot.lensId && (
                             <div className="flex items-center gap-1 px-2 py-1 bg-purple-600/20 text-purple-400 rounded-full text-xs">
-                              <Aperture className="w-3 h-3" />
+                              <Camera className="w-3 h-3" />
                               {getLensLabel(shot.lensId)}
                             </div>
                           )}
@@ -386,7 +382,7 @@ const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChang
             {/* Lens Selection */}
             <div className="space-y-2">
               <label className="text-sm text-gray-300 flex items-center gap-1">
-                <Aperture className="w-4 h-4" />
+                <Camera className="w-4 h-4" />
                 Lens
               </label>
               <Select
@@ -419,7 +415,11 @@ const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChang
           </div>
 
           <DialogFooter>
-            <Button variant="outline" onClick={closeEditShotModal}>
+            <Button 
+              variant="outline" 
+              onClick={closeEditShotModal}
+              className="bg-white text-black border-gray-300 hover:bg-gray-100"
+            >
               Cancel
             </Button>
             <Button onClick={saveEditShot} className="bg-green-600 hover:bg-green-700">
