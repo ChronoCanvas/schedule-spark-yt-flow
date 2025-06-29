@@ -38,9 +38,8 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
     onScheduledTimeChange(`${hour}:${minute} ${ampm}`);
   };
 
-  const handleUploadNowAndOpenStudio = () => {
-    onUploadNowChange(true);
-    console.log('Uploading now and opening YouTube Studio...');
+  const handleOpenYouTubeStudio = () => {
+    console.log('Opening YouTube Studio...');
     // Open YouTube Studio in a new tab
     window.open('https://studio.youtube.com', '_blank');
   };
@@ -184,10 +183,10 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
             <GlowButton
               glowColor="green"
               leftIcon={<Upload className="w-4 h-4" />}
-              onClick={handleUploadNowAndOpenStudio}
+              onClick={handleOpenYouTubeStudio}
               className="bg-green-600 hover:bg-green-700 rounded-xl px-6 h-10"
             >
-              Upload Now & Open Studio
+              Open YouTube Studio
             </GlowButton>
           </div>
         </div>

@@ -37,8 +37,15 @@ const SchedulePage: React.FC<SchedulePageProps> = ({
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-white mb-2">Schedule</h1>
-          <p className="text-gray-400">Schedule your video release and generate AI-powered metadata</p>
+          <p className="text-gray-400">Generate AI-powered metadata and schedule your video release</p>
         </div>
+
+        {/* Metadata Section */}
+        <MetadataSection
+          metadata={formData.metadata}
+          hasScript={formData.script && formData.script.trim() !== ''}
+          onMetadataChange={updateMetadata}
+        />
 
         {/* Schedule Section */}
         <ScheduleSection
@@ -48,13 +55,6 @@ const SchedulePage: React.FC<SchedulePageProps> = ({
           onScheduledDateChange={(date) => updateFormData('scheduledDate', date)}
           onScheduledTimeChange={(time) => updateFormData('scheduledTime', time)}
           onUploadNowChange={(uploadNow) => updateFormData('uploadNow', uploadNow)}
-        />
-
-        {/* Metadata Section */}
-        <MetadataSection
-          metadata={formData.metadata}
-          hasScript={formData.script && formData.script.trim() !== ''}
-          onMetadataChange={updateMetadata}
         />
       </div>
     </div>
