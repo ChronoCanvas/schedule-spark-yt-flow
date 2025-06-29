@@ -101,8 +101,8 @@ Don't forget to subscribe for more valuable content and hit the notification bel
     onRegenerate: () => void;
     isTextarea?: boolean;
   }) => (
-    <GlowCard glowColor="purple" customSize className="w-full p-4 h-full">
-      <div className="space-y-3 h-full flex flex-col">
+    <GlowCard glowColor="purple" customSize className="w-full p-4 bg-gray-900/80">
+      <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Icon className="w-5 h-5 text-purple-400" />
@@ -119,7 +119,7 @@ Don't forget to subscribe for more valuable content and hit the notification bel
           </GlowButton>
         </div>
         
-        <div className="space-y-2 flex-1">
+        <div className="space-y-2">
           {isTextarea ? (
             <Textarea
               value={Array.isArray(value) ? value.join(', ') : value}
@@ -128,7 +128,7 @@ Don't forget to subscribe for more valuable content and hit the notification bel
                   onMetadataChange({ description: e.target.value });
                 }
               }}
-              className="bg-gray-800 border-gray-600 text-white min-h-[120px] resize-none h-full"
+              className="bg-gray-800 border-gray-600 text-white min-h-[120px] resize-none"
               placeholder={cardIsGenerating ? 'Generating...' : `Enter ${title.toLowerCase()}...`}
               disabled={cardIsGenerating}
             />
@@ -153,15 +153,20 @@ Don't forget to subscribe for more valuable content and hit the notification bel
   );
 
   return (
-    <GlowCard glowColor="purple" customSize className="w-full p-6">
+    <GlowCard glowColor="purple" customSize className="w-full p-6 bg-gray-900/90">
       <div className="space-y-6">
-        <div className="flex items-center gap-3">
-          <Sparkles className="w-6 h-6 text-purple-400" />
-          <h2 className="text-xl font-semibold text-white">Video Details & Optimization</h2>
+        <div className="space-y-3">
+          <div className="flex items-center gap-3">
+            <Sparkles className="w-6 h-6 text-purple-400" />
+            <h2 className="text-xl font-semibold text-white">Generate Video Details</h2>
+          </div>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            Generate titles, tags, and descriptions optimized for YouTube upload to maximize reach and engagement
+          </p>
         </div>
 
         {!hasScript && (
-          <GlowCard glowColor="blue" customSize className="w-full p-4">
+          <GlowCard glowColor="orange" customSize className="w-full p-4 bg-orange-900/20">
             <div className="space-y-3">
               <p className="text-white font-medium">Enter a short video idea to generate metadata automatically:</p>
               <div className="flex gap-3">
@@ -172,10 +177,10 @@ Don't forget to subscribe for more valuable content and hit the notification bel
                   className="bg-gray-800 border-gray-600 text-white flex-1"
                 />
                 <GlowButton
-                  glowColor="blue"
+                  glowColor="orange"
                   onClick={() => console.log('Generate from idea:', videoIdea)}
                   disabled={!videoIdea.trim()}
-                  className="bg-blue-600 hover:bg-blue-700 rounded-lg px-4 h-10"
+                  className="bg-orange-600 hover:bg-orange-700 rounded-lg px-4 h-10"
                 >
                   Generate All
                 </GlowButton>
@@ -184,7 +189,7 @@ Don't forget to subscribe for more valuable content and hit the notification bel
           </GlowCard>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="space-y-4">
           <MetadataCard
             title="Title"
             icon={Type}
@@ -201,16 +206,14 @@ Don't forget to subscribe for more valuable content and hit the notification bel
             onRegenerate={generateTags}
           />
           
-          <div className="md:col-span-2 lg:col-span-1">
-            <MetadataCard
-              title="Description"
-              icon={MessageSquare}
-              value={metadata.description}
-              isGenerating={isGenerating.description}
-              onRegenerate={generateDescription}
-              isTextarea={true}
-            />
-          </div>
+          <MetadataCard
+            title="Description"
+            icon={MessageSquare}
+            value={metadata.description}
+            isGenerating={isGenerating.description}
+            onRegenerate={generateDescription}
+            isTextarea={true}
+          />
         </div>
       </div>
     </GlowCard>
