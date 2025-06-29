@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { GlowCard } from '@/components/ui/spotlight-card';
@@ -113,14 +112,13 @@ const ProjectOverview: React.FC<ProjectOverviewProps> = ({
                 {currentState}
               </Badge>
               {canToggleState && (
-                <Button
-                  variant="outline"
-                  size="sm"
+                <GlowButton
+                  glowColor="blue"
                   onClick={handleStateToggle}
-                  className="text-xs border-gray-600 text-gray-300 hover:bg-gray-800"
+                  className="bg-blue-600 hover:bg-blue-700 rounded-lg px-3 py-1 text-xs"
                 >
                   Switch to {currentState === 'Planning' ? 'Production' : 'Planning'}
-                </Button>
+                </GlowButton>
               )}
             </div>
           </div>
