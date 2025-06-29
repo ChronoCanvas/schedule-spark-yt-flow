@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NewAppSidebar from '@/components/dashboard/NewAppSidebar';
 import { GlowCard } from '@/components/ui/spotlight-card';
 import { GlowButton } from '@/components/ui/glow-button';
@@ -121,6 +122,7 @@ const formatWatchTime = (minutes: number) => {
 };
 
 const PlanSchedulePage: React.FC = () => {
+  const navigate = useNavigate();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [selectedState, setSelectedState] = useState<ProjectState | 'All'>('All');
   const [filterOpen, setFilterOpen] = useState(false);
@@ -137,6 +139,10 @@ const PlanSchedulePage: React.FC = () => {
 
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
+  };
+
+  const handleProjectClick = (projectId: string) => {
+    navigate(`/dashboard/project/${projectId}`);
   };
 
   return (
@@ -220,6 +226,7 @@ const PlanSchedulePage: React.FC = () => {
                 glowColor="red"
                 customSize={true}
                 className="w-full h-auto bg-gray-900/50 border border-gray-800 hover:border-red-500/50 transition-all duration-200 cursor-pointer p-2 flex flex-col gap-0"
+                onClick={() => handleProjectClick(project.id)}
               >
                 <div className="flex items-center space-x-3">
                   {/* Video Thumbnail */}

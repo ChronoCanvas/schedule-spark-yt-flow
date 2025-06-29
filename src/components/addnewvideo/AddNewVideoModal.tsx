@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import PlanningShootingPage from './PlanningShootingPage';
 import SchedulePage from './SchedulePage';
+import ProjectOverview from './ProjectOverview';
 import PersistentBottomBar from './PersistentBottomBar';
 
 interface AddNewVideoModalProps {
@@ -11,7 +11,7 @@ interface AddNewVideoModalProps {
 }
 
 const AddNewVideoModal: React.FC<AddNewVideoModalProps> = ({ isOpen, onClose }) => {
-  const [currentStep, setCurrentStep] = useState<'plan' | 'schedule'>('plan');
+  const [currentStep, setCurrentStep] = useState<'plan' | 'schedule' | 'overview'>('plan');
   const [formData, setFormData] = useState({
     title: '',
     ideas: '',
@@ -75,21 +75,49 @@ const AddNewVideoModal: React.FC<AddNewVideoModalProps> = ({ isOpen, onClose }) 
   const handleNext = () => {
     if (currentStep === 'plan') {
       setCurrentStep('schedule');
+    } else if (currentStep === 'schedule') {
+      setCurrentStep('overview');
     } else {
-      // Save the project when finishing from schedule page
-      handleSave();
-      console.log('Finishing project:', formData);
-      // TODO: Implement finish logic
+      // Close from overview page
       onClose();
     }
   };
 
   const handleBack = () => {
-    if (currentStep === 'schedule') {
+    if (currentStep === 'overview') {
+      setCurrentStep('schedule');
+    } else if (currentStep === 'schedule') {
       setCurrentStep('plan');
     } else {
       onClose();
     }
+  };
+
+  const handleEdit = () => {
+    // Navigate back to planning page from overview
+    setCurrentStep('plan');
+  };
+
+  const handleStateChange = (newState: 'Planning' | 'Production') => {
+    console.log('State changed to:', newState);
+  };
+
+  // Convert formData to project format for overview
+  const projectForOverview = {
+    id: 'new',
+    title: formData.title || 'Untitled Project',
+    state: 'Planning' as const,
+    description: formData.metadata.description,
+    tags: formData.metadata.tags,
+    script: formData.script,
+    ideas: formData.ideas,
+    scheduledDate: formData.scheduledDate?.toISOString(),
+    storyboardFiles: formData.storyboardFiles.map(file => ({
+      name: file.name,
+      url: URL.createObjectURL(file)
+    })),
+    scenes: formData.scenes,
+    teamAssignments: formData.teamAssignments
   };
 
   if (!isOpen) return null;
@@ -112,21 +140,29 @@ const AddNewVideoModal: React.FC<AddNewVideoModalProps> = ({ isOpen, onClose }) 
               formData={formData}
               onChange={handleFormChange}
             />
-          ) : (
+          ) : currentStep === 'schedule' ? (
             <SchedulePage
               formData={formData}
               onChange={handleFormChange}
             />
+          ) : (
+            <ProjectOverview
+              project={projectForOverview}
+              onEdit={handleEdit}
+              onStateChange={handleStateChange}
+            />
           )}
         </div>
 
-        <PersistentBottomBar
-          currentStep={currentStep}
-          isFormValid={isFormValid}
-          onBack={handleBack}
-          onSave={handleSave}
-          onNext={handleNext}
-        />
+        {currentStep !== 'overview' && (
+          <PersistentBottomBar
+            currentStep={currentStep}
+            isFormValid={isFormValid}
+            onBack={handleBack}
+            onSave={handleSave}
+            onNext={handleNext}
+          />
+        )}
       </div>
     </div>
   );

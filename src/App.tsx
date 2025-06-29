@@ -21,6 +21,7 @@ import CalendarPage from "./pages/CalendarPage";
 import CommunityPage from "./pages/CommunityPage";
 import MonetizationPage from "./pages/MonetizationPage";
 import TeamPage from "./pages/TeamPage";
+import ProjectOverviewPage from "./pages/ProjectOverviewPage";
 
 const queryClient = new QueryClient();
 
@@ -136,6 +137,16 @@ const AppContent: React.FC = () => {
                 transition={{ duration: 0.3 }}
               >
                 <PlanSchedulePage />
+              </motion.div>
+            } />
+            <Route path="/dashboard/project/:id" element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <ProjectOverviewPage />
               </motion.div>
             } />
             <Route path="/dashboard/livestreams" element={
