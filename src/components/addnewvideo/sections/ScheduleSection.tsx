@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Calendar, Clock, Upload } from 'lucide-react';
 import { GlowCard } from '@/components/ui/spotlight-card';
@@ -49,6 +50,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
   };
 
   const handleModeChange = (mode: 'schedule' | 'upload') => {
+    console.log('Mode changed to:', mode); // Debug log
     onModeChange(mode);
     if (mode === 'upload') {
       onUploadNowChange(true);
@@ -56,6 +58,8 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
       onUploadNowChange(false);
     }
   };
+
+  console.log('Current selectedMode:', selectedMode); // Debug log
 
   return (
     <GlowCard glowColor="red" customSize className="w-full p-6 mb-8 rounded-2xl">
@@ -72,7 +76,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
             <SelectTrigger className="w-full bg-gray-800 border-gray-600 text-white rounded-xl">
               <SelectValue placeholder="Select an option" />
             </SelectTrigger>
-            <SelectContent className="bg-gray-800 border-gray-600 rounded-xl">
+            <SelectContent className="bg-gray-800 border-gray-600 rounded-xl z-50">
               <SelectItem value="schedule" className="text-white hover:bg-gray-700">Schedule</SelectItem>
               <SelectItem value="upload" className="text-white hover:bg-gray-700">Upload</SelectItem>
             </SelectContent>
@@ -81,8 +85,11 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
 
         {/* Schedule Mode */}
         {selectedMode === 'schedule' && (
-          <div className="space-y-4">
-            <h3 className="text-lg font-medium text-white">Schedule</h3>
+          <div className="space-y-4 bg-gray-900/30 p-4 rounded-xl border border-gray-700">
+            <h3 className="text-lg font-medium text-white flex items-center gap-2">
+              <Clock className="w-5 h-5 text-blue-400" />
+              Schedule Video
+            </h3>
             
             <div className="flex flex-col sm:flex-row gap-4">
               {/* Date Picker */}
@@ -101,7 +108,7 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
                       {scheduledDate ? format(scheduledDate, "PPP") : <span>Pick a date</span>}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0 bg-gray-800 border-gray-600 rounded-xl" align="start">
+                  <PopoverContent className="w-auto p-0 bg-gray-800 border-gray-600 rounded-xl z-50" align="start">
                     <CalendarComponent
                       mode="single"
                       selected={scheduledDate}
@@ -206,8 +213,11 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({
 
         {/* Upload Mode */}
         {selectedMode === 'upload' && (
-          <div className="space-y-4">
-            <h3 className="text-lg font-medium text-white">Upload</h3>
+          <div className="space-y-4 bg-gray-900/30 p-4 rounded-xl border border-gray-700">
+            <h3 className="text-lg font-medium text-white flex items-center gap-2">
+              <Upload className="w-5 h-5 text-green-400" />
+              Upload Now
+            </h3>
             
             <div className="flex flex-col sm:flex-row gap-3">
               <GlowButton
