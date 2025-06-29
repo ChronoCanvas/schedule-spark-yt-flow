@@ -22,10 +22,12 @@ const MetadataSection: React.FC<MetadataSectionProps> = ({
   onMetadataChange
 }) => {
   const [videoIdea, setVideoIdea] = useState('');
+  const [hasGeneratedFromIdea, setHasGeneratedFromIdea] = useState(false);
   const [isGenerating, setIsGenerating] = useState({
     title: false,
     description: false,
-    tags: false
+    tags: false,
+    all: false
   });
 
   // Mock AI generation functions
@@ -84,6 +86,20 @@ Don't forget to subscribe for more valuable content and hit the notification bel
     
     onMetadataChange({ tags: mockTags });
     setIsGenerating(prev => ({ ...prev, tags: false }));
+  };
+
+  const generateAll = async () => {
+    if (!videoIdea.trim()) return;
+    
+    setIsGenerating(prev => ({ ...prev, all: true }));
+    
+    // Generate all metadata sequentially
+    await generateTitle();
+    await generateDescription();
+    await generateTags();
+    
+    setHasGeneratedFromIdea(true);
+    setIsGenerating(prev => ({ ...prev, all: false }));
   };
 
   const MetadataCard = ({ 
@@ -152,6 +168,9 @@ Don't forget to subscribe for more valuable content and hit the notification bel
     </div>
   );
 
+  // Determine if metadata fields should be shown
+  const shouldShowMetadataFields = hasScript || (!hasScript && hasGeneratedFromIdea);
+
   return (
     <GlowCard glowColor="purple" customSize className="w-full p-6 bg-gray-900/90">
       <div className="space-y-6">
@@ -178,43 +197,45 @@ Don't forget to subscribe for more valuable content and hit the notification bel
                 />
                 <GlowButton
                   glowColor="orange"
-                  onClick={() => console.log('Generate from idea:', videoIdea)}
-                  disabled={!videoIdea.trim()}
+                  onClick={generateAll}
+                  disabled={!videoIdea.trim() || isGenerating.all}
                   className="bg-orange-600 hover:bg-orange-700 rounded-xl px-4 h-10"
                 >
-                  Generate All
+                  {isGenerating.all ? 'Generating...' : 'Generate All'}
                 </GlowButton>
               </div>
             </div>
           </div>
         )}
 
-        <div className="space-y-4">
-          <MetadataCard
-            title="Title"
-            icon={Type}
-            value={metadata.title}
-            isGenerating={isGenerating.title}
-            onRegenerate={generateTitle}
-          />
-          
-          <MetadataCard
-            title="Tags"
-            icon={Hash}
-            value={metadata.tags}
-            isGenerating={isGenerating.tags}
-            onRegenerate={generateTags}
-          />
-          
-          <MetadataCard
-            title="Description"
-            icon={MessageSquare}
-            value={metadata.description}
-            isGenerating={isGenerating.description}
-            onRegenerate={generateDescription}
-            isTextarea={true}
-          />
-        </div>
+        {shouldShowMetadataFields && (
+          <div className="space-y-4">
+            <MetadataCard
+              title="Title"
+              icon={Type}
+              value={metadata.title}
+              isGenerating={isGenerating.title}
+              onRegenerate={generateTitle}
+            />
+            
+            <MetadataCard
+              title="Tags"
+              icon={Hash}
+              value={metadata.tags}
+              isGenerating={isGenerating.tags}
+              onRegenerate={generateTags}
+            />
+            
+            <MetadataCard
+              title="Description"
+              icon={MessageSquare}
+              value={metadata.description}
+              isGenerating={isGenerating.description}
+              onRegenerate={generateDescription}
+              isTextarea={true}
+            />
+          </div>
+        )}
       </div>
     </GlowCard>
   );
