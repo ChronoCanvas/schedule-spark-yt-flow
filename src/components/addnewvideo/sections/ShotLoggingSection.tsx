@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { GlowCard } from '@/components/ui/spotlight-card';
 import { GlowButton } from '@/components/ui/glow-button';
 import { GlowInput } from '@/components/ui/glow-input';
-import { Plus, X, Camera, Aperture, Edit } from 'lucide-react';
+import { Plus, X, Camera, Aperture } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -291,14 +291,19 @@ const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChang
                           onChange={(e) => updateShot(scene.id, shot.id, { name: e.target.value })}
                           className="flex-1 h-8 text-sm"
                         />
-                        <button
+                        <GlowButton
+                          glowColor="green"
                           onClick={() => openEditShotModal(scene.id, shot.id)}
-                          className="px-2 py-1 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors flex items-center gap-1"
-                          title="Edit Shot Equipment"
+                          className="bg-green-600 hover:bg-green-700 rounded-lg px-4 py-2 h-8 text-sm"
+                          leftIcon={
+                            <div className="flex items-center gap-1">
+                              <Camera className="w-3 h-3" />
+                              <Aperture className="w-3 h-3" />
+                            </div>
+                          }
                         >
-                          <Edit className="w-3 h-3" />
-                          Edit Shot
-                        </button>
+                          Choose Camera & Lens
+                        </GlowButton>
                         <button
                           onClick={() => removeShot(scene.id, shot.id)}
                           className="text-red-400 hover:text-red-300 p-1"
@@ -337,7 +342,7 @@ const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChang
       <Dialog open={editingShotId !== null} onOpenChange={closeEditShotModal}>
         <DialogContent className="sm:max-w-md bg-gray-800 border-gray-700">
           <DialogHeader>
-            <DialogTitle className="text-white">Edit Shot Equipment</DialogTitle>
+            <DialogTitle className="text-white">Choose Camera & Lens</DialogTitle>
           </DialogHeader>
           
           <div className="space-y-4">
@@ -357,10 +362,10 @@ const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChang
                 <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                   <SelectValue placeholder="Select camera" />
                 </SelectTrigger>
-                <SelectContent className="bg-gray-700 border-gray-600">
-                  <SelectItem value="">None</SelectItem>
+                <SelectContent className="bg-gray-700 border-gray-600 text-white z-[100]">
+                  <SelectItem value="" className="text-white">None</SelectItem>
                   {cameraLineup.map((camera) => (
-                    <SelectItem key={camera.id} value={camera.id}>
+                    <SelectItem key={camera.id} value={camera.id} className="text-white">
                       {camera.brand} {camera.model} ({camera.type})
                     </SelectItem>
                   ))}
@@ -382,10 +387,10 @@ const ShotLoggingSection: React.FC<ShotLoggingSectionProps> = ({ scenes, onChang
                 <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
                   <SelectValue placeholder="Select lens" />
                 </SelectTrigger>
-                <SelectContent className="bg-gray-700 border-gray-600">
-                  <SelectItem value="">None</SelectItem>
+                <SelectContent className="bg-gray-700 border-gray-600 text-white z-[100]">
+                  <SelectItem value="" className="text-white">None</SelectItem>
                   {selectedCameraId && getCompatibleLenses(selectedCameraId).map((lens) => (
-                    <SelectItem key={lens.id} value={lens.id}>
+                    <SelectItem key={lens.id} value={lens.id} className="text-white">
                       {lens.name}
                     </SelectItem>
                   ))}
