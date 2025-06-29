@@ -70,13 +70,14 @@ const AddNewVideoModal: React.FC<AddNewVideoModalProps> = ({ isOpen, onClose }) 
   const handleSave = () => {
     console.log('Saving project:', formData);
     // TODO: Implement save logic
-    onClose();
   };
 
   const handleNext = () => {
     if (currentStep === 'plan') {
       setCurrentStep('schedule');
     } else {
+      // Save the project when finishing from schedule page
+      handleSave();
       console.log('Finishing project:', formData);
       // TODO: Implement finish logic
       onClose();

@@ -37,33 +37,42 @@ const PersistentBottomBar: React.FC<PersistentBottomBarProps> = ({
         </GlowButton>
 
         <div className="flex items-center gap-3">
-          <GlowButton
-            glowColor="red"
-            onClick={onSave}
-            disabled={!isFormValid}
-            className={`rounded-lg px-6 h-10 ${
-              isFormValid 
-                ? 'bg-red-600 hover:bg-red-700' 
-                : 'bg-gray-600 cursor-not-allowed opacity-50'
-            }`}
-          >
-            Save Project
-          </GlowButton>
-
-          {onNext && (
+          {currentStep !== 'schedule' && (
             <GlowButton
               glowColor="red"
-              rightIcon={<ArrowRight className="w-4 h-4" />}
-              onClick={onNext}
+              onClick={onSave}
               disabled={!isFormValid}
-              className={`rounded-lg px-8 h-10 ${
+              className={`rounded-lg px-6 h-10 ${
                 isFormValid 
                   ? 'bg-red-600 hover:bg-red-700' 
                   : 'bg-gray-600 cursor-not-allowed opacity-50'
               }`}
             >
-              {getNextButtonText()}
+              Save Project
             </GlowButton>
+          )}
+
+          {onNext && (
+            <div className="flex items-center gap-3">
+              {currentStep === 'schedule' && (
+                <p className="text-sm text-gray-400">
+                  All data will be saved when you click finish
+                </p>
+              )}
+              <GlowButton
+                glowColor="red"
+                rightIcon={<ArrowRight className="w-4 h-4" />}
+                onClick={onNext}
+                disabled={!isFormValid}
+                className={`rounded-lg px-8 h-10 ${
+                  isFormValid 
+                    ? 'bg-red-600 hover:bg-red-700' 
+                    : 'bg-gray-600 cursor-not-allowed opacity-50'
+                }`}
+              >
+                {getNextButtonText()}
+              </GlowButton>
+            </div>
           )}
         </div>
       </div>
